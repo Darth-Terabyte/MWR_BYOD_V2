@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Aug-2013 18:05:59 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.mwr.database.Device" table="device" catalog="byod">
+        <composite-id name="id" class="com.mwr.database.DeviceId">
+            <key-property name="macaddress" type="string">
+                <column name="MACAddress" length="45" />
+            </key-property>
+            <key-property name="uid" type="string">
+                <column name="UID" length="45" />
+            </key-property>
+            <key-property name="serialNumber" type="string">
+                <column name="SerialNumber" length="45" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="employee" class="com.mwr.database.Employee" fetch="select">
+            <column name="employee_empID" not-null="true" />
+        </many-to-one>
+        <property name="make" type="string">
+            <column name="Make" length="45" not-null="true" />
+        </property>
+        <property name="model" type="string">
+            <column name="Model" length="45" not-null="true" />
+        </property>
+        <property name="dateRegistered" type="timestamp">
+            <column name="DateRegistered" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

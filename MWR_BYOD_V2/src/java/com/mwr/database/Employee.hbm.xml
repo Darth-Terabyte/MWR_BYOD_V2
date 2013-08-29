@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Aug-2013 18:05:59 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.mwr.database.Employee" table="employee" catalog="byod">
+        <id name="empId" type="java.lang.Integer">
+            <column name="empID" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <property name="dateRegistered" type="timestamp">
+            <column name="dateRegistered" length="19" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="45" not-null="true" />
+        </property>
+        <property name="surname" type="string">
+            <column name="surname" length="45" not-null="true" />
+        </property>
+        <property name="idnumber" type="string">
+            <column name="idnumber" length="45" not-null="true" />
+        </property>
+        <set name="devices" inverse="true">
+            <key>
+                <column name="employee_empID" not-null="true" />
+            </key>
+            <one-to-many class="com.mwr.database.Device" />
+        </set>
+    </class>
+</hibernate-mapping>
