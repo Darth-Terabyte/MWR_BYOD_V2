@@ -24,17 +24,19 @@ public class Devicenotregistered  implements java.io.Serializable {
     public Devicenotregistered() {
     }
 
-    public Devicenotregistered(DevicenotregisteredId id, String make, String model, Date dateRegistered, String token, String username, String password, String idnumber, String name, String surname) {
-       this.id = id;
+    public Devicenotregistered(DevicenotregisteredId pk, String make, String model, String username, String password, String idnumber, String name, String surname,String token) {
+             
+       this.id = pk; 
        this.make = make;
        this.model = model;
-       this.dateRegistered = dateRegistered;
-       this.token = token;
+       this.dateRegistered = new Date();      
        this.username = username;
        this.password = password;
        this.idnumber = idnumber;
        this.name = name;
        this.surname = surname;
+       this.token = token;
+      
     }
    
     public DevicenotregisteredId getId() {
