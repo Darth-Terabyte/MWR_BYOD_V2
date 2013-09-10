@@ -1,25 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
-    <head>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
-        <meta name="description" content="free website template" />
-        <meta name="keywords" content="enter your keywords here" />
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=9" />
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/image_slide.js"></script>
-
-        <script type="text/javascript">
-            function updateTextInput(val, text) {
-                document.getElementById(text).innerHTML = val + "%";
-            }
-        </script>
-
-    </head>
-
-    <body>
+    </h:head>
+    <h:body>
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -73,7 +60,7 @@
                         </tr>
                     </table>
                     <div class="more2">
-                        <a href="addBlacklisted.html">Add Blacklisted Application</a>
+                        <a href="blacklistedAdd.xhtml">Add Blacklisted Application</a>
                     </div>
                 </div>
 
@@ -90,7 +77,7 @@
                         <tr>
                             <td><a>OS Version</a></td>
                             <td>
-                                <input class = "val" type="range" name="OSRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'OSText');">
+                                <input class = "val" type="range" name="OSRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'OSText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="OSText"> </span>
@@ -99,7 +86,7 @@
                         <tr>
                             <td><a>Blacklisted Applications</a></td>
                             <td>
-                                <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blacklistedText');">
+                                <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blacklistedText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="blacklistedText"> </span>
@@ -132,7 +119,7 @@
                             <td>09/09/2013</td>
                             <td><a>Remove</a></td>
                             <td>
-                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'lowText');">
+                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="lowText"> </span>
@@ -143,7 +130,7 @@
                             <td>09/09/2013</td>
                             <td><a>Remove</a></td>
                             <td>
-                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'medText');">
+                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="medText"> </span>
@@ -154,7 +141,7 @@
                             <td>09/09/2013</td>
                             <td><a>Remove</a></td>
                             <td>
-                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'highText');">
+                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="highText"> </span>
@@ -165,7 +152,7 @@
                             <td>09/09/2013</td>
                             <td><a>Remove</a></td>
                             <td>
-                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blockText');">
+                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="blockText"> </span>
@@ -195,7 +182,7 @@
                         <tr>
                             <td>Older</td>
                             <td>
-                                <input class = "val" type="range" name="versionRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'versionText');">
+                                <input class = "val" type="range" name="versionRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'versionText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="versionText"> </span>
@@ -235,7 +222,7 @@
                             <td>09/09/2013</td>
                             <td><a>Remove</a></td>
                             <td>
-                                <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'appText');">
+                                <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'appText');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="appText"> </span>
@@ -246,7 +233,7 @@
                             <td>09/09/2013</td>
                             <td><a>Remove</a></td>
                             <td>
-                                <input class = "val" type="range" name="app2Range" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'app2Text');">
+                                <input class = "val" type="range" name="app2Range" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'app2Text');"></input>
                             </td>
                             <td>
                                 <span class = "val" id="app2Text"> </span>
@@ -257,7 +244,6 @@
                     <div class="more3">
                         <span class = "val" id="apps"> %</span>
                     </div>
-
                     <div class="more2">
                         <a href="#">Save</a>
                     </div>
@@ -268,7 +254,7 @@
                 </div>
                 <div class="blockH">
 
-                    <h5>Anti-Virus Scan interval</h5></br>
+                    <h5>Anti-Virus Scan interval</h5>
 
                     <table class = "listD">
                         <tr>
@@ -298,6 +284,6 @@
             </div><!--close content_grey-->
 
         </div><!--close main-->
-
-    </body>
+    </h:body>
 </html>
+

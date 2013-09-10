@@ -1,18 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
-    <head>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
-        <meta name="description" content="free website template" />
-        <meta name="keywords" content="enter your keywords here" />
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=9" />
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/image_slide.js"></script>
-    </head>
 
-    <body>
+        <script type="text/javascript">
+            function updateTextInput(val, text) {
+                document.getElementById(text).innerHTML = val + "%";
+            }
+        </script>
+    </h:head>
+    <h:body>
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -34,29 +34,44 @@
 
             <div id="site_content">
                 <div class="register">
-                    <h3>Register Device</h3>
-                    <p>Register a device by entering the employee's ID or username:</p>
-                    <input class ="val" type = "text" id = "regName"></input>
-                    <input type = "submit" id = "regNameB" value = "Check"></input>
-                    </br></br>
-                    <span id = "token">54fssf</span>
-                    <div class="more">
-                        <a href="#">Register Device</a>
-                    </div><!--close more-->
+                    <h:form>
+                        <h3>Register Device</h3>
+                        <p>Register a device by entering the employee's ID or username:</p>                    
+                        <h:inputText id="regDevID"
+                                     required="true"
+                                     requiredMessage="Error: A username or ID is required."
+                                     maxlength="25" />
+                        <h:commandButton id="regCheck" value="Check" action="registerCheck" />
+
+                        <span id = "token">54fssf</span>
+                        <div class="more">
+                            <a href="#">Register Device</a>
+                        </div><!--close more--> 
+                    </h:form>
                 </div><!--close ourwork-->
                 <div class="fix">
                     <h3>Fix Device</h3>
-
+                    <h:form>
                     <p>Entering the employee's ID, username or cell number:</p>
-                    <input class ="val" type = "text" id = "fixVal"></input>
-                    <input type = "submit" id = "fixValB" value = "Check"></input>
-                    </br></br>
+                    <h:inputText id="fixDevUserID"
+                                     required="true"
+                                     requiredMessage="Error: A username or ID is required."
+                                     maxlength="25" />
+                    <h:commandButton id="fixDevUserIDCheck" value="Check" action="fixDevUserIDCheck" />
+
+                    <h:inputText id="fixDevID"
+                                     required="true"
+                                     requiredMessage="Error: A username or ID is required."
+                                     maxlength="25" />
+                    <h:commandButton id="fixDevIDCheck" value="Check" action="fixDevIDCheck" />
+
                     <span id = "valid">Valid!</span>
 
                     <div class="more">
                         <a href="device.html">Fix!</a>
-                    </div>
-                </div>
+                    </div><!--close more-->
+                    </h:form>
+                </div><!--close testimonials-->
                 <div class="projects">
                     <h3>Projects</h3>
                     <p></p>
@@ -74,18 +89,18 @@
                         <div class="blockH2">
                             <table class = "listL">
                                 <tr class = "listLH">
-                                    <td><a>ID</a></td>
-                                    <td><a>Model</a></td>
-                                    <td>Number</td>
+                                    <td><a>Device ID</a></td>
+                                    <td><a>Make + Model</a></td>
+                                    <td><a>Current rating</a></td>
+                                    <td><a>Last Scan Date</a></td>
                                     <td>Remove</td>
-                                    <td>Register</td>
                                 </tr>
                                 <tr>
-                                    <td><a>21232134345345</a></td>
-                                    <td>Samsung Xperia J</td>
-                                    <td>0834769847</td>
+                                    <td><a>#{Device.id}</a></td>
+                                    <td><a>#{Device.make} #{Device.model}</a></td>
+                                    <td><a>70%</a></td>
+                                    <td><a>09/09/2013</a></td>
                                     <td><a>Remove</a></td>
-                                    <td><a>Register</a></td>
                                 </tr>
                             </table>
                         </div>
@@ -94,23 +109,22 @@
                     <div class="content_item">
                         <div class="blockH2">
                             <h5>Registered Devices</h5>
-                        </div>
-
+                        </div>                        
                         <div class="blockH2">
                             <table class = "listL">
                                 <tr class = "listLH">
-                                    <td><a>ID</a></td>
-                                    <td><a>Model</a></td>
-                                    <td>Number</td>
+                                    <td><a>Device ID</a></td>
+                                    <td><a>Make + Model</a></td>
+                                    <td><a>Current rating</a></td>
+                                    <td><a>Last Scan Date</a></td>
                                     <td>Remove</td>
-                                    <td>Deregister</td>
                                 </tr>
                                 <tr>
-                                    <td><a>21232134345345</a></td>
-                                    <td>Samsung Xperia J</td>
-                                    <td>0834769847</td>
+                                    <td><a>#{Device.id}</a></td>
+                                    <td><a>#{Device.make} #{Device.model}</a></td>
+                                    <td><a>70%</a></td>
+                                    <td><a>09/09/2013</a></td>
                                     <td><a>Remove</a></td>
-                                    <td><a>Deregister</a></td>
                                 </tr>
                             </table>
                         </div>
@@ -125,7 +139,7 @@
                 </div><!--close content_grey_container_box-->
             </div><!--close content_grey-->
 
-        </div><!--close main-->
-
-    </body>
+        </div>
+    </h:body>
 </html>
+

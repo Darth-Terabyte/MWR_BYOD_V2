@@ -1,25 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
-    <head>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
-        <meta name="description" content="free website template" />
-        <meta name="keywords" content="enter your keywords here" />
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=9" />
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/image_slide.js"></script>
-
-        <script type="text/javascript">
-            function updateTextInput(val, text) {
-                document.getElementById(text).innerHTML = val + "%";
-            }
-        </script>
-
-    </head>
-
-    <body>
+    </h:head>
+    <h:body>
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -40,8 +28,8 @@
             </div><!--close header-->
 
             <div id="site_content">
-                <h4>Werner Raath</h4>
-                <h5>Username: wern</br>ID: 12334242343</h5>
+                <h4>#{Employee.name} #{Employee.surname}</h4>
+                <h5>Username: #{Employee.username} ID: #{Employee.id}</h5>
 
                 <div class="blockH2">
                     <h5>Devices</h5>
@@ -50,20 +38,20 @@
                     <table class = "listL">
                         <tr class = "listLH">
                             <td><a>Device ID</a></td>
-                            <td><a>Model</a></td>
+                            <td><a>Make + Model</a></td>
                             <td><a>Current rating</a></td>
                             <td><a>Last Scan Date</a></td>
-                            <td><a>Scans</a></td>
                             <td>Remove</td>
                         </tr>
+                        <c:forEach >
                         <tr>
-                            <td><a>12312323423</a></td>
-                            <td><a>Xperia GO</a></td>
+                            <td><a>#{Device.id}</a></td>
+                            <td><a>#{Device.make} #{Device.model}</a></td>
                             <td><a>70%</a></td>
                             <td><a>09/09/2013</a></td>
-                            <td><a>View</a></td>
                             <td><a>Remove</a></td>
                         </tr>
+                       </c:forEach >
                     </table>
                 </div>
             </div><!--close site_content-->
@@ -74,7 +62,7 @@
                 </div><!--close content_grey_container_box-->
             </div><!--close content_grey-->
 
-        </div><!--close main-->
-
-    </body>
+        </div>
+    </h:body>
 </html>
+

@@ -34,32 +34,45 @@
             </div><!--close header-->
 
             <div id="site_content">
-                <div class="register">
-                    <h3>Register Device</h3>
-                    <p>Register a device by entering the employee's ID or username:</p>
-                    <input class ="val" type = "text" id = "regName"></input>
-                    <input type = "submit" id = "regNameB" value = "Check"></input>
 
-                    <span id = "token">54fssf</span>
-                    <div class="more">
-                        <a href="#">Register Device</a>
-                    </div><!--close more-->
+                <div class="register">
+                    <h:form>
+                        <h3>Register Device</h3>
+                        <p>Register a device by entering the employee's ID or username:</p>                    
+                        <h:inputText id="regDevID"
+                                     required="true"
+                                     requiredMessage="Error: A username or ID is required."
+                                     maxlength="25" />
+                        <h:commandButton id="regCheck" value="Check" action="registerCheck" />
+
+                        <span id = "token">54fssf</span>
+                        <div class="more">
+                            <a href="#">Register Device</a>
+                        </div><!--close more--> 
+                    </h:form>
                 </div><!--close ourwork-->
                 <div class="fix">
                     <h3>Fix Device</h3>
-
+                    <h:form>
                     <p>Entering the employee's ID, username or cell number:</p>
-                    <input class ="val" type = "text" id = "fixUser"></input>
-                    <input type = "submit" id = "fixUserB" value = "Check"></input>
+                    <h:inputText id="fixDevUserID"
+                                     required="true"
+                                     requiredMessage="Error: A username or ID is required."
+                                     maxlength="25" />
+                    <h:commandButton id="fixDevUserIDCheck" value="Check" action="fixDevUserIDCheck" />
 
-                    <input class ="val" type = "text" id = "fixDev"></input>
-                    <input type = "submit" id = "fixDevB" value = "Check"></input>
+                    <h:inputText id="fixDevID"
+                                     required="true"
+                                     requiredMessage="Error: A username or ID is required."
+                                     maxlength="25" />
+                    <h:commandButton id="fixDevIDCheck" value="Check" action="fixDevIDCheck" />
 
                     <span id = "valid">Valid!</span>
 
                     <div class="more">
                         <a href="device.html">Fix!</a>
                     </div><!--close more-->
+                    </h:form>
                 </div><!--close testimonials-->
                 <div class="projects">
                     <h3>Projects</h3>
@@ -103,7 +116,6 @@
                         Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
                 </div><!--close content_grey_container_box-->
             </div><!--close content_grey-->
-
         </div><!--close main-->
     </h:body>
 </html>

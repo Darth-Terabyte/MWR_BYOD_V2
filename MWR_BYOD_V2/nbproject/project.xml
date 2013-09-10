@@ -43,10 +43,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.hibernate-commons-annotations.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.hibernate-entitymanager.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -170,10 +166,6 @@
                     <file>${file.reference.json-simple-1.1.1.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library dirs="200">
-                    <file>${file.reference.MWR_BYOD_V2-lib}</file>
-                    <path-in-war>WEB-INF/classes</path-in-war>
-                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
@@ -183,5 +175,8 @@
                 <root id="test.src.dir" name="Test Packages"/>
             </test-roots>
         </data>
+        <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
+            <definitions>.\lib\nblibraries.properties</definitions>
+        </libraries>
     </configuration>
 </project>

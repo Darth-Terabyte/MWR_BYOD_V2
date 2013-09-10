@@ -1,18 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
-    <head>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
-        <meta name="description" content="free website template" />
-        <meta name="keywords" content="enter your keywords here" />
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=9" />
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/image_slide.js"></script>
-    </head>
-
-    <body>
+    </h:head>
+    <h:body>
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -33,12 +28,12 @@
             </div><!--close header-->
 
             <div id="site_content">
-                <h4>Users</h4>
+                <h4>Technicians</h4>
                 <div class="blockHS">
                     <table id = "shortcut">
                         <tr>
-                            <td><a>Registration Queue</a></td>
-                            <td><a>Registered Users</a></td>
+                            <td><a>Admin</a></td>
+                            <td><a>Technicians</a></td>
                         </tr>
                     </table>
                 </div>
@@ -47,19 +42,19 @@
 
                     <div class="content_item">
                         <div class="blockH2">
-                            <h5>Registration Queue</h5>
+                            <h5>Admin</h5>
                         </div>
 
                         <div class="blockH2">
                             <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
-                                    <td><a>ID number</a></td>
+                                    <td><a>Employee Code</a></td>
                                     <td>Remove</td>
                                 </tr>
                                 <tr>
-                                    <td><a href = "user.html">Werner</a></td>
-                                    <td>1234234452345</td>
+                                    <td><a href = "user.xhtml">${Technician.username}</a></td>
+                                    <td>${Technician.employeeCode}</td>
                                     <td><a>Remove</a></td>
                                 </tr>
                             </table>
@@ -68,21 +63,25 @@
 
                     <div class="content_item">
                         <div class="blockH2">
-                            <h5>Registered Users</h5>
+                            <h5>Technicians</h5>
                         </div>
 
                         <div class="blockH2">
                             <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
-                                    <td><a>ID number</a></td>
+                                    <td><a>Employee Code</a></td>
                                     <td>Remove</td>
                                 </tr>
+                            </table>
+                            <table>
+                                <c:forEach>
                                 <tr>
-                                    <td><a href = "user.html">Werner</a></td>
-                                    <td>1234234452345</td>
+                                    <td><a href = "user.xhtml">${Technician.username}</a></td>
+                                    <td>${Technician.employeeCode}</td>
                                     <td><a>Remove</a></td>
                                 </tr>
+                                </c:forEach>
                             </table>
                         </div>
                     </div><!--close content_item-->
@@ -96,7 +95,7 @@
                 </div><!--close content_grey_container_box-->
             </div><!--close content_grey-->
 
-        </div><!--close main-->
-
-    </body>
+        </div>
+    </h:body>
 </html>
+
