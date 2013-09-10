@@ -402,6 +402,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', end
   box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
   border-radius: 10px 10px 10px 10px;}
   
+.portal
+{ width: 540px;
+  float: left;
+  text-align: center;
+  margin-left: 25%;
+  padding: 20px;
+	background: #006699;
+  color: #000033;
+  -webkit-box-shadow: rgba(0, 0, 0, 4.5) 0px 0px 15px;
+  -moz-box-shadow: rgba(0, 0, 0, 4.5) 0px 0px 10px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+  border-radius: 10px 10px 10px 10px;}
+  
+
 .content_container
 { width: 440px;
   margin-right: 10px;
