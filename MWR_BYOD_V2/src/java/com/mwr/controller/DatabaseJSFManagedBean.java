@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import com.mwr.database.*;
 import com.mwr.businesslogic.TokenGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import org.hibernate.Session;
 
 /**
@@ -21,6 +22,10 @@ public class DatabaseJSFManagedBean {
 
     private Session session;
     private HibernateUtil helper;
+    private String name = "MAdene";
+    private Employee employee;
+    private Devicenotregistered device;
+    
 
     /**
      * Creates a new instance of DatabaseJSFManagedBean
@@ -35,13 +40,47 @@ public class DatabaseJSFManagedBean {
         TokenGenerator gen = new TokenGenerator();
         String token = gen.generateToken(mac, android, serial);    
         DevicenotregisteredId devicePK = new DevicenotregisteredId(mac,android,serial); 
-        Devicenotregistered device = new Devicenotregistered(devicePK, make,model, username,  password, idnumber, name, surname,token);
+        device = new Devicenotregistered(devicePK, make,model, username,  password, idnumber, name, surname,token);
         session = helper.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(device);
         session.getTransaction().commit();
         session.close();
     }
+    
+    public String getName()
+    {
+//        session = helper.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        Employee emp = (Employee)session.get(Employee.class, 6);
+//        name =  emp.getName();
+        return name;
+    }
+    
+    public Employee addEmployee(String username, String password, String name, String surname, String idnumber)
+    {
+        employee = new Employee(username,password,new Date(),name,surname,idnumber);
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(employee);
+        session.getTransaction().commit();
+        session.close();
+        return employee;
+    }
+    
+    
+    public void addDevice(Devicenotregistered d)
+    {
+        Employee employee = addEmployee(d.getUsername(),d.getPassword(),d.getName(),d.getSurname(),d.getIdnumber());
+        DeviceId id = new DeviceId(d.getId());
+        Device device = new Device(id, employee,d.getMake(),d.getModel(), new Date());
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(device);
+        session.getTransaction().commit();
+        session.close();
+    }
+    
     
 //    public String getDevices()
 //    {
