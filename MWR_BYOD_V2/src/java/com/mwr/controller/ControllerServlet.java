@@ -189,6 +189,10 @@ public class ControllerServlet extends HttpServlet {
             try
             {
                 DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
+                if (bean == null)
+                {
+                     bean = new DatabaseJSFManagedBean();
+                }
                 bean.addToWaitingList(mac,androidID,serial,make, model, username, password, id, name,surname);
             }
             catch ( NoSuchAlgorithmException e)
