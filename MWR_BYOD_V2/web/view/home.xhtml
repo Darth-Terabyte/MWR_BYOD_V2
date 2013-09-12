@@ -45,7 +45,7 @@
                                      maxlength="25" />
                         <h:commandButton id="regCheck" value="Check" action="registerCheck" />
 
-                        <span id = "token">54fssf</span>
+                        <h:outputText id = "token">54fssf</h:outputText>
                         <div class="more">
                             <h:commandLink hreflang="#">Register Device</h:commandLink>
                         </div><!--close more--> 
@@ -67,7 +67,7 @@
                                      maxlength="25" />
                     <h:commandButton id="fixDevIDCheck" value="Check" action="fixDevIDCheck" />
 
-                    <span id = "valid">Valid!</span>
+                    <h:outputText id = "valid">Valid!</h:outputText>
 
                     <div class="more">
                         <h:commandLink hreflang="device.html">Fix!</h:commandLink>
@@ -89,10 +89,10 @@
                             <h3>Usage Statistics</h3>
                             <div class = "val">
                                 <table>
-                                    <tr><td>Registered Devices: </td> <td><span id="numReg" > 2500</span></td></tr>
-                                    <tr><td>Registered Queue: </td> <td><span id="numQueue" > 150</span></td></tr>
-                                    <tr><td>Access Allowed: </td> <td><span id="numAllowed"> 350 </span></td></tr>
-                                    <tr><td>Access Denied: </td> <td><span id="numDenied" > 29 </span></td></tr>
+                                    <tr><td>Registered Devices: </td> <td><h:outputText id="numReg" > 2500</h:outputText></td></tr>
+                                    <tr><td>Registered Queue: </td> <td><h:outputText id="numQueue" > 150</h:outputText></td></tr>
+                                    <tr><td>Access Allowed: </td> <td><h:outputText id="numAllowed"> 350 </h:outputText></td></tr>
+                                    <tr><td>Access Denied: </td> <td><h:outputText id="numDenied" > 29 </h:outputText></td></tr>
                                 </table>
                             </div>
                         </div>
@@ -100,10 +100,10 @@
                             <h3>System Configuration</h3>
                             <div class = "val">
                                 <table>
-                                    <tr><td>Anit-Virus Scan Interval: </td> <td><span id="antiV" > 23h  59m 59s</span></td></tr>
-                                    <tr><td>Registered Queue: </td> <td><span id="numQueue" > 150</span></td></tr>
-                                    <tr><td>Access Allowed: </td> <td><span id="numAllowed"> 350 </span></td></tr>
-                                    <tr><td>Access Denied: </td> <td><span id="numDenied" > 29 </span></td></tr>
+                                    <tr><td>Anit-Virus Scan Interval: </td> <td><h:outputText id="antiV" > 23h  59m 59s</h:outputText></td></tr>
+                                    <tr><td>Registered Queue: </td> <td><h:outputText id="numQueue" > 150</h:outputText></td></tr>
+                                    <tr><td>Access Allowed: </td> <td><h:outputText id="numAllowed"> 350 </h:outputText></td></tr>
+                                    <tr><td>Access Denied: </td> <td><h:outputText id="numDenied" > 29 </h:outputText></td></tr>
                                 </table>
                             </div>
                         </div>
