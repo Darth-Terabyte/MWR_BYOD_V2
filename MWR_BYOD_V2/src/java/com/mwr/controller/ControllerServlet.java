@@ -205,7 +205,50 @@ public class ControllerServlet extends HttpServlet {
         }
         else if(userPath.equals("/scanResults")) 
         {
+            BufferedReader reader = request.getReader();
+            String jsonText = reader.readLine();         
+            JSONParser parser = new JSONParser();
             
+            ContainerFactory containerFactory = new ContainerFactory(){
+            public List creatArrayContainer() {
+                return new LinkedList();
+              }
+
+              public Map createObjectContainer() {
+                return new LinkedHashMap();
+              }
+
+            };         
+                        
+           Logger.getLogger(ControllerServlet.class.getName()).info(jsonText); 
+           String root = "";
+           String debug = "";
+           String unknown = "";
+           String apps = "";
+
+            try{
+              Map json = (Map)parser.parse(jsonText, containerFactory);
+              Iterator iter = json.entrySet().iterator();             
+              while(iter.hasNext()){
+                Map.Entry entry = (Map.Entry)iter.next();
+                String key = entry.getKey().toString();
+                String value = entry.getValue().toString();
+                Logger.getLogger(ControllerServlet.class.getName()).info(key); 
+                Logger.getLogger(ControllerServlet.class.getName()).info(value); 
+                if (key.equals("root"))
+                    root = value;
+                else if (key.equals("debug"))
+                    debug = value;
+                else if (key.equals("unknown"))
+                    unknown = value;
+                else if (key.equals("apps"))
+                    apps = value;
+
+              }
+
+            } catch (org.json.simple.parser.ParseException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
 //        else if (userPath.equals(("/scanResults")))
