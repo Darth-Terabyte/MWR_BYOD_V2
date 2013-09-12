@@ -114,26 +114,22 @@
                     <f:facet name="header">
                     <h:outputText value="Username"/>
                     </f:facet> 
-                    <h:outputText value="#{item.username}"></h:outputText>
+                    <h:outputText value="#{item.username}"></h:outputText>                    
                     </h:column>
+                     <h:column>
+                         <h:form>
+                             <h:commandButton id="register" value="Register" action="#{bean.addDevice(item)}"/>
+                         </h:form>
+                   
+          
+                        
+                    </h:column>
+                   
+                        
+                        
+                       
 
                     </h:dataTable>
-<!--                            <table class = "listL">
-                                <tr class = "listLH">
-                                    <td><a>Device ID</a></td>
-                                    <td><a>Make + Model</a></td>
-                                    <td><a>Current rating</a></td>
-                                    <td><a>Last Scan Date</a></td>
-                                    <td>Remove</td>
-                                </tr>
-                                <tr>
-                                    <td><a></a></td>
-                                    <td><a></a></td>
-                                    <td><a>70%</a></td>
-                                    <td><a>09/09/2013</a></td>
-                                    <td><a>Remove</a></td>
-                                </tr>
-                            </table>-->
                         </div>
                     </div><!--close content_item-->
 
