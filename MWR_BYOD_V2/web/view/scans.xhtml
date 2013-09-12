@@ -29,12 +29,12 @@
             </div><!--close header-->
 
             <div id="site_content">
-                <h4>Technicians</h4>
+                <h4>Scans</h4>
                 <div class="blockHS">
                     <table id = "shortcut">
                         <tr>
-                            <td><a>Admin</a></td>
-                            <td><a>Technicians</a></td>
+                            <td><a>Access Denied Scans</a></td>
+                            <td><a>Access Granted Scans</a></td>
                         </tr>
                     </table>
                 </div>
@@ -43,19 +43,19 @@
 
                     <div class="content_item">
                         <div class="blockH2">
-                            <h5>Admin</h5>
+                            <h5>Access Denied Scans</h5>
                         </div>
 
                         <div class="blockH2">
                             <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
-                                    <td><a>Employee Code</a></td>
+                                    <td><a>ID number</a></td>
                                     <td>Remove</td>
                                 </tr>
                                 <tr>
-                                    <td><a href = "user.xhtml">${Technician.username}</a></td>
-                                    <td>${Technician.employeeCode}</td>
+                                    <td><a href = "user.xhtml">Werner</a></td>
+                                    <td>1234234452345</td>
                                     <td><a>Remove</a></td>
                                 </tr>
                             </table>
@@ -64,25 +64,21 @@
 
                     <div class="content_item">
                         <div class="blockH2">
-                            <h5>Technicians</h5>
+                            <h5>Access Granted Scans</h5>
                         </div>
 
                         <div class="blockH2">
                             <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
-                                    <td><a>Employee Code</a></td>
+                                    <td><a>ID number</a></td>
                                     <td>Remove</td>
                                 </tr>
-                            </table>
-                            <table>
-                                <!--c:forEach-->
                                 <tr>
-                                    <td><a href = "user.xhtml">${Technician.username}</a></td>
-                                    <td>${Technician.employeeCode}</td>
+                                    <td><a href = "user.xhtml">Werner</a></td>
+                                    <td>1234234452345</td>
                                     <td><a>Remove</a></td>
                                 </tr>
-                                <!--/c:forEach-->
                             </table>
                         </div>
                     </div><!--close content_item-->
