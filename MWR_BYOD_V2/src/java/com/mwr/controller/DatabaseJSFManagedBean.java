@@ -38,7 +38,8 @@ public class DatabaseJSFManagedBean {
     private String android;
     private Settings latestSetting;
     private List<Blacklistedapplications> apps;
-    private Scanresults result;
+    private Scanresults results;
+    private List<Scanresults> device_results;
     
 
     /**
@@ -109,7 +110,7 @@ public class DatabaseJSFManagedBean {
         return deviceList;
     }
     
-    public void addScanResults(String mac, String serial,String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps,int api)
+    public boolean addScanResults(String mac, String serial,String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps,int api)
     {
         getLatestSetting();
         getApps();
@@ -159,12 +160,14 @@ public class DatabaseJSFManagedBean {
        if (totalScore < latestSetting.getAccessScore() )
            allowed = true;
        
-       result = new Scanresults(latestSetting, new Date(),rooted, rootScore,debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allowed, mac, androidID, serial);
+       results = new Scanresults(latestSetting, new Date(),rooted, rootScore,debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allowed, mac, androidID, serial);
         session = helper.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(result);
+        session.save(results);
         session.getTransaction().commit();
         session.close();
+        
+        return allowed;
         
     }
     
@@ -186,6 +189,26 @@ public class DatabaseJSFManagedBean {
         apps = query.list();
         return apps;
     }
+    
+    public String setDevice(DeviceId id)
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial order by Date desc");
+        query.setParameter("mac", id.getMacaddress());
+        query.setParameter("uid", id.getUid());
+        query.setParameter("serial", id.getSerialNumber());
+        device_results = query.list();
+        return "scan.xhtml";
+        
+    }
+    
+    public List getDevice_Results()
+    {
+        return device_results;
+    }
+    
+    
 
     
   

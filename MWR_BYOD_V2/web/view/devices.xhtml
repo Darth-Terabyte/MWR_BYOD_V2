@@ -180,6 +180,12 @@
                     </f:facet> 
                     <h:outputText value="#{item.employee.name} #{item.employee.surname}"></h:outputText>
                     </h:column>
+                        
+                     <h:column>
+                         <h:form>
+                             <h:commandButton id="View" value="View" action="#{bean.setDevice(item.id)}"/>
+                         </h:form>
+                    </h:column>
 
                     </h:dataTable>
                         </div>

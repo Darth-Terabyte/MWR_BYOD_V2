@@ -263,7 +263,9 @@ public class ControllerServlet extends HttpServlet {
                 {
                      bean = new DatabaseJSFManagedBean();
                 }
-              bean.addScanResults(mac, serial, androidID, root, debug, unknown, apps,api);
+              boolean allowed = bean.addScanResults(mac, serial, androidID, root, debug, unknown, apps,api);
+              
+              
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

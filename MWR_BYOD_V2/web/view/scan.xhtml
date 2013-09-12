@@ -29,31 +29,30 @@
             </div><!--close header-->
 
             <div id="site_content">
-                <h4>#{Scanresults.date} : #{Scanresults.totalScore}%</h4>
-                <h5>Device MAC: #{Scanresults.deviceMacaddress}, UID: #{Scanresults.deviceUid}</h5>
+                <h4>Date and score</h4>
+                <h5>Device MAC: </h5>
 
                 <div class="blockH2">
-                    <h5>Scanss</h5>
+                    <h5>Scans</h5>
                 </div>
                 <div class="blockH2">
-                    <table class = "listL">
-                        <tr class = "listLH">
-                            <td><a>Device ID</a></td>
-                            <td><a>Make + Model</a></td>
-                            <td><a>Current rating</a></td>
-                            <td><a>Last Scan Date</a></td>
-                            <td>Remove</td>
-                        </tr>
-                        <!--c:forEach -->
-                        <tr>
-                            <td><a>#{Device.id}</a></td>
-                            <td><a>#{Device.make} #{Device.model}</a></td>
-                            <td><a>70%</a></td>
-                            <td><a>09/09/2013</a></td>
-                            <td><a>Remove</a></td>
-                        </tr>
-                       <!--/c:forEach -->
-                    </table>
+                    <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" >
+                    <h:column>
+                    <f:facet name="header">
+                    <h:outputText value="Scan time" />
+                    </f:facet> 
+                    <h:outputText style="" value="#{result.date}" ></h:outputText>
+                    </h:column>
+                     <h:column>
+                  <f:facet name="header">
+                    <h:outputText value="Rooted" />
+                    </f:facet> 
+                    <h:outputText style="" value="#{result.rooted}" ></h:outputText>
+                     <h:outputText style="" value="#{result.rootedScore}" ></h:outputText>
+                    </h:column>
+
+                    
+                    </h:dataTable>
                 </div>
             </div><!--close site_content-->
             <div id="content_grey">
