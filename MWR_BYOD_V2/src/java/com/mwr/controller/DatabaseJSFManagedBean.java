@@ -134,16 +134,17 @@ public class DatabaseJSFManagedBean {
            int k = 0;
            while (k<apps.size())
            {
-               if (appArray[i].equals(apps.get(k).getAppName()))
+               if (appArray[i].contains(apps.get(k).getAppName()))
                {
+                   
                     blacklistedApps += appArray[i];
                     if (apps.get(k).getAppCategory().equals("Low"))
                         appScore += latestSetting.getLowRiskApp();
-                    else if (apps.get(i).getAppCategory().equals("Medium"))
+                    else if (apps.get(k).getAppCategory().equals("Medium"))
                         appScore += latestSetting.getMediumRiskApp();
-                    else if (apps.get(i).getAppCategory().equals("High"))
+                    else if (apps.get(k).getAppCategory().equals("High"))
                         appScore += latestSetting.getHighRiskApp();
-                    else if (apps.get(i).getAppCategory().equals("Blocked"))
+                    else if (apps.get(k).getAppCategory().equals("Blocked"))
                         appScore += latestSetting.getBlockedApp();
                }
                   
@@ -151,7 +152,7 @@ public class DatabaseJSFManagedBean {
            }
            
        }
-       
+
        apiScore = (api - 17)*latestSetting.getOsweight();       
        totalScore = rootScore + debugScore + unknownScore + appScore + apiScore;
        boolean allowed = false;

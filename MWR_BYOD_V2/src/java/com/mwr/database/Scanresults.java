@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 12 Sep 2013 10:55:53 PM by Hibernate Tools 3.2.1.GA
+// Generated 12 Sep 2013 11:46:09 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -54,6 +54,7 @@ public class Scanresults  implements java.io.Serializable {
     }
     
     public Scanresults(Settings settings, Date date, boolean rooted, int rootedScore, boolean debuggingEnabled, int debuggingEnabledScore, boolean unknownSourcesAllowed, int unknownSourcesScore, String blacklistedApps, int appsScore, String osversion, int osscore, int totalScore, boolean accessAllowed, String deviceMacaddress, String deviceUid, String deviceSerialNumber) {
+       this.scanId = scanId;
        this.settings = settings;
        this.date = date;
        this.rooted = rooted;
