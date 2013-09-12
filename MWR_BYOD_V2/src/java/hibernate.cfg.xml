@@ -11,6 +11,10 @@
     <mapping resource="com/mwr/database/Employee.hbm.xml"/>
     <mapping resource="com/mwr/database/Technician.hbm.xml"/>
     <mapping resource="com/mwr/database/Devicenotregistered.hbm.xml"/>
+    <mapping/>
     <mapping resource="com/mwr/database/Scanresults.hbm.xml"/>
+    <mapping/>
+    <mapping/>
+    <mapping resource="com/mwr/database/Settings.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

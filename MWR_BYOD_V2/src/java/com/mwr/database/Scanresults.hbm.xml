@@ -1,27 +1,63 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 29-Aug-2013 18:05:59 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 12 Sep 2013 6:02:42 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.mwr.database.Scanresults" table="scanresults" catalog="byod">
-        <id name="scanId" type="java.lang.Integer">
+        <id name="scanId" type="int">
             <column name="scanID" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
+        <many-to-one name="settings" class="com.mwr.database.Settings" fetch="select">
+            <column name="settings_SettingID" not-null="true" />
+        </many-to-one>
         <property name="date" type="timestamp">
             <column name="date" length="19" not-null="true" />
         </property>
         <property name="rooted" type="boolean">
             <column name="rooted" not-null="true" />
         </property>
+        <property name="rootedScore" type="int">
+            <column name="rootedScore" not-null="true" />
+        </property>
         <property name="debuggingEnabled" type="boolean">
             <column name="debuggingEnabled" not-null="true" />
+        </property>
+        <property name="debuggingEnabledScore" type="int">
+            <column name="debuggingEnabledScore" not-null="true" />
         </property>
         <property name="unknownSourcesAllowed" type="boolean">
             <column name="unknownSourcesAllowed" not-null="true" />
         </property>
-        <property name="apps" type="string">
-            <column name="apps" length="500" not-null="true" />
+        <property name="unknownSourcesScore" type="int">
+            <column name="unknownSourcesScore" not-null="true" />
+        </property>
+        <property name="blacklistedApps" type="string">
+            <column name="blacklistedApps" length="500" not-null="true" />
+        </property>
+        <property name="appsScore" type="int">
+            <column name="appsScore" not-null="true" />
+        </property>
+        <property name="osversion" type="string">
+            <column name="OSVersion" length="45" not-null="true" />
+        </property>
+        <property name="osscore" type="string">
+            <column name="OSScore" length="45" not-null="true" />
+        </property>
+        <property name="totalScore" type="int">
+            <column name="totalScore" not-null="true" />
+        </property>
+        <property name="accessAllowed" type="int">
+            <column name="accessAllowed" not-null="true" />
+        </property>
+        <property name="deviceMacaddress" type="string">
+            <column name="device_MACAddress" length="45" not-null="true" />
+        </property>
+        <property name="deviceUid" type="string">
+            <column name="device_UID" length="45" not-null="true" />
+        </property>
+        <property name="deviceSerialNumber" type="string">
+            <column name="device_SerialNumber" length="45" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

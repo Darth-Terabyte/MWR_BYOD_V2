@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12 Sep 2013 6:02:42 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.mwr.database.Settings" table="settings" catalog="byod">
+        <id name="settingId" type="java.lang.Integer">
+            <column name="SettingID" />
+            <generator class="identity" />
+        </id>
+        <property name="accessScore" type="java.lang.Integer">
+            <column name="AccessScore" />
+        </property>
+        <property name="settingDate" type="timestamp">
+            <column name="SettingDate" length="19" not-null="true" />
+        </property>
+        <property name="osweight" type="int">
+            <column name="OSWeight" not-null="true" />
+        </property>
+        <property name="rootedWeight" type="int">
+            <column name="RootedWeight" not-null="true" />
+        </property>
+        <property name="debugWeight" type="int">
+            <column name="DebugWeight" not-null="true" />
+        </property>
+        <property name="unknownSourcesWeight" type="int">
+            <column name="UnknownSourcesWeight" not-null="true" />
+        </property>
+        <property name="lowRiskApp" type="int">
+            <column name="LowRiskApp" not-null="true" />
+        </property>
+        <property name="mediumRiskApp" type="int">
+            <column name="MediumRiskApp" not-null="true" />
+        </property>
+        <property name="highRiskApp" type="int">
+            <column name="HighRiskApp" not-null="true" />
+        </property>
+        <property name="blockedApp" type="int">
+            <column name="BlockedApp" not-null="true" />
+        </property>
+        <set name="scanresultses" inverse="true">
+            <key>
+                <column name="settings_SettingID" not-null="true" />
+            </key>
+            <one-to-many class="com.mwr.database.Scanresults" />
+        </set>
+    </class>
+</hibernate-mapping>
