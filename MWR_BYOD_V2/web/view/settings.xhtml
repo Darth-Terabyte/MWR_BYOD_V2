@@ -12,16 +12,16 @@
             <div id="header">
                 <div id="banner">
                     <div id="welcome">
-                        <h1><a href = "/BYOD/faces/view/index.html">BYOD</a></h1>
+                        <h1><h:commandLink hreflang = "/BYOD/faces/view/index.html">BYOD</h:commandLink></h1>
                         <h2>Bring Your Own Device Asset Tracker</h2>
                     </div><!--close welcome-->
                     <div id="menubar">
                         <ul id="menu">
-                            <li class="current"><a href="/BYOD/faces/view/index.html">Home</a></li>
-                            <li><a href="/BYOD/faces/view/settings.html">Settings</a></li>
-                            <li><a href="/BYOD/faces/view/devices.html">Devices</a></li>
-                            <li><a href="/BYOD/faces/view/users.html">Users</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li class="current"><h:commandLink hreflang="/BYOD/faces/view/index.html">Home</h:commandLink></li>
+                            <li><h:commandLink hreflang="/BYOD/faces/view/settings.html">Settings</h:commandLink></li>
+                            <li><h:commandLink hreflang="/BYOD/faces/view/devices.html">Devices</h:commandLink></li>
+                            <li><h:commandLink hreflang="/BYOD/faces/view/users.html">Users</h:commandLink></li>
+                            <li><h:commandLink hreflang="#">Logout</h:commandLink></li>
                         </ul>
                     </div><!--close menubar-->
                 </div><!--close banner-->
@@ -32,9 +32,9 @@
                 <div class="blockHS">
                     <table id = "shortcut">
                         <tr>
-                            <td><a>Blacklisted Applications</a></td>
-                            <td><a>Weigthed System</a></td>
-                            <td><a>Scan Settings</a></td>
+                            <td><h:commandLink>Blacklisted Applications</h:commandLink></td>
+                            <td><h:commandLink>Weigthed System</h:commandLink></td>
+                            <td><h:commandLink>Scan Settings</h:commandLink></td>
                         </tr>
                     </table>
                 </div>
@@ -45,23 +45,23 @@
                 <div class="blockH">
                     <table class = "listD">
                         <tr class = "listDH">
-                            <td><a>Name</a></td>
-                            <td><a>Date Added</a></td>
+                            <td><h:commandLink>Name</h:commandLink></td>
+                            <td><h:commandLink>Date Added</h:commandLink></td>
                             <td>Remove</td>
                         </tr>
                         <tr>
-                            <td><a>Facebook</a></td>
+                            <td><h:commandLink>Facebook</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                         </tr>
                         <tr>
-                            <td><a>Facebook</a></td>
+                            <td><h:commandLink>Facebook</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                         </tr>
                     </table>
                     <div class="more2">
-                        <a href="blacklistedAdd.xhtml">Add Blacklisted Application</a>
+                        <h:commandLink hreflang="blacklistedAdd.xhtml">Add Blacklisted Application</h:commandLink>
                     </div>
                 </div>
 
@@ -73,10 +73,10 @@
                     <table class = "listD">
                         <tr class = "listDH">
                             <td>Weight Catagory</td>
-                            <td><a>Weight</a></td>
+                            <td><h:commandLink>Weight</h:commandLink></td>
                         </tr>
                         <tr>
-                            <td><a>OS Version</a></td>
+                            <td><h:commandLink>OS Version</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="OSRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'OSText');"></input>
                             </td>
@@ -85,7 +85,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a>Blacklisted Applications</a></td>
+                            <td><h:commandLink>Blacklisted Applications</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blacklistedText');"></input>
                             </td>
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="more2">
-                        <a href="#">Save</a>
+                        <h:commandLink hreflang="#">Save</h:commandLink>
                     </div>
                 </div>
 
@@ -110,15 +110,15 @@
                 <div class="blockH2">
                     <table class = "listL">
                         <tr class = "listLH">
-                            <td><a>Catagory</a></td>
-                            <td><a>Date Added</a></td>
+                            <td><h:commandLink>Catagory</h:commandLink></td>
+                            <td><h:commandLink>Date Added</h:commandLink></td>
                             <td>Remove</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><a>Low Risk</a></td>
+                            <td><h:commandLink>Low Risk</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="lowRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
@@ -127,9 +127,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a>Medium Risk</a></td>
+                            <td><h:commandLink>Medium Risk</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="medRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
@@ -138,9 +138,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a>High Risk</a></td>
+                            <td><h:commandLink>High Risk</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="highRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
@@ -149,9 +149,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a>Blocked</a></td>
+                            <td><h:commandLink>Blocked</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="blockRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
@@ -166,7 +166,7 @@
                     </div>
 
                     <div class="more2">
-                        <a href="#">Save</a>
+                        <h:commandLink hreflang="#">Save</h:commandLink>
                     </div>
                 </div>
 
@@ -191,7 +191,7 @@
                             <td>Newer</td>
                         </tr>
                         <tr>
-                            <td><a>Social</a></td>
+                            <td><h:commandLink>Social</h:commandLink></td>
                             <td>09/09/2013</td>
                         </tr>
                     </table>
@@ -201,7 +201,7 @@
                     </div>
 
                     <div class="more2">
-                        <a href="#">Save</a>
+                        <h:commandLink hreflang="#">Save</h:commandLink>
                     </div>
                 </div>
 
@@ -212,16 +212,16 @@
 
                     <table class = "listL">
                         <tr class = "listLH">
-                            <td><a>Catagory</a></td>
-                            <td><a>Date Added</a></td>
+                            <td><h:commandLink>Catagory</h:commandLink></td>
+                            <td><h:commandLink>Date Added</h:commandLink></td>
                             <td>Remove</td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><a>Social</a></td>
+                            <td><h:commandLink>Social</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'appText');"></input>
                             </td>
@@ -230,9 +230,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><a>File Hosting</a></td>
+                            <td><h:commandLink>File Hosting</h:commandLink></td>
                             <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
+                            <td><h:commandLink>Remove</h:commandLink></td>
                             <td>
                                 <input class = "val" type="range" name="app2Range" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'app2Text');"></input>
                             </td>
@@ -246,7 +246,7 @@
                         <span class = "val" id="apps"> %</span>
                     </div>
                     <div class="more2">
-                        <a href="#">Save</a>
+                        <h:commandLink hreflang="#">Save</h:commandLink>
                     </div>
 
                 </div>
@@ -273,14 +273,14 @@
                     </table>
 
                     <div class="more2">
-                        <a href="#">Save</a>
+                        <h:commandLink hreflang="#">Save</h:commandLink>
                     </div>
                 </div>
             </div><!--close site_content-->
             <div id="content_grey">
                 <div class="content_grey_container_box">
-                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">Univercity of Pretoria</a>.
-                        Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
+                    <p> Website by Lux in Tenebris student group from the <h:commandLink hreflang = "https://www.up.ac.za">Univercity of Pretoria</h:commandLink>.
+                        Supported by <h:commandLink hreflang = "https://www.mwrinfosecurity.com">MWR InfoSecurity</h:commandLink>.</p>
                 </div><!--close content_grey_container_box-->
             </div><!--close content_grey-->
 
