@@ -10,6 +10,8 @@ import com.mwr.database.*;
 import com.mwr.businesslogic.TokenGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -22,9 +24,9 @@ public class DatabaseJSFManagedBean {
 
     private Session session;
     private HibernateUtil helper;
-    private String name = "MAdene";
     private Employee employee;
-    private Devicenotregistered device;
+    private Devicenotregistered device_not;
+    private Device device;
     
 
     /**
@@ -40,7 +42,7 @@ public class DatabaseJSFManagedBean {
         TokenGenerator gen = new TokenGenerator();
         String token = gen.generateToken(mac, android, serial);    
         DevicenotregisteredId devicePK = new DevicenotregisteredId(mac,android,serial); 
-        device = new Devicenotregistered(devicePK, make,model, username,  password, idnumber, name, surname,token);
+        device_not = new Devicenotregistered(devicePK, make,model, username,  password, idnumber, name, surname,token);
         session = helper.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(device);
@@ -48,15 +50,7 @@ public class DatabaseJSFManagedBean {
         session.close();
     }
     
-    public String getName()
-    {
-//        session = helper.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        Employee emp = (Employee)session.get(Employee.class, 6);
-//        name =  emp.getName();
-        return name;
-    }
-    
+  
     public Employee addEmployee(String username, String password, String name, String surname, String idnumber)
     {
         employee = new Employee(username,password,new Date(),name,surname,idnumber);
@@ -68,6 +62,17 @@ public class DatabaseJSFManagedBean {
         return employee;
     }
     
+    public void registerDevice(String mac, String android, String serial)
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Devicenotregistered where mac = :mac and serial = :serial and uid =:uid ");
+        query.setParameter("mac", mac);
+        query.setParameter("uid",android);
+        query.setParameter("serial", serial);
+        List list = query.list();
+        addDevice((Devicenotregistered)list.get(0));
+    }
     
     public void addDevice(Devicenotregistered d)
     {
