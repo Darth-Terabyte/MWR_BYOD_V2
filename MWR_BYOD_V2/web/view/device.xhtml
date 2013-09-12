@@ -41,7 +41,7 @@
                     <h5>Device</h5>
                 </div>
                 <div class="blockH">
-                    <table class = "listD">
+                    <h:dataTable class = "listD">
                         <tr class = "listDH">
                             <td><h:commandLink>Device ID</h:commandLink></td>
                             <td><h:commandLink>Make + Model</h:commandLink></td>
@@ -56,14 +56,14 @@
                             <td><h:commandLink>09/09/2013</h:commandLink></td>
                             <td><h:commandLink>Remove</h:commandLink></td>
                         </tr>
-                    </table>
+                    <</h:dataTable>
                 </div>
 
                 <div class="blockH">
                     <h5>Scans</h5>
                 </div>
                 <div class="blockH">
-                    <table class = "listD">
+                    <h:dataTable class = "listD">
                         <tr class = "listDH">
                             <td><h:commandLink>Scan ID</h:commandLink></td>
                             <td><h:commandLink>Date</h:commandLink></td>
@@ -72,8 +72,8 @@
                             <td><h:commandLink>Unknown Sources Allowed</h:commandLink></td>
                             <td>Remove</td>
                         </tr>
-                   </table>
-                    <table class ="listD">
+                   <</h:dataTable>
+                    <h:dataTable class ="listD">
                         <c:forEach items="${Device.scans}" var ="deviceScans"></c:forEach>
                         <tr>
                             <td><h:commandLink>#{Device.scans.getID()}</h:commandLink></td>
@@ -82,7 +82,7 @@
                             <td><h:commandLink>09/09/2013</h:commandLink></td>
                             <td><h:commandLink>Remove</h:commandLink></td>
                         </tr>
-                    </table>
+                    <</h:dataTable>
                 </div>
                 
             </div><!--close site_content-->
