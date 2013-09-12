@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 12 Sep 2013 6:02:40 PM by Hibernate Tools 3.2.1.GA
+// Generated 12 Sep 2013 10:55:53 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -22,9 +22,9 @@ public class Scanresults  implements java.io.Serializable {
      private String blacklistedApps;
      private int appsScore;
      private String osversion;
-     private String osscore;
+     private int osscore;
      private int totalScore;
-     private int accessAllowed;
+     private boolean accessAllowed;
      private String deviceMacaddress;
      private String deviceUid;
      private String deviceSerialNumber;
@@ -32,8 +32,28 @@ public class Scanresults  implements java.io.Serializable {
     public Scanresults() {
     }
 
-    public Scanresults(int scanId, Settings settings, Date date, boolean rooted, int rootedScore, boolean debuggingEnabled, int debuggingEnabledScore, boolean unknownSourcesAllowed, int unknownSourcesScore, String blacklistedApps, int appsScore, String osversion, String osscore, int totalScore, int accessAllowed, String deviceMacaddress, String deviceUid, String deviceSerialNumber) {
+    public Scanresults(int scanId, Settings settings, Date date, boolean rooted, int rootedScore, boolean debuggingEnabled, int debuggingEnabledScore, boolean unknownSourcesAllowed, int unknownSourcesScore, String blacklistedApps, int appsScore, String osversion, int osscore, int totalScore, boolean accessAllowed, String deviceMacaddress, String deviceUid, String deviceSerialNumber) {
        this.scanId = scanId;
+       this.settings = settings;
+       this.date = date;
+       this.rooted = rooted;
+       this.rootedScore = rootedScore;
+       this.debuggingEnabled = debuggingEnabled;
+       this.debuggingEnabledScore = debuggingEnabledScore;
+       this.unknownSourcesAllowed = unknownSourcesAllowed;
+       this.unknownSourcesScore = unknownSourcesScore;
+       this.blacklistedApps = blacklistedApps;
+       this.appsScore = appsScore;
+       this.osversion = osversion;
+       this.osscore = osscore;
+       this.totalScore = totalScore;
+       this.accessAllowed = accessAllowed;
+       this.deviceMacaddress = deviceMacaddress;
+       this.deviceUid = deviceUid;
+       this.deviceSerialNumber = deviceSerialNumber;
+    }
+    
+    public Scanresults(Settings settings, Date date, boolean rooted, int rootedScore, boolean debuggingEnabled, int debuggingEnabledScore, boolean unknownSourcesAllowed, int unknownSourcesScore, String blacklistedApps, int appsScore, String osversion, int osscore, int totalScore, boolean accessAllowed, String deviceMacaddress, String deviceUid, String deviceSerialNumber) {
        this.settings = settings;
        this.date = date;
        this.rooted = rooted;
@@ -137,11 +157,11 @@ public class Scanresults  implements java.io.Serializable {
     public void setOsversion(String osversion) {
         this.osversion = osversion;
     }
-    public String getOsscore() {
+    public int getOsscore() {
         return this.osscore;
     }
     
-    public void setOsscore(String osscore) {
+    public void setOsscore(int osscore) {
         this.osscore = osscore;
     }
     public int getTotalScore() {
@@ -151,11 +171,11 @@ public class Scanresults  implements java.io.Serializable {
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
-    public int getAccessAllowed() {
+    public boolean isAccessAllowed() {
         return this.accessAllowed;
     }
     
-    public void setAccessAllowed(int accessAllowed) {
+    public void setAccessAllowed(boolean accessAllowed) {
         this.accessAllowed = accessAllowed;
     }
     public String getDeviceMacaddress() {

@@ -29,13 +29,16 @@ public class DatabaseJSFManagedBean {
     private Session session;
     private HibernateUtil helper;
     private Employee employee;
-    private Devicenotregistered device_not;
-    private Device device;
+    private Device device; 
+    private Devicenotregistered device_not;    
     private List<Devicenotregistered> waitingList;
     private List<Device> deviceList;
     private String mac;
     private String serial;
     private String android;
+    private Settings latestSetting;
+    private List<Blacklistedapplications> apps;
+    private Scanresults result;
     
 
     /**
@@ -105,6 +108,86 @@ public class DatabaseJSFManagedBean {
         deviceList = query.list();
         return deviceList;
     }
+    
+    public void addScanResults(String mac, String serial,String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps,int api)
+    {
+        getLatestSetting();
+        getApps();
+        int totalScore = 0;
+        int rootScore = 0;
+        int debugScore = 0;
+        int unknownScore = 0;
+        int appScore = 0;
+        int apiScore = 0;
+        
+        if (rooted)
+            rootScore = latestSetting.getRootedWeight();
+        if (debug)
+            debugScore = latestSetting.getDebugWeight();
+        if (unknown)
+            unknownScore = latestSetting.getUnknownSourcesWeight();
+        
+       String blacklistedApps = "";
+       String[] appArray = installedApps.split(",");
+       for (int i=0;i<appArray.length;i++)
+       {
+           int k = 0;
+           while (k<apps.size())
+           {
+               if (appArray[i].equals(apps.get(k).getAppName()))
+               {
+                    blacklistedApps += appArray[i];
+                    if (apps.get(k).getAppCategory().equals("Low"))
+                        appScore += latestSetting.getLowRiskApp();
+                    else if (apps.get(i).getAppCategory().equals("Medium"))
+                        appScore += latestSetting.getMediumRiskApp();
+                    else if (apps.get(i).getAppCategory().equals("High"))
+                        appScore += latestSetting.getHighRiskApp();
+                    else if (apps.get(i).getAppCategory().equals("Blocked"))
+                        appScore += latestSetting.getBlockedApp();
+               }
+                  
+               k++;
+           }
+           
+       }
+       
+       apiScore = (api - 17)*latestSetting.getOsweight();       
+       totalScore = rootScore + debugScore + unknownScore + appScore + apiScore;
+       boolean allowed = false;
+       if (totalScore < latestSetting.getAccessScore() )
+           allowed = true;
+       
+       result = new Scanresults(latestSetting, new Date(),rooted, rootScore,debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allowed, mac, androidID, serial);
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(result);
+        session.getTransaction().commit();
+        session.close();
+        
+    }
+    
+    public Settings getLatestSetting()
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Settings order by SettingDate desc");
+        List settings = query.list();
+        latestSetting = (Settings)settings.get(0);
+        return latestSetting;
+    }
+    
+    public List getApps()
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Blacklistedapplications");
+        apps = query.list();
+        return apps;
+    }
+
+    
+  
 
     
 //    public String getDevices()

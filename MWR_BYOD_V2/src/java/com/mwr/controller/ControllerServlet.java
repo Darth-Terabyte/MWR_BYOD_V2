@@ -30,7 +30,7 @@ import org.json.simple.parser.JSONParser;
  */
 @WebServlet(name = "ControllerServlet", 
          loadOnStartup = 1,
-            urlPatterns = {"/requestRegistration"})
+            urlPatterns = {"/requestRegistration","/scanResults"})
 public class ControllerServlet extends HttpServlet {
 
     
@@ -220,10 +220,14 @@ public class ControllerServlet extends HttpServlet {
             };         
                         
            Logger.getLogger(ControllerServlet.class.getName()).info(jsonText); 
-           String root = "";
-           String debug = "";
-           String unknown = "";
+           boolean root = false;
+           boolean debug = false;
+           boolean unknown = false;
            String apps = "";
+           String mac = "";
+           String serial = "";
+           String androidID = "";
+           int api = 0;
 
             try{
               Map json = (Map)parser.parse(jsonText, containerFactory);
@@ -234,17 +238,32 @@ public class ControllerServlet extends HttpServlet {
                 String value = entry.getValue().toString();
                 Logger.getLogger(ControllerServlet.class.getName()).info(key); 
                 Logger.getLogger(ControllerServlet.class.getName()).info(value); 
-                if (key.equals("root"))
-                    root = value;
+                if (key.equals("rooted"))
+                    root = Boolean.parseBoolean(value);
                 else if (key.equals("debug"))
-                    debug = value;
+                    debug = Boolean.parseBoolean(value);
                 else if (key.equals("unknown"))
-                    unknown = value;
+                    unknown = Boolean.parseBoolean(value);
                 else if (key.equals("apps"))
-                    apps = value;
+                    apps = value.substring(1,value.length()-1);
+                else if (key.equals("mac"))
+                    mac = value;
+                else if (key.equals("serial"))
+                    serial = value;
+                else if (key.equals("android"))
+                    androidID = value;
+                else if (key.equals("os"))
+                    api = Integer.parseInt(value);
 
               }
-
+ 
+              
+              DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
+                if (bean == null)
+                {
+                     bean = new DatabaseJSFManagedBean();
+                }
+              bean.addScanResults(mac, serial, androidID, root, debug, unknown, apps,api);
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

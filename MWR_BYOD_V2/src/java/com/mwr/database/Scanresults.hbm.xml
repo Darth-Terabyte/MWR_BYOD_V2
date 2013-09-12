@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12 Sep 2013 6:02:42 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 12 Sep 2013 10:55:54 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.mwr.database.Scanresults" table="scanresults" catalog="byod">
         <id name="scanId" type="int">
@@ -41,13 +41,13 @@
         <property name="osversion" type="string">
             <column name="OSVersion" length="45" not-null="true" />
         </property>
-        <property name="osscore" type="string">
-            <column name="OSScore" length="45" not-null="true" />
+        <property name="osscore" type="int">
+            <column name="OSScore" not-null="true" />
         </property>
         <property name="totalScore" type="int">
             <column name="totalScore" not-null="true" />
         </property>
-        <property name="accessAllowed" type="int">
+        <property name="accessAllowed" type="boolean">
             <column name="accessAllowed" not-null="true" />
         </property>
         <property name="deviceMacaddress" type="string">

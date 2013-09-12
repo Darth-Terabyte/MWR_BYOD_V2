@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 12 Sep 2013 6:02:40 PM by Hibernate Tools 3.2.1.GA
+// Generated 12 Sep 2013 10:55:53 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
