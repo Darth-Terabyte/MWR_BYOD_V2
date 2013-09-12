@@ -200,9 +200,14 @@ public class ControllerServlet extends HttpServlet {
                  Logger.getLogger(ControllerServlet.class.getName()).log(Level.INFO, null, e);
             }
 
-           userPath = "/devices";
+         
            
         }
+        else if(userPath.equals("/scanResults")) 
+        {
+            
+        }
+        
 //        else if (userPath.equals(("/scanResults")))
 //        {
 //            boolean rooted = Boolean.parseBoolean(request.getParameter("rooted"));
