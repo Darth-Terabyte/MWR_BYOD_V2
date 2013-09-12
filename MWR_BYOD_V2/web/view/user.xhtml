@@ -35,7 +35,7 @@
                     <h5>Devices</h5>
                 </div>
                 <div class="blockH2">
-                    <h:dataTable class = "listL">
+                    <table class = "listL">
                         <tr class = "listLH">
                             <td><a>Device ID</a></td>
                             <td><a>Make + Model</a></td>
@@ -43,7 +43,7 @@
                             <td><a>Last Scan Date</a></td>
                             <td>Remove</td>
                         </tr>
-                        <c:forEach >
+                        <!--c:forEach -->
                         <tr>
                             <td><a>#{Device.id}</a></td>
                             <td><a>#{Device.make} #{Device.model}</a></td>
@@ -51,8 +51,8 @@
                             <td><a>09/09/2013</a></td>
                             <td><a>Remove</a></td>
                         </tr>
-                       </c:forEach >
-                    </h:dataTable>
+                       <!--/c:forEach -->
+                    </table>
                 </div>
             </div><!--close site_content-->
             <div id="content_grey">

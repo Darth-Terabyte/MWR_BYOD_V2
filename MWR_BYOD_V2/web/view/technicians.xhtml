@@ -30,12 +30,12 @@
             <div id="site_content">
                 <h4>Technicians</h4>
                 <div class="blockHS">
-                    <h:dataTable id = "shortcut">
+                    <table id = "shortcut">
                         <tr>
                             <td><a>Admin</a></td>
                             <td><a>Technicians</a></td>
                         </tr>
-                    </h:dataTable>
+                    </table>
                 </div>
 
                 <div id="content">
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable class = "listL">
+                            <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
                                     <td><a>Employee Code</a></td>
@@ -57,7 +57,7 @@
                                     <td>${Technician.employeeCode}</td>
                                     <td><a>Remove</a></td>
                                 </tr>
-                            </h:dataTable>
+                            </table>
                         </div>
                     </div><!--close content_item-->
 
@@ -67,22 +67,22 @@
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable class = "listL">
+                            <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
                                     <td><a>Employee Code</a></td>
                                     <td>Remove</td>
                                 </tr>
-                            </h:dataTable>
-                            <h:dataTable>
-                                <c:forEach>
+                            </table>
+                            <table>
+                                <!--c:forEach-->
                                 <tr>
                                     <td><a href = "user.xhtml">${Technician.username}</a></td>
                                     <td>${Technician.employeeCode}</td>
                                     <td><a>Remove</a></td>
                                 </tr>
-                                </c:forEach>
-                            </h:dataTable>
+                                <!--/c:forEach-->
+                            </table>
                         </div>
                     </div><!--close content_item-->
                 </div><!--close content-->
