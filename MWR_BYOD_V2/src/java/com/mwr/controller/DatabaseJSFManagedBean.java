@@ -32,6 +32,7 @@ public class DatabaseJSFManagedBean {
     private Devicenotregistered device_not;
     private Device device;
     private List<Devicenotregistered> waitingList;
+    private List<Device> deviceList;
     private String mac;
     private String serial;
     private String android;
@@ -95,6 +96,16 @@ public class DatabaseJSFManagedBean {
         waitingList = query.list();
         return waitingList;
     }
+    
+    public List getDeviceList()
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Device");
+        deviceList = query.list();
+        return deviceList;
+    }
+
     
 //    public String getDevices()
 //    {
