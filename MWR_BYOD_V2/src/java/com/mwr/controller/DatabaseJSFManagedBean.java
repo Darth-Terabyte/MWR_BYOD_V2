@@ -53,7 +53,7 @@ public class DatabaseJSFManagedBean {
         String token = gen.generateToken(mac, android, serial);    
         DevicenotregisteredId devicePK = new DevicenotregisteredId(mac,android,serial); 
         device_not = new Devicenotregistered(devicePK, make,model, username,  password, idnumber, name, surname,token);
-        session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(device);
         session.getTransaction().commit();
@@ -64,7 +64,7 @@ public class DatabaseJSFManagedBean {
     public Employee addEmployee(String username, String password, String name, String surname, String idnumber)
     {
         employee = new Employee(username,password,new Date(),name,surname,idnumber);
-        session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(employee);
         session.getTransaction().commit();
@@ -77,12 +77,12 @@ public class DatabaseJSFManagedBean {
     public void addDevice(Devicenotregistered d)
     {
          
-        Employee employee = addEmployee(d.getUsername(),d.getPassword(),d.getName(),d.getSurname(),d.getIdnumber());
+        Employee emp = addEmployee(d.getUsername(),d.getPassword(),d.getName(),d.getSurname(),d.getIdnumber());
         DeviceId id = new DeviceId(d.getId());
-        Device device = new Device(id, employee,d.getMake(),d.getModel(), new Date());
-        session = helper.getSessionFactory().openSession();
+        Device dev = new Device(id, emp,d.getMake(),d.getModel(), new Date());
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(device);
+        session.save(dev);
         session.getTransaction().commit();
         session.close();
     }
@@ -90,7 +90,7 @@ public class DatabaseJSFManagedBean {
     
     public List getWaitingList()
     {
-        session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Devicenotregistered");
         waitingList = query.list();
@@ -99,7 +99,7 @@ public class DatabaseJSFManagedBean {
     
     public List getDeviceList()
     {
-        session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Device");
         deviceList = query.list();
