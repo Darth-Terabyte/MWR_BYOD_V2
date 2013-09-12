@@ -25,7 +25,7 @@ public class HibernateUtil {
             //sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
             
              sessionFactory = new Configuration().configure(
-					"/com/mwr/persistence/hibernate.cfg.xml")
+					"/hibernate.cfg.xml")
 					.buildSessionFactory();
         } catch (Throwable ex) {
             // Log the exception.
