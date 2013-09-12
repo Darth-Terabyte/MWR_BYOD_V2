@@ -11,6 +11,10 @@ import com.mwr.businesslogic.TokenGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -28,6 +32,9 @@ public class DatabaseJSFManagedBean {
     private Devicenotregistered device_not;
     private Device device;
     private List<Devicenotregistered> waitingList;
+    private String mac;
+    private String serial;
+    private String android;
     
 
     /**
@@ -36,6 +43,7 @@ public class DatabaseJSFManagedBean {
     public DatabaseJSFManagedBean() {
 
         session = HibernateUtil.getSessionFactory().openSession();
+         
     }
     
     public void addToWaitingList(String mac, String android, String serial, String make, String model, String username, String password, String idnumber, String name, String surname) throws NoSuchAlgorithmException
@@ -63,20 +71,11 @@ public class DatabaseJSFManagedBean {
         return employee;
     }
     
-    public void registerDevice(String mac, String android, String serial)
-    {
-        session = helper.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Devicenotregistered where mac = :mac and serial = :serial and uid =:uid ");
-        query.setParameter("mac", mac);
-        query.setParameter("uid",android);
-        query.setParameter("serial", serial);
-        List list = query.list();
-        addDevice((Devicenotregistered)list.get(0));
-    }
+    
     
     public void addDevice(Devicenotregistered d)
     {
+         
         Employee employee = addEmployee(d.getUsername(),d.getPassword(),d.getName(),d.getSurname(),d.getIdnumber());
         DeviceId id = new DeviceId(d.getId());
         Device device = new Device(id, employee,d.getMake(),d.getModel(), new Date());
