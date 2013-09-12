@@ -27,6 +27,7 @@ public class DatabaseJSFManagedBean {
     private Employee employee;
     private Devicenotregistered device_not;
     private Device device;
+    private List<Devicenotregistered> waitingList;
     
 
     /**
@@ -86,6 +87,15 @@ public class DatabaseJSFManagedBean {
         session.close();
     }
     
+    
+    public List getWaitingList()
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Devicenotregistered");
+        waitingList = query.list();
+        return waitingList;
+    }
     
 //    public String getDevices()
 //    {
