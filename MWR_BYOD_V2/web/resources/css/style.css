@@ -27,14 +27,20 @@ img
 
 h1
 {
-	font: normal 175% Arial, Helvetica, sans-serif;
-  color: blue;
-  letter-spacing: -1px;
-  margin: 0 0 10px 0;
+font: normal 45px Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px #000;
+  color: #098EFF; 
+  text-decoration: none;
 }
 
 h2
-{ font: normal 150% Arial, Helvetica, sans-serif;}
+{ font: normal 100% Arial, Helvetica, sans-serif;
+	letter-spacing: 1px;
+	color: #FFF;
+	margin-top: -10px;
+	padding-left: 20px;
+}
 
 h3
 { font: bold 22px Arial, Helvetica, sans-serif;
@@ -182,6 +188,19 @@ ul#menu li:hover a
   margin-top: 20px;
   margin-bottom: 20px;}
 
+.val{
+    text-align: center;
+}
+h:form
+{
+    
+}
+
+h:table
+{
+    
+}
+
 .val input
 {
 	padding-top: -67px;
@@ -197,6 +216,12 @@ ul#menu li:hover a
 	font: 16px Arial, Helvetica, sans-serif;
 	color: white;
 }
+
+.val p
+{
+    padding: 10px 0px 10px 10px;
+}
+
 .val tr
 {
 	height: 30px;
@@ -250,7 +275,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', end
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
   border-radius: 35px 35px 35px 35px;}
-
+.val a
+{
+    color: white;
+    font: bold 16px Arial, Helvetica, sans-serif;
+}
 .blockH2
 { width: 90%;
   float: left;
@@ -415,7 +444,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', end
   box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
   border-radius: 10px 10px 10px 10px;}
   
+.portal h1
+{
+    font: normal 45px Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  color: white; 
+  text-decoration: none;
+}
 
+.portal h2
+{
+    font: normal 30px Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  color: whitesmoke; 
+  text-decoration: none;
+}
 .content_container
 { width: 440px;
   margin-right: 10px;
