@@ -34,7 +34,7 @@ public class DatabaseJSFManagedBean {
     private List<Devicenotregistered> waitingList;
     private List<Device> deviceList;
     private List<Employee> employeeList;
-    private List<Technician> technicianList;
+    private List<Technician> technicianList, techAdmin, techNonAdmin;
     private List<String> systemStatus;
     private String mac;
     private String serial;
@@ -126,6 +126,19 @@ public class DatabaseJSFManagedBean {
         session.beginTransaction();
         Query query = session.createQuery("from Technician");
         technicianList = query.list();
+        return technicianList;
+    }
+    
+    public List getTechnicianAdminList()
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Technician");
+        technicianList = query.list();
+        for (int i = 0; i < technicianList.size(); i++)
+            if (technicianList.get(i).isAdmin())
+                techAdmin.add(technicianList.get(i));
+            else techNonAdmin.add(technicianList.get(i));
         return technicianList;
     }
     
