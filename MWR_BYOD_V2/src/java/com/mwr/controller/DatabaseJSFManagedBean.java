@@ -33,6 +33,8 @@ public class DatabaseJSFManagedBean {
     private Devicenotregistered device_not;    
     private List<Devicenotregistered> waitingList;
     private List<Device> deviceList;
+    private List<Employee> employeeList;
+    private List<Technician> technicianList;
     private String mac;
     private String serial;
     private String android;
@@ -74,9 +76,7 @@ public class DatabaseJSFManagedBean {
         session.getTransaction().commit();
         session.close();
         return employee;
-    }
-    
-    
+    }   
     
     public void addDevice(Devicenotregistered d)
     {
@@ -91,6 +91,18 @@ public class DatabaseJSFManagedBean {
         session.close();
     }
     
+    public void addTechnician(String employeeCode, String userName, String password, Date dateRegistered, boolean admin)
+    {
+        //Employee emp = addEmployee(d.getUsername(),d.getPassword(),d.getName(),d.getSurname(),d.getIdnumber());
+        //DeviceId id = new DeviceId(t.getTechnicianId());
+        //Device dev = new Device(id, emp,d.getMake(),d.getModel(), new Date());
+        Technician tech = new Technician(employeeCode,  userName, password, dateRegistered, admin);
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(tech);
+        session.getTransaction().commit();
+        session.close();
+    }
     
     public List getWaitingList()
     {
@@ -108,6 +120,43 @@ public class DatabaseJSFManagedBean {
         Query query = session.createQuery("from Device");
         deviceList = query.list();
         return deviceList;
+    }
+    
+    public List getTechnicianList()
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Technician");
+        technicianList = query.list();
+        return technicianList;
+    }
+    
+    public List getEmployeeList()
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Employee");
+        employeeList = query.list();
+        return employeeList;
+    }
+    
+    public List getApps()
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Blacklistedapplications");
+        apps = query.list();
+        return apps;
+    }
+        
+    public Settings getLatestSetting()
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Settings order by SettingDate desc");
+        List settings = query.list();
+        latestSetting = (Settings)settings.get(0);
+        return latestSetting;
     }
     
     public boolean addScanResults(String mac, String serial,String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps,int api)
@@ -171,25 +220,6 @@ public class DatabaseJSFManagedBean {
         
     }
     
-    public Settings getLatestSetting()
-    {
-        session = helper.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Settings order by SettingDate desc");
-        List settings = query.list();
-        latestSetting = (Settings)settings.get(0);
-        return latestSetting;
-    }
-    
-    public List getApps()
-    {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Blacklistedapplications");
-        apps = query.list();
-        return apps;
-    }
-    
     public String setDevice(DeviceId id)
     {
         session = helper.getSessionFactory().openSession();
@@ -199,8 +229,7 @@ public class DatabaseJSFManagedBean {
         query.setParameter("uid", id.getUid());
         query.setParameter("serial", id.getSerialNumber());
         device_results = query.list();
-        return "scan.xhtml";
-        
+        return "scan.xhtml";        
     }
     
     public List getDevice_Results()
