@@ -204,6 +204,7 @@ public class ControllerServlet extends HttpServlet {
         }
         else if(userPath.equals("/scanResults")) 
         {
+           
             BufferedReader reader = request.getReader();
             String jsonText = reader.readLine();         
             JSONParser parser = new JSONParser();
@@ -263,9 +264,18 @@ public class ControllerServlet extends HttpServlet {
                 {
                      bean = new DatabaseJSFManagedBean();
                 }
-              boolean allowed = bean.addScanResults(mac, serial, androidID, root, debug, unknown, apps,api);
+              boolean allowed = bean.addScanResults(mac, serial, androidID, root, debug, unknown, apps,api);   
+ 
+              if (allowed)
+              {                 
+                   response.getOutputStream().print("allowed");
+              }
+              else
+              {
+                  response.getOutputStream().print("denied");
+              }
               
-              
+              response.getOutputStream().flush();
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

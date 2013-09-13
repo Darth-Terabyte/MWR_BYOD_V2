@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable id="dt1" value="#{bean.waitingList}" var="item" >
+                            <h:dataTable id="dt1" value="#{bean.waitingList}" var="item" bgcolor="#F1F1F1" border="10" cellpadding="5" cellspacing="3" rows="4" dir="LTR" frame="hsides" rules="all" >
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Manufacturer" />
@@ -119,7 +119,7 @@
                                 </h:column>
                                 <h:column>
                                     <h:form>
-                                        <h:commandButton id="register" value="Register" action="#{bean.addDevice(item)}"/>
+                                        <h:commandButton id="register" value="Register" action="#{bean.addDevice(item)}" />
                                     </h:form>
                                 </h:column>
                             </h:dataTable>
@@ -131,7 +131,7 @@
                             <h5>Registered Devices</h5>
                         </div>                        
                         <div class="blockH2">
-                            <h:dataTable id="dt2" value="#{bean.deviceList}" var="item" >
+                            <h:dataTable id="dt2" value="#{bean.deviceList}" var="item"  bgcolor="#F1F1F1" border="10" cellpadding="5" cellspacing="3" rows="4" dir="LTR" frame="hsides" rules="all"  >
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Manufacturer" />
