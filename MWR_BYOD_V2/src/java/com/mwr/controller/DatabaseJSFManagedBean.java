@@ -236,17 +236,4 @@ public class DatabaseJSFManagedBean {
     {
         return device_results;
     }
-    
-    
-
-    
-  
-
-    
-//    public String getDevices()
-//    {
-//        session = helper.getSessionFactory().openSession();
-//        session.beginTransaction();
-//
-//    }
 }
