@@ -161,7 +161,7 @@ public class DatabaseJSFManagedBean {
            allowed = true;
        
        results = new Scanresults(latestSetting, new Date(),rooted, rootScore,debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allowed, mac, androidID, serial);
-        session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(results);
         session.getTransaction().commit();
@@ -183,7 +183,7 @@ public class DatabaseJSFManagedBean {
     
     public List getApps()
     {
-        session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Blacklistedapplications");
         apps = query.list();
