@@ -35,6 +35,7 @@ public class DatabaseJSFManagedBean {
     private List<Device> deviceList;
     private List<Employee> employeeList;
     private List<Technician> technicianList;
+    private List<String> systemStatus;
     private String mac;
     private String serial;
     private String android;
@@ -93,9 +94,6 @@ public class DatabaseJSFManagedBean {
     
     public void addTechnician(String employeeCode, String userName, String password, Date dateRegistered, boolean admin)
     {
-        //Employee emp = addEmployee(d.getUsername(),d.getPassword(),d.getName(),d.getSurname(),d.getIdnumber());
-        //DeviceId id = new DeviceId(t.getTechnicianId());
-        //Device dev = new Device(id, emp,d.getMake(),d.getModel(), new Date());
         Technician tech = new Technician(employeeCode,  userName, password, dateRegistered, admin);
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -148,6 +146,13 @@ public class DatabaseJSFManagedBean {
         apps = query.list();
         return apps;
     }
+    
+    public List showSystemStatus()
+    {
+        getLatestSetting();
+        
+        return systemStatus;
+    }
         
     public Settings getLatestSetting()
     {
@@ -186,21 +191,19 @@ public class DatabaseJSFManagedBean {
            {
                if (appArray[i].contains(apps.get(k).getAppName()))
                {
-                   
+                    String cat = apps.get(k).getAppCategory();
                     blacklistedApps += appArray[i];
-                    if (apps.get(k).getAppCategory().equals("Low"))
+                    if (cat.equals("Low"))
                         appScore += latestSetting.getLowRiskApp();
-                    else if (apps.get(k).getAppCategory().equals("Medium"))
+                    else if (cat.equals("Medium"))
                         appScore += latestSetting.getMediumRiskApp();
-                    else if (apps.get(k).getAppCategory().equals("High"))
+                    else if (cat.equals("High"))
                         appScore += latestSetting.getHighRiskApp();
-                    else if (apps.get(k).getAppCategory().equals("Blocked"))
+                    else if (cat.equals("Blocked"))
                         appScore += latestSetting.getBlockedApp();
-               }
-                  
+               }                  
                k++;
-           }
-           
+           }           
        }
 
        apiScore = (api - 17)*latestSetting.getOsweight();       
