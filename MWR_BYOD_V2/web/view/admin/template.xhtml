@@ -14,10 +14,16 @@
 
     <h:body>
         <ui:composition template ="/BYOD/faces/view/template.xhtml">
-        <div id="main">
         <div id="top">
-            <ui:include src="/BYOD/faces/view/header.xhtml"     />       
-            <ui:include src="/BYOD/faces/view/nav.xhtml"/>
+            <div id="header">
+                <div id="banner">
+                    <div id="welcome">
+                        <h1><a href = "/BYOD/faces/view/home.xhtml">BYOD</a></h1>
+                        <h2>Bring Your Own Device Asset Tracker</h2>
+                    </div>
+                </div>
+            </div>            
+            <ui:insert name="navigation"/>
         </div>
 
         <div id="content" class="center_content">
@@ -25,8 +31,12 @@
         </div>
 
         <div id="bottom">
-            <ui:include src="/BYOD/faces/view/footer.xhtml"/>
-        </div>
+            <div id="content_grey">
+                <div class="content_grey_container_box">
+                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.
+                        Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
+                </div>
+            </div>
         </div>
         </ui:composition>
     </h:body>
