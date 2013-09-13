@@ -47,6 +47,64 @@
                         </div>
 
                         <div class="blockH2">
+                            <!--h:dataTable id="usersReg" value="#{bean.deviceList}" var="item" >
+                                
+                            <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Owner"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.employee.name} #{item.employee.surname}"></h:outputText>
+                                </h:column>
+                            
+                            <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Manufacturer" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{item.make}" ></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Model"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.model}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="MAC Address"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.macaddress}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Serial Number"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.serialNumber}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="AndroidID"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.uid}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date registered"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.dateRegistered}"></h:outputText>
+                                </h:column>
+                            
+                                <h:column>
+                                    <h:form>
+                                        <h:commandButton id="ViewRegU" value="View" action="#{bean.setDevice(item.id)}"/>
+                                    </h:form>
+                                </h:column>
+                            </h:dataTable-->
+                            
                             <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
@@ -68,6 +126,59 @@
                         </div>
 
                         <div class="blockH2">
+                            
+                            <!--h:dataTable id="usersReg" value="#{bean.deviceList}" var="item" >
+                                
+                            <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Owner"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.employee.name} #{item.employee.surname}"></h:outputText>
+                                </h:column>
+                            
+                            <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Manufacturer" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{item.make}" ></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Model"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.model}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="MAC Address"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.macaddress}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Serial Number"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.serialNumber}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="AndroidID"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.uid}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date registered"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.dateRegistered}"></h:outputText>
+                                </h:column>
+                            
+                            </h:dataTable-->
                             <table class = "listL">
                                 <tr class = "listLH">
                                     <td><a>Username</a></td>
