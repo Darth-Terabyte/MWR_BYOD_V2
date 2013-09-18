@@ -5,7 +5,8 @@
        xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
-        <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" /> 
+        <link href ="resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
     </h:head>
     <h:body>
         <div id="main">
@@ -51,9 +52,9 @@
                         </div>
                         <div class="more">
                             <a href="#">Register Device</a>
-                        </div><!--close more--> 
+                        </div> 
                     </h:form>
-                </div><!--close ourwork-->
+                </div>
                 <div class="fix">
                     <h3>Fix Device</h3>
                     <h:form>
@@ -76,16 +77,16 @@
                         </div>
                         <div class="more">
                             <a href="device.xhtml">Fix!</a>
-                        </div><!--close more-->
+                        </div>
                     </h:form>
-                </div><!--close testimonials-->
+                </div>
                 <div class="projects">
                     <h3>Projects</h3>
                     <p></p>
                     <div class="more">
                         <a href="#">Read more</a>
-                    </div><!--close more-->
-                </div><!--close projects-->
+                    </div>
+                </div>
 
                 <div id="content">
                     <div class="content_item">
@@ -94,10 +95,10 @@
                             <h3>Usage Statistics</h3>
                             <div class = "val">
                                 <table>
-                                    <tr><td>Registered Devices: </td> <td><h:outputText id="numReg" value="#{bean.getDeviceSize()}" > 2500</h:outputText></td></tr>
-                                    <tr><td>Registered Queue: </td> <td><h:outputText id="numQueue" value="#{bean.getQueueSize()}" > 150</h:outputText></td></tr>
-                                    <tr><td>Access Allowed: </td> <td><h:outputText id="numAllowed" value="#{bean.getAllowed()}"> 350 </h:outputText></td></tr>
-                                    <tr><td>Access Denied: </td> <td><h:outputText id="numDenied" value="#{bean.getDenied()}"> 29 </h:outputText></td></tr>
+                                    <tr><td>Registered Devices: </td> <td><h:outputText id="numReg" value="#{bean.getDeviceSize()}" ></h:outputText></td></tr>
+                                    <tr><td>Registered Queue: </td> <td><h:outputText id="numQueue" value="#{bean.getQueueSize()}" ></h:outputText></td></tr>
+                                    <tr><td>Access Allowed: </td> <td><h:outputText id="numAllowed" value="#{bean.getAllowed()}"></h:outputText></td></tr>
+                                    <tr><td>Access Denied: </td> <td><h:outputText id="numDenied" value="#{bean.getDenied()}"> </h:outputText></td></tr>
                                 </table>
                             </div>
                         </div>
@@ -110,59 +111,59 @@
                                             <h:outputText value=""/>
                                         </f:facet>
 
-                                        <h:outputText value="Weights"/>
+                                        <h:outputText value="Weights" class ="normalW"/>
 
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Rooted" />
+                                            <h:outputText value="Rooted" class ="normalW" />
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.rootedWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="USB Debug" />
+                                            <h:outputText value="USB Debug" class ="normalW"/>
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.debugWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Unknown Sources" />
+                                            <h:outputText value="Unknown Sources" class ="normalW"/>
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.unknownSourcesWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="App Low" />
+                                            <h:outputText value="App Low" class ="normalW"/>
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.lowRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="App Medium" />
+                                            <h:outputText value="App Medium" class ="normalW"/>
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.mediumRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="App High" />
+                                            <h:outputText value="App High" class ="normalW"/>
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.highRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="App Blocked" />
+                                            <h:outputText value="App Blocked" class ="normalW"/>
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.blockedApp}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
 
                             </div>
-                            <h:outputText style="color: white;" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
+                            <h:outputText class ="access" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
                         </div>
                     </div>
-                </div><!--close content-->
-            </div><!--close site_content-->
+                </div>
+            </div>
             <div id="content_grey">
                 <div class="content_grey_container_box">
                     <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.

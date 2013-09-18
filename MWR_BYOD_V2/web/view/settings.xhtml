@@ -7,6 +7,7 @@
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
+        <link href ="resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
         <script type="text/javascript">
             function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
@@ -14,7 +15,7 @@
         </script>
     </h:head>
     <h:body>
-        
+
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -51,32 +52,31 @@
                     <h5>Blacklisted Applications</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable id="settingsBA" styleClass ="listD" value="#{bean.apps}" var="app" >
-                        <h:column >
-                            <f:facet name="header" class="listDH">
-                                <h:outputText value="Name" class="listDH"/>
-                            </f:facet> 
-                            <h:outputText style="" value="#{item.appName}" ></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="listDH">
-                                <h:outputText value="Category" />
-                            </f:facet> 
-                            <h:outputText style="" value="#{item.appCategory}" ></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Category" class="listDH"/>
-                            </f:facet> 
-                            <h:outputText value="#{app.appCategory}" ></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Remove" class="listDH"/>
-                            </f:facet> 
-                            <h:outputText value="" class="value"></h:outputText>
-                        </h:column>
-                    </h:dataTable>
+                    
+                        <h:dataTable id="settingsBA" styleClass ="listD" value="#{bean.apps}" var="app" >
+                            <h:column>
+                                <f:facet name="header" class="listDH">
+                                    <h:outputText value="Name" class="listDH"/>
+                                </f:facet> 
+                                <h:outputText style="" value="#{app.appName}" ></h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header" class="listDH">
+                                    <h:outputText value="Category" class="listDH"/>
+                                </f:facet> 
+                                <h:outputText style="" value="#{app.appCategory}" ></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Remove" class="listDH"/>
+                                </f:facet>
+
+                                <!--h:commandLink value="Remove" class="value"></h:commandLink-->
+
+                            </h:column>
+
+                        </h:dataTable>
                     <div class="more2">
                         <a href="blacklistedAdd.xhtml">Add Blacklisted Application</a>
                     </div>
@@ -191,7 +191,7 @@
                     <div class="more3">
                         <h:outputText class="value" id="apps"></h:outputText> %
                     </div>
-                    
+
 
                     <div class="more2">
                         <a href="#">Save</a>
@@ -239,7 +239,7 @@
                             <td>Days</td>
                         </tr>
                         <tr>
-                            <td><input type = "number" class = "val" id="seconds"></input></td>
+                            <td><input type = "number"  class = "val" id="seconds"></input></td>
                             <td><input type = "number" class = "val" id="minutes"></input></td>
                             <td><input type = "number" class = "val" id="hours"> </input></td>
                             <td><input type = "number" class = "val" id="days"> </input></td>
@@ -250,7 +250,7 @@
                         <a href="#">Save</a>
                     </div>
                 </div>
-            </div><!--close site_content-->
+            </div>
             <div id="content_grey">
                 <div class="content_grey_container_box">
                     <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">Univercity of Pretoria</a>.

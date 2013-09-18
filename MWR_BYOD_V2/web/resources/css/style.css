@@ -222,6 +222,17 @@ h:table
     padding: 2px 5px 2px 5px;
     margin: 2px 0px 2px 0px;
 }
+.normalW
+{
+    font: 16px Arial, Helvetica, sans-serif;
+}
+.access
+{
+    font: bold 16px Arial, Helvetica, sans-serif;
+    padding: 2px 5px 2px 5px;
+    margin: 2px 0px 2px 0px;
+    color: white;
+}
 .val input
 {
     padding-top: -67px;
@@ -366,14 +377,14 @@ h:table
 
 .listLH
 {
-    font: bold 22px Arial, Helvetica, sans-serif;
+    font: bold 20px Arial, Helvetica, sans-serif;
     color: white;
     height: 40px;
 }
 
 .listLH a
 {
-    font: bold 22px Arial, Helvetica, sans-serif;
+    font: bold 20px Arial, Helvetica, sans-serif;
     height: 325px;
     color: white;
 }
