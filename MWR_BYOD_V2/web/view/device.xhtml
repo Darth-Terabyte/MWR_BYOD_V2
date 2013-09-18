@@ -42,7 +42,7 @@
                     <h5>Device</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable class = "listD">
+                    <h:dataTable styleClass = "listD">
                         <tr class = "listDH">
                             <td><a>Device ID</a></td>
                             <td><a>Make + Model</a></td>
@@ -64,7 +64,7 @@
                     <h5>Scans</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable class = "listD">
+                    <h:dataTable styleClass = "listD">
                         <tr class = "listDH">
                             <td><a>Scan ID</a></td>
                             <td><a>Date</a></td>
@@ -74,7 +74,7 @@
                             <td>Remove</td>
                         </tr>
                    </h:dataTable>
-                    <h:dataTable class ="listD">
+                    <h:dataTable styleClass="listD">
                        <!--c:forEach items="${Device.scans}" var ="deviceScans"></c:forEach-->
                         <tr>
                             <td><a>#{Device.scans.getID()}</a></td>

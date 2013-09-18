@@ -1,11 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-           xmlns:h="http://java.sun.com/jsf/html"
-           xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
+        <script type="text/javascript">
+            function updateTextInput(val, text) {
+                document.getElementById(text).innerHTML = val + "%";
+            }
+        </script>
     </h:head>
     <h:body>
 
@@ -45,23 +50,27 @@
                     <h5>Blacklisted Applications</h5>
                 </div>
                 <div class="blockH">
-                    <table class = "listD">
-                        <tr class = "listDH">
-                            <td><a>Name</a></td>
-                            <td><a>Date Added</a></td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><a>Facebook</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
-                        </tr>
-                        <tr>
-                            <td><a>Facebook</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
-                        </tr>
-                    </table>
+
+                    <h:dataTable id="dt1" styleClass ="listD" value="#{bean.apps}" var="item" >
+                        <h:column>
+                            <f:facet name="header" class="listDH">
+                                <h:outputText value="Name" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{item.appName}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" class="listDH">
+                                <h:outputText value="Category" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{item.appCatrgory}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Remove"/>
+                            </f:facet> 
+                            <h:outputText value=""></h:outputText>
+                        </h:column>
+                    </h:dataTable>
                     <div class="more2">
                         <a href="blacklistedAdd.xhtml">Add Blacklisted Application</a>
                     </div>
@@ -74,8 +83,9 @@
                 <div class="blockH">
                     <table class = "listD">
                         <tr class = "listDH">
-                            <td>Weight Catagory</td>
-                            <td><a>Weight</a></td>
+                            <td>Weight Category</td>
+                            <td>Weight</td>
+                            <td>Value</td>
                         </tr>
                         <tr>
                             <td><a>OS Version</a></td>
@@ -83,16 +93,34 @@
                                 <input class = "val" type="range" name="OSRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'OSText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="OSText"> </h:outputText>
+                                <h:outputText class = "val" value="50%" id="OSText"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
                             <td><a>Blacklisted Applications</a></td>
                             <td>
-                                <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blacklistedText');"></input>
+                                <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blacklistedWeight');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="blacklistedText"> </h:outputText>
+                                <h:outputText class = "val" value="50%" id="blacklistedWeight"> </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a>USB debugging</a></td>
+                            <td>
+                                <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'usbDebug');"></input>
+                            </td>
+                            <td>
+                                <h:outputText class = "val" value="50%" id="usbDebug"> </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a>Unknown Sources enabled</a></td>
+                            <td>
+                                <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
+                            </td>
+                            <td>
+                                <h:outputText class = "val" value="50%" id="unknownSrcWeight"> </h:outputText>
                             </td>
                         </tr>
                     </table>
@@ -107,20 +135,17 @@
                 </div>
 
                 <div class="blockH2">
-                    <h5>Application Catagories</h5>
+                    <h5>Application Categories</h5>
                 </div>
                 <div class="blockH2">
                     <table class = "listL">
                         <tr class = "listLH">
-                            <td><a>Catagory</a></td>
-                            <td><a>Date Added</a></td>
-                            <td>Remove</td>
+                            <td><a>Category</a></td>
                             <td></td>
+                            <td>Value</td>
                         </tr>
                         <tr>
                             <td><a>Low Risk</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
                             <td>
                                 <input class = "val" type="range" name="lowRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
@@ -130,8 +155,6 @@
                         </tr>
                         <tr>
                             <td><a>Medium Risk</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
                             <td>
                                 <input class = "val" type="range" name="medRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
@@ -141,8 +164,6 @@
                         </tr>
                         <tr>
                             <td><a>High Risk</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
                             <td>
                                 <input class = "val" type="range" name="highRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
@@ -152,8 +173,6 @@
                         </tr>
                         <tr>
                             <td><a>Blocked</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
                             <td>
                                 <input class = "val" type="range" name="blockRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
@@ -178,23 +197,15 @@
                 <div class="blockH2">
                     <table class = "listL">
                         <tr class = "listLH">
-                            <td></td>
-                            <td>Version</td>
-                            <td></td>
+                            <td title="This is in relationship with the Android version">API version</td>
                         </tr>
                         <tr>
-                            <td>Older</td>
-                            <td>
-                                <input class = "val" type="range" name="versionRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'versionText');"></input>
+                            <td title="The higher the version the more secure the device">
+                                Older<input class = "val" type="range" name="versionRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'versionText');"></input> Newer
                             </td>
                             <td>
-                                <h:outputText class = "val" id="versionText"> </h:outputText>
+                                <h:outputText class = "val" id="versionText"></h:outputText>
                             </td>
-                            <td>Newer</td>
-                        </tr>
-                        <tr>
-                            <td><a>Social</a></td>
-                            <td>09/09/2013</td>
                         </tr>
                     </table>
 
@@ -229,17 +240,6 @@
                             </td>
                             <td>
                                 <h:outputText class = "val" id="appText"> </h:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a>File Hosting</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
-                            <td>
-                                <input class = "val" type="range" name="app2Range" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'app2Text');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class = "val" id="app2Text"> </h:outputText>
                             </td>
                         </tr>
                     </table>
