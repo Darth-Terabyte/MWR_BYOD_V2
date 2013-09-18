@@ -72,17 +72,18 @@ public class DatabaseJSFManagedBean {
         return null;
     }
     //check if device registered
-
-    public Boolean deviceRegistered(String devid) {
+    public boolean deviceRegistered(String mac, String serial, String androidID) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Devicenotregistered where id =" + devid);
-        List<Devicenotregistered> d = query.list();
-        if (d.isEmpty()) {
+        Query query = session.createQuery("from Device where MACAddress = :mac and UID = :uid and SerialNumber = :serial");
+        query.setParameter("mac", mac);
+        query.setParameter("serial", serial);
+        query.setParameter("uid", androidID);        
+        List<Device> devices = query.list();
+        session.close();
+        if (devices.isEmpty())
             return false;
-        } else {
-            return true;
-        }
+        else return true;
     }
 
     //add a blacklisted Application

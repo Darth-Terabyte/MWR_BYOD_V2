@@ -30,7 +30,7 @@ import org.json.simple.parser.JSONParser;
  */
 @WebServlet(name = "ControllerServlet", 
          loadOnStartup = 1,
-            urlPatterns = {"/requestRegistration","/scanResults"})
+            urlPatterns = {"/requestRegistration","/scanResults","/status"})
 public class ControllerServlet extends HttpServlet {
 
     
@@ -60,9 +60,8 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-//        String userPath = request.getServletPath();
-//
-//       
+
+       
 //        if (userPath.equals("/technicians")) {
 //           
 //            userPath = "/admin_Technicians_List";        
@@ -280,6 +279,71 @@ public class ControllerServlet extends HttpServlet {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else if (userPath.equals("/status"))
+        {
+            BufferedReader reader = request.getReader();
+            String jsonText = reader.readLine();         
+            JSONParser parser = new JSONParser();
+            
+            ContainerFactory containerFactory = new ContainerFactory(){
+            public List creatArrayContainer() {
+                return new LinkedList();
+              }
+
+              public Map createObjectContainer() {
+                return new LinkedHashMap();
+              }
+
+            };         
+                        
+           Logger.getLogger(ControllerServlet.class.getName()).info(jsonText); 
+           String mac = "";
+           String serial = "";
+           String androidID = "";
+
+            try{
+              Map json = (Map)parser.parse(jsonText, containerFactory);
+              Iterator iter = json.entrySet().iterator();             
+              while(iter.hasNext()){
+                Map.Entry entry = (Map.Entry)iter.next();
+                String key = entry.getKey().toString();
+                String value = entry.getValue().toString();
+                Logger.getLogger(ControllerServlet.class.getName()).info(key); 
+                Logger.getLogger(ControllerServlet.class.getName()).info(value); 
+                if (key.equals("mac"))
+                    mac = value;
+                else if (key.equals("serial"))
+                    serial = value;
+                else if (key.equals("android"))
+                    androidID = value;
+
+              }
+ 
+              
+              DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
+                if (bean == null)
+                {
+                     bean = new DatabaseJSFManagedBean();
+                }
+              boolean registered = bean.deviceRegistered(mac, serial, androidID);   
+                Logger.getLogger(ControllerServlet.class.getName()).info(Boolean.toString(registered)); 
+ 
+              if (registered)
+              {                 
+                   response.getOutputStream().print("registered");
+              }
+              else
+              {
+                  response.getOutputStream().print("not registered");
+              }
+              
+              response.getOutputStream().flush();
+              response.getOutputStream().close();
+            } catch (org.json.simple.parser.ParseException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         
 //        else if (userPath.equals(("/scanResults")))
 //        {
