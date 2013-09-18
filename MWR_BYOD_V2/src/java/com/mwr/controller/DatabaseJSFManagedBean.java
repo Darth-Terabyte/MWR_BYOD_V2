@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -53,6 +54,114 @@ public class DatabaseJSFManagedBean {
 
     }
 
+    /*===============================================
+     *||                  To do                    ||
+     *===============================================
+     */
+    //logout link to log out user
+    public void logout() {
+    }
+
+    //get a specific Device for an Employee
+    public Device getDevice(String devid) {
+        return null;
+    }
+
+    //get a specific Scanresults for a Device
+    public Scanresults getScanResult(String scanid) {
+        return null;
+    }
+
+    //get a token for a Device for an Employee
+    public String getDeviceToken(String devid) {
+        return null;
+    }
+    //check if device registered
+    public Boolean deviceRegistered(String devid) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Devicenotregistered where id =" + devid);
+        List<Devicenotregistered> d = query.list();
+        if (d.isEmpty())
+            return false;
+        else return true;
+    }
+    
+    //add a blacklisted Application
+    public void addBlacklistedApp(String name, String Catagory)
+    {
+        
+    }    
+    //change a blacklisted Application's catagory
+    public void changeAppCatagory(int id, String Catagory)
+    {
+        
+    }
+    //remove a blacklisted Application
+    public void removeBlacklistedApp(int id)
+    {
+        
+    }
+
+    /*===============================================
+     *||               To do END                   ||
+     *===============================================
+     */
+    /*===============================================
+     *||            Newly added                    ||
+     *===============================================
+     */
+    //get path to relevent link. (Dit lyk beter)
+    public String getLink(String link) {
+
+        return "/BYOD/faces/view/" + link + ".xhtml";
+    }
+
+    //get the Employee with the empId = id
+    public Employee getEmployee(String id) {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Employee where empId = " + id);
+            List<Employee> list = query.list();
+            Employee e = list.get(0);
+            if (e == null) {
+                return null;
+            } else {
+                return e;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    //get the Devices owned by the Employee with the empId = id
+    public List<Device> getEmployeeDevices(String id) {
+        Employee e = getEmployee(id);
+        return (List<Device>) e.getDevices();
+    }
+
+    /*===============================================
+     *||         Newly added END                   ||
+     *===============================================
+     */
+    /*===============================================
+     *||           Technician stuff                ||
+     *===============================================
+     */
+    //validate password for a Technician
+    public Boolean correctPassword(String empid) {
+        return null;
+    }
+
+    //validate password1 == password2
+    public Boolean matchPasswords(String p1, String p2) {
+        return null;
+    }
+
+    /*===============================================
+     *||         Technician stuff END              ||
+     *===============================================
+     */
     public void addToWaitingList(String mac, String android, String serial, String make, String model, String username, String password, String idnumber, String name, String surname) throws NoSuchAlgorithmException {
         try {
             TokenGenerator gen = new TokenGenerator();
@@ -89,11 +198,6 @@ public class DatabaseJSFManagedBean {
             session.beginTransaction();
             session.save(dev);
             session.getTransaction().commit();
-//            session.
-////            session = HibernateUtil.getSessionFactory().openSession();
-//            session.beginTransaction();
-//            session.delete(d);
-//            session.getTransaction().commit();
         } finally {
             session.close();
         }
@@ -253,30 +357,28 @@ public class DatabaseJSFManagedBean {
     public List getDevice_Results() {
         return device_results;
     }
-    
-     public int getDeviceSize(){
+
+    public int getDeviceSize() {
         return getDeviceList().size();
-        
+
     }
-     
-      public int getQueueSize(){
+
+    public int getQueueSize() {
         return getWaitingList().size();
-        
+
     }
-      
-      public int getAllowed()
-      {
+
+    public int getAllowed() {
         session = helper.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Scanresults where accessAllowed = true");
         return query.list().size();
-      }
-      
-      public int getDenied()
-      {
+    }
+
+    public int getDenied() {
         session = helper.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Scanresults where accessAllowed = false");
         return query.list().size();
-      }
+    }
 }
