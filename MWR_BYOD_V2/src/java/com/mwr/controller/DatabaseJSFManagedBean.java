@@ -102,6 +102,33 @@ public class DatabaseJSFManagedBean {
     {
         
     }
+    //Save WeightSystem Settings
+    public void saveWeightSettings()
+    {
+        
+    }
+    
+    //Save Blacklisted Applications Settings
+    public void saveBlacklistedSettings()
+    {
+        
+    }
+    //Save Blacklisted Applications Settings
+    public void saveBlacklistedCatagorySettings()
+    {
+        
+    }
+    //Save OS Settings
+    public void saveOSSettings()
+    {
+        
+    }
+    
+    //Save Scan Settings
+    public void saveScanSettings()
+    {
+        
+    }
 
     /*===============================================
      *||               To do END                   ||
@@ -260,7 +287,7 @@ public class DatabaseJSFManagedBean {
         return employeeList;
     }
 
-    public List getApps() {
+    public List getBlacklistedApps() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Blacklistedapplications");
@@ -285,7 +312,7 @@ public class DatabaseJSFManagedBean {
 
     public boolean addScanResults(String mac, String serial, String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps, int api) {
         getLatestSetting();
-        getApps();
+        getBlacklistedApps();
         int totalScore = 0;
         int rootScore = 0;
         int debugScore = 0;
