@@ -40,7 +40,7 @@
                     <table id = "shortcut">
                         <tr>
                             <td><a>Blacklisted Applications</a></td>
-                            <td><a>Weigthed System</a></td>
+                            <td><a>Weighted System</a></td>
                             <td><a>Scan Settings</a></td>
                         </tr>
                     </table>
@@ -50,23 +50,22 @@
                     <h5>Blacklisted Applications</h5>
                 </div>
                 <div class="blockH">
-
-                    <h:dataTable id="dt1" styleClass ="listD" value="#{bean.apps}" var="item" >
+                    <h:dataTable id="settingsBA" styleClass ="listD" value="#{bean.apps}" var="app" >
                         <h:column>
                             <f:facet name="header" class="listDH">
-                                <h:outputText value="Name" />
+                                <h:outputText value="Name" class="listDH"/>
                             </f:facet> 
-                            <h:outputText style="" value="#{item.appName}" ></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="listDH">
-                                <h:outputText value="Category" />
-                            </f:facet> 
-                            <h:outputText style="" value="#{item.appCatrgory}" ></h:outputText>
+                            <h:outputText value="#{app.appName}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Remove"/>
+                                <h:outputText value="Category" class="listDH"/>
+                            </f:facet> 
+                            <h:outputText value="#{app.appCategory}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Remove" class="listDH"/>
                             </f:facet> 
                             <h:outputText value=""></h:outputText>
                         </h:column>
@@ -80,7 +79,7 @@
                     <h5>Weighted System</h5>
                 </div>
 
-                <div class="blockH">
+                <div class="blockH">                    
                     <table class = "listD">
                         <tr class = "listDH">
                             <td>Weight Category</td>
@@ -137,8 +136,8 @@
                 <div class="blockH2">
                     <h5>Application Categories</h5>
                 </div>
-                <div class="blockH2">
-                    <table class = "listL">
+                <div class="blockH2">                    
+                    <table class = "listL" value="#{bean.latestSetting}" var="item">
                         <tr class = "listLH">
                             <td><a>Category</a></td>
                             <td></td>
@@ -147,37 +146,37 @@
                         <tr>
                             <td><a>Low Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'lowText');"></input>
+                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{item.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="lowText"> </h:outputText>
+                                <h:outputText class = "val" id="lowText" value ="#{item.lowRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
                             <td><a>Medium Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'medText');"></input>
+                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{item.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="medText"> </h:outputText>
+                                <h:outputText class = "val" id="medText" value ="#{item.mediumRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
                             <td><a>High Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'highText');"></input>
+                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{item.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="highText"> </h:outputText>
+                                <h:outputText class = "val" id="highText" value ="#{item.highRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
                             <td><a>Blocked</a></td>
                             <td>
-                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blockText');"></input>
+                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{item.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="blockText"> </h:outputText>
+                                <h:outputText class = "val" id="blockText" value ="#{item.blockedApp}%"> </h:outputText>
                             </td>
                         </tr>
                     </table>
