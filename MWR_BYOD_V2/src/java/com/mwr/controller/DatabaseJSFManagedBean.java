@@ -72,57 +72,49 @@ public class DatabaseJSFManagedBean {
         return null;
     }
     //check if device registered
+
     public Boolean deviceRegistered(String devid) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Devicenotregistered where id =" + devid);
         List<Devicenotregistered> d = query.list();
-        if (d.isEmpty())
+        if (d.isEmpty()) {
             return false;
-        else return true;
+        } else {
+            return true;
+        }
     }
-    
+
     //add a blacklisted Application
-    public void addBlacklistedApp(String name, String Catagory)
-    {
-        
-    }    
+    public void addBlacklistedApp(String name, String Catagory) {
+    }
     //change a blacklisted Application's catagory
-    public void changeAppCatagory(int id, String Catagory)
-    {
-        
+
+    public void changeAppCatagory(int id, String Catagory) {
     }
     //remove a blacklisted Application
-    public void removeBlacklistedApp(int id)
-    {
-        
+
+    public void removeBlacklistedApp(int id) {
     }
     //Save WeightSystem Settings
-    public void saveWeightSettings()
-    {
-        
+
+    public void saveWeightSettings() {
     }
-    
+
     //Save Blacklisted Applications Settings
-    public void saveBlacklistedSettings()
-    {
-        
+    public void saveBlacklistedSettings() {
     }
     //Save Blacklisted Applications Settings
-    public void saveBlacklistedCatagorySettings()
-    {
-        
+
+    public void saveBlacklistedCatagorySettings() {
     }
     //Save OS Settings
-    public void saveOSSettings()
-    {
-        
+
+    public void saveOSSettings() {
     }
-    
+
     //Save Scan Settings
-    public void saveScanSettings()
-    {
-        
+    public void saveScanSettings() {
     }
 
     /*===============================================
@@ -157,6 +149,7 @@ public class DatabaseJSFManagedBean {
         }
     }
     //get the Devices owned by the Employee with the empId = id
+
     public List<Device> getEmployeeDevices(String id) {
         Employee e = getEmployee(id);
         return (List<Device>) e.getDevices();
@@ -288,7 +281,7 @@ public class DatabaseJSFManagedBean {
         return employeeList;
     }
 
-    public List getBlacklistedApps() {
+    public List<Blacklistedapplications> getApps() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Blacklistedapplications");
@@ -313,7 +306,7 @@ public class DatabaseJSFManagedBean {
 
     public boolean addScanResults(String mac, String serial, String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps, int api) {
         getLatestSetting();
-        getBlacklistedApps();
+        getApps();
         int totalScore = 0;
         int rootScore = 0;
         int debugScore = 0;
