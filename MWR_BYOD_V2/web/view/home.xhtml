@@ -34,13 +34,21 @@
                     <h:form>
                         <h3>Register Device</h3>
                         <p>Register a device by entering the employee's ID or username:</p>                    
-                        <h:inputText id="regDevID"
+                        <h:inputText id="regEmpID"
                                      required="true"
                                      requiredMessage="Error: A username or ID is required."
-                                     maxlength="25" />
-                        <h:commandButton id="regCheck" value="Check" action="registerCheck" />
-
-                        <h:outputText id = "token">54fssf</h:outputText>
+                                     styleClass="input"
+                                     maxlength="25"  />
+                        <h:commandButton id="regEmpCheck" value="Check" styleClass="button" action="registerEmpCheck" />
+                        <h:inputText id="regDevID"
+                                     required="true"
+                                     requiredMessage="Error: A device model is required."
+                                     styleClass="input"
+                                     maxlength="25"  />
+                        <h:commandButton id="regDevCheck" value="Check" styleClass="button" action="registerDevCheck" />
+                        <div class ="token">
+                            <h:outputText id = "token" value="54fssf"></h:outputText>
+                        </div>
                         <div class="more">
                             <a href="#">Register Device</a>
                         </div><!--close more--> 
@@ -53,17 +61,19 @@
                         <h:inputText id="fixDevUserID"
                                      required="true"
                                      requiredMessage="Error: A username or ID is required."
+                                     styleClass="input"
                                      maxlength="25" />
-                        <h:commandButton id="fixDevUserIDCheck" value="Check" action="fixDevUserIDCheck" />
+                        <h:commandButton id="fixDevUserIDCheck" styleClass="button" value="Check" action="fixDevUserIDCheck" />
 
                         <h:inputText id="fixDevID"
                                      required="true"
                                      requiredMessage="Error: A username or ID is required."
+                                     styleClass="input"
                                      maxlength="25" />
-                        <h:commandButton id="fixDevIDCheck" value="Check" action="fixDevIDCheck" />
-
-                        <h:outputText id = "valid">Valid!</h:outputText>
-
+                        <h:commandButton id="fixDevIDCheck" styleClass="button" value="Check" action="fixDevIDCheck" />
+                        <div class="middle">
+                            <h:outputText id = "valid" value="Valid!"></h:outputText>
+                        </div>
                         <div class="more">
                             <a href="device.xhtml">Fix!</a>
                         </div><!--close more-->
@@ -146,7 +156,7 @@
                                         <h:outputText style="" value="#{result.blockedApp}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
-                                
+
                             </div>
                             <h:outputText style="color: white;" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
                         </div>

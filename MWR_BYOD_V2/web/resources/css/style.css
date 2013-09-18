@@ -201,6 +201,27 @@ h:table
 
 }
 
+.input
+{
+    padding: 2px 5px 2px 5px;
+    margin: 2px 0px 2px 0px;
+}
+.token
+{
+    margin: 13px 0px 12px 0px;
+}
+
+.middle
+{
+    margin: 13px 0px 12px 0px;
+}
+
+.button
+{
+    font: italic 15px Arial, Helvetica, sans-serif;
+    padding: 2px 5px 2px 5px;
+    margin: 2px 0px 2px 0px;
+}
 .val input
 {
     padding-top: -67px;
@@ -333,10 +354,8 @@ h:table
     float: left;
     color: white;
     width: 550px;
-    padding-bottom: 10px;
+    padding-top: 5px;
     margin-bottom: 20px;
-    border-style: solid;
-    border-color: white;
     text-align: center;
 }
 
