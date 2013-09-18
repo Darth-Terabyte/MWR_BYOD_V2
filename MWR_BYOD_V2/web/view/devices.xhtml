@@ -89,9 +89,9 @@
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable id="dt1" value="#{bean.waitingList}" var="item" >
+                            <h:dataTable id="dt1" styleClass ="listL" value="#{bean.waitingList}" var="item" >
                                 <h:column>
-                                    <f:facet name="header">
+                                    <f:facet name="header" class="listLH">
                                         <h:outputText value="Manufacturer" />
                                     </f:facet> 
                                     <h:outputText style="" value="#{item.make}" ></h:outputText>
@@ -131,9 +131,9 @@
                             <h5>Registered Devices</h5>
                         </div>                        
                         <div class="blockH2">
-                            <h:dataTable id="dt2" value="#{bean.deviceList}" var="item">
+                            <h:dataTable id="dt2" styleClass ="listL" value="#{bean.deviceList}" var="item">
                                 <h:column>
-                                    <f:facet name="header">
+                                    <f:facet name="header" class="listLH">
                                         <h:outputText value="Manufacturer" />
                                     </f:facet> 
                                     <h:outputText style="" value="#{item.make}" ></h:outputText>

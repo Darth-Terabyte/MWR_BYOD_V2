@@ -94,13 +94,13 @@
                         <div class="config">
                             <h3>System Configuration</h3>
                             <div class = "val">
-                                <h:dataTable id="dt2" value="#{bean.latestSetting}" var="result"  bgcolor="black" border="10" cellpadding="5" cellspacing="3" rows="4" dir="LTR" frame="hsides" rules="all"  >
+                                <h:dataTable id="dt2" styleClass ="listLSettings" value="#{bean.latestSetting}" var="result" >
                                     <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="" />
+                                        <f:facet name="header" >
+                                            <h:outputText value=""/>
                                         </f:facet>
 
-                                        <h:outputText value="Weights" />
+                                        <h:outputText value="Weights"/>
 
                                     </h:column>
                                     <h:column>
@@ -111,43 +111,44 @@
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="USB Debugging Enalbed" />
+                                            <h:outputText value="USB Debug" />
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.debugWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Unknown Sources Allowed" />
+                                            <h:outputText value="Unknown Sources" />
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.unknownSourcesWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Low Risk App" />
+                                            <h:outputText value="App Low" />
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.lowRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Medium Risk App" />
+                                            <h:outputText value="App Medium" />
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.mediumRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="High Risk App" />
+                                            <h:outputText value="App High" />
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.highRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Blocked Risk App" />
+                                            <h:outputText value="App Blocked" />
                                         </f:facet> 
                                         <h:outputText style="" value="#{result.blockedApp}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
-                                <h:outputText style="color: white;" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
+                                
                             </div>
+                            <h:outputText style="color: white;" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
                         </div>
                     </div>
                 </div><!--close content-->
