@@ -11,6 +11,7 @@ import com.mwr.businesslogic.TokenGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -39,6 +40,8 @@ public class DatabaseJSFManagedBean {
     private List<Blacklistedapplications> apps;
     private Scanresults results;
     private List<Scanresults> device_results;
+    private String appName;
+    private String appCategory;
 
     /**
      * Creates a new instance of DatabaseJSFManagedBean
@@ -71,6 +74,30 @@ public class DatabaseJSFManagedBean {
     public String getDeviceToken(String devid) {
         return null;
     }
+    
+    
+    public void setAppName(String name)
+    {
+        appName = name;
+    }
+    
+       public void setAppCategory(String cat)
+    {
+        appCategory = cat;
+    }
+       
+    public String getAppName()
+    {
+        return appName;
+    }
+    
+   public String getAppCategory()
+    {
+        return appCategory;
+    }
+    
+ 
+    
     //check if device registered
     public boolean deviceRegistered(String mac, String serial, String androidID) {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -87,7 +114,16 @@ public class DatabaseJSFManagedBean {
     }
 
     //add a blacklisted Application
-    public void addBlacklistedApp(String name, String Catagory) {
+    public String addBlacklistedApp() {
+        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info("Hello"); 
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(appName + appCategory); 
+        Blacklistedapplications app = new Blacklistedapplications(appName,appCategory);
+        session.save(app);
+        session.getTransaction().commit();
+        session.close();
+        return "settings.xhtml";
     }
     //change a blacklisted Application's catagory
 

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-            xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
@@ -40,12 +40,15 @@
                 <div class="blockH">
                     <h5>New Blacklisted Application</h5>
                 </div>
+                <h:form>
                 <div class="blockH">
                     <table class = "edit">
+
                         <tr>
                             <td>Name</td>
                             <td>
                                 <h:inputText id="addblacklistedName"
+                                             value="#{bean.appName}"
                                              required="true"
                                              requiredMessage="Error: A name for the Application is required."
                                              maxlength="25" />
@@ -54,8 +57,8 @@
                         <tr>
                             <td>Type</td>
                             <td>
-                                <h:inputText id="addblacklistedType"
-                                             required="true"
+                                <h:inputText id="addblacklistedType"                                             
+                                             required="false"
                                              requiredMessage="Error: A type for the Application is required."
                                              maxlength="25" />
                             </td>
@@ -64,17 +67,20 @@
                             <td>Category</td>
                             <td>
                                 <h:inputText id="addblacklistedCat"
+                                             value="#{bean.appCategory}"
                                              required="true"
                                              requiredMessage="Error: A catagory for the Application is required."
                                              maxlength="25" />
                             </td>
                         </tr>
+
                     </table>
                     <div class="more2">
-                        <a href="#">Add Blacklisted Application</a>
+                        <!--                        <a href="">Add Blacklisted Application</a>-->
+                        <h:commandButton id="register" value="Register" action="#{bean.addBlacklistedApp()}" />
                     </div>
                 </div>
-
+                </h:form>
             </div><!--close site_content-->
             <div id="content_grey">
                 <div class="content_grey_container_box">
