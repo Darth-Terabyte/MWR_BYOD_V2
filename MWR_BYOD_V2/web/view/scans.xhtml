@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-           xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
@@ -47,18 +47,62 @@
                         </div>
 
                         <div class="blockH2">
-                            <table class = "listL">
-                                <tr class = "listLH">
-                                    <td><a>Username</a></td>
-                                    <td><a>ID number</a></td>
-                                    <td>Remove</td>
-                                </tr>
-                                <tr>
-                                    <td><a href = "user.xhtml">Werner</a></td>
-                                    <td>1234234452345</td>
-                                    <td><a>Remove</a></td>
-                                </tr>
-                            </table>
+                            <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Scan time" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.date}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Rooted" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.rooted}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.rootedScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="USB Debugging Enabled" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.debuggingEnabled}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.debuggingEnabledScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Apps from unknown sources allowed" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.unknownSourcesAllowed}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.unknownSourcesScore}" ></h:outputText>
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Blacklisted Apps Installed" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.blacklistedApps}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.appsScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="API Level" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.osversion}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.osscore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Total Score" />
+                                    </f:facet> 
+
+                                    <h:outputText style="" value="#{result.totalScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Access Allowed" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.accessAllowed}" ></h:outputText><br></br>                     
+                                </h:column>
+                            </h:dataTable>
                         </div>
                     </div>
 
@@ -68,18 +112,62 @@
                         </div>
 
                         <div class="blockH2">
-                            <table class = "listL">
-                                <tr class = "listLH">
-                                    <td><a>Username</a></td>
-                                    <td><a>ID number</a></td>
-                                    <td>Remove</td>
-                                </tr>
-                                <tr>
-                                    <td><a href = "user.xhtml">Werner</a></td>
-                                    <td>1234234452345</td>
-                                    <td><a>Remove</a></td>
-                                </tr>
-                            </table>
+                            <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Scan time" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.date}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Rooted" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.rooted}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.rootedScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="USB Debugging Enabled" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.debuggingEnabled}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.debuggingEnabledScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Apps from unknown sources allowed" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.unknownSourcesAllowed}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.unknownSourcesScore}" ></h:outputText>
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Blacklisted Apps Installed" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.blacklistedApps}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.appsScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="API Level" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.osversion}" ></h:outputText><br></br>
+                                    <h:outputText style="" value="#{result.osscore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Total Score" />
+                                    </f:facet> 
+
+                                    <h:outputText style="" value="#{result.totalScore}" ></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Access Allowed" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{result.accessAllowed}" ></h:outputText><br></br>                     
+                                </h:column>
+                            </h:dataTable>
                         </div>
                     </div>
                 </div><!--close content-->

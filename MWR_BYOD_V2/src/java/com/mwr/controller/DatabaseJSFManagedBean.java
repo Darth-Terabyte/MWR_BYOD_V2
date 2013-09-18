@@ -114,11 +114,9 @@ public class DatabaseJSFManagedBean {
     }
 
     //add a blacklisted Application
-    public String addBlacklistedApp() {
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info("Hello"); 
+    public String addBlacklistedApp() {       
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(appName + appCategory); 
         Blacklistedapplications app = new Blacklistedapplications(appName,appCategory);
         session.save(app);
         session.getTransaction().commit();

@@ -2,7 +2,8 @@
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
        xmlns:h="http://java.sun.com/jsf/html"
-       xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
@@ -13,7 +14,7 @@
         </script>
     </h:head>
     <h:body>
-
+        
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -40,7 +41,7 @@
                     <table id = "shortcut">
                         <tr>
                             <td><a>Blacklisted Applications</a></td>
-                            <td><a>Weigthed System</a></td>
+                            <td><a>Weighted System</a></td>
                             <td><a>Scan Settings</a></td>
                         </tr>
                     </table>
@@ -50,11 +51,10 @@
                     <h5>Blacklisted Applications</h5>
                 </div>
                 <div class="blockH">
-
-                    <h:dataTable id="dt1" styleClass ="listD" value="#{bean.apps}" var="item" >
-                        <h:column>
+                    <h:dataTable id="settingsBA" styleClass ="listD" value="#{bean.apps}" var="app" >
+                        <h:column >
                             <f:facet name="header" class="listDH">
-                                <h:outputText value="Name" />
+                                <h:outputText value="Name" class="listDH"/>
                             </f:facet> 
                             <h:outputText style="" value="#{item.appName}" ></h:outputText>
                         </h:column>
@@ -66,9 +66,15 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Remove"/>
+                                <h:outputText value="Category" class="listDH"/>
                             </f:facet> 
-                            <h:outputText value=""></h:outputText>
+                            <h:outputText value="#{app.appCategory}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Remove" class="listDH"/>
+                            </f:facet> 
+                            <h:outputText value="" class="value"></h:outputText>
                         </h:column>
                     </h:dataTable>
                     <div class="more2">
@@ -80,7 +86,7 @@
                     <h5>Weighted System</h5>
                 </div>
 
-                <div class="blockH">
+                <div class="blockH">                    
                     <table class = "listD">
                         <tr class = "listDH">
                             <td>Weight Category</td>
@@ -93,7 +99,7 @@
                                 <input class = "val" type="range" name="OSRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'OSText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" value="50%" id="OSText"> </h:outputText>
+                                <h:outputText  value="50%" id="OSText" class="value"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
@@ -102,7 +108,7 @@
                                 <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blacklistedWeight');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" value="50%" id="blacklistedWeight"> </h:outputText>
+                                <h:outputText class="value" value="50%" id="blacklistedWeight"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
@@ -111,7 +117,7 @@
                                 <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'usbDebug');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" value="50%" id="usbDebug"> </h:outputText>
+                                <h:outputText class="value" value="50%" id="usbDebug"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
@@ -120,13 +126,13 @@
                                 <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" value="50%" id="unknownSrcWeight"> </h:outputText>
+                                <h:outputText class="value" value="50%" id="unknownSrcWeight"> </h:outputText>
                             </td>
                         </tr>
                     </table>
 
                     <div class="more3">
-                        <h:outputText class = "val" id="apps"> %</h:outputText>
+                        <h:outputText class="value" id="apps"> %</h:outputText>
                     </div>
 
                     <div class="more2">
@@ -137,8 +143,8 @@
                 <div class="blockH2">
                     <h5>Application Categories</h5>
                 </div>
-                <div class="blockH2">
-                    <table class = "listL">
+                <div class="blockH2">                    
+                    <table class = "listL" value="#{bean.latestSetting}" var="appcat">
                         <tr class = "listLH">
                             <td><a>Category</a></td>
                             <td></td>
@@ -147,44 +153,45 @@
                         <tr>
                             <td><a>Low Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'lowText');"></input>
+                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{appcat.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="lowText"> </h:outputText>
+                                <h:outputText class="value" id="lowText" value ="#{appcat.lowRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
                             <td><a>Medium Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'medText');"></input>
+                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{appcat.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="medText"> </h:outputText>
+                                <h:outputText class="value" id="medText" value ="#{appcat.mediumRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
                             <td><a>High Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'highText');"></input>
+                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{appcat.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="highText"> </h:outputText>
+                                <h:outputText class="value" id="highText" value ="#{appcat.highRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
                             <td><a>Blocked</a></td>
                             <td>
-                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'blockText');"></input>
+                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{appcat.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
                             <td>
-                                <h:outputText class = "val" id="blockText"> </h:outputText>
+                                <h:outputText class="value" id="blockText" value ="#{appcat.blockedApp}%"> </h:outputText>
                             </td>
                         </tr>
                     </table>
 
                     <div class="more3">
-                        <h:outputText class = "val" id="apps"> %</h:outputText>
+                        <h:outputText class="value" id="apps"></h:outputText> %
                     </div>
+                    
 
                     <div class="more2">
                         <a href="#">Save</a>
@@ -204,53 +211,18 @@
                                 Older<input class = "val" type="range" name="versionRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'versionText');"></input> Newer
                             </td>
                             <td>
-                                <h:outputText class = "val" id="versionText"></h:outputText>
+                                <h:outputText class="value" id="versionText"></h:outputText>
                             </td>
                         </tr>
                     </table>
 
                     <div class="more3">
-                        <h:outputText class = "val" id="apps"> %</h:outputText>
+                        <h:outputText class="value" id="apps"> %</h:outputText>
                     </div>
 
                     <div class="more2">
                         <a href="#">Save</a>
                     </div>
-                </div>
-
-                <div class="blockH2">
-                    <h5>BlackListed Applications</h5>
-                </div>
-                <div class="blockH2">
-
-                    <table class = "listL">
-                        <tr class = "listLH">
-                            <td><a>Catagory</a></td>
-                            <td><a>Date Added</a></td>
-                            <td>Remove</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><a>Social</a></td>
-                            <td>09/09/2013</td>
-                            <td><a>Remove</a></td>
-                            <td>
-                                <input class = "val" type="range" name="appRange" min="0" max="100" value= "50" onchange="updateTextInput(this.value, 'appText');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class = "val" id="appText"> </h:outputText>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div class="more3">
-                        <h:outputText class = "val" id="apps"> %</h:outputText>
-                    </div>
-                    <div class="more2">
-                        <a href="#">Save</a>
-                    </div>
-
                 </div>
                 <div class="blockH">
                     <h5>Scan Settings</h5>
