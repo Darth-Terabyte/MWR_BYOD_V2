@@ -89,11 +89,11 @@ public class DatabaseJSFManagedBean {
             session.beginTransaction();
             session.save(dev);
             session.getTransaction().commit();
-//            session.
-////            session = HibernateUtil.getSessionFactory().openSession();
-//            session.beginTransaction();
-//            session.delete(d);
-//            session.getTransaction().commit();
+             session.close();
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.delete(d);
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
