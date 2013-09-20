@@ -34,7 +34,7 @@
                 <div class="blockHS">
                     <table id = "shortcut">
                         <tr>
-                            <td> <a href="/BYOD/faces/view/usersqueue.xhtml">User Registration Queue</a></td>
+                            <td> <a href="/BYOD/faces/view/users.xhtml">Registered Users</a></td>
                            
                         </tr>
                     </table>
@@ -44,68 +44,69 @@
 
                     <div class="content_item">
                         <div class="blockH2">
-                            <h5>Registered Users</h5>
+                            <h5>Registration Queue</h5>
                         </div>
 
                         <div class="blockH2">
-                            
-                   <h:dataTable id="usersReg" styleClass="ListL" value="#{bean.employeeList}" var="emp" >
+                            <h:dataTable id="usersReg" styleClass="ListL" value="#{bean.deviceList}" var="item" >
                                 
                             <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="EmpID" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{emp.empId}"></h:outputText>
+                                    <h:outputText value="#{item.employee.empId}"></h:outputText>
                                 </h:column>
                             
                             <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Name" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText style="" value="#{emp.name}" ></h:outputText>
+                                    <h:outputText style="" value="#{item.employee.name}" ></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Surname" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{emp.surname}"></h:outputText>
+                                    <h:outputText value="#{item.employee.surname}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="IDNumber" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{emp.idnumber}"></h:outputText>
+                                    <h:outputText value="#{item.employee.idnumber}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Username" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{emp.username}"></h:outputText>
+                                    <h:outputText value="#{item.employee.username}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Date registered" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{emp.dateRegistered}"></h:outputText>
+                                    <h:outputText value="#{item.employee.dateRegistered}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Devices" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{emp.dateRegistered}"></h:outputText>
+                                   
                                 </h:column>
                             
                                 <h:column>
+
                                 </h:column>
                             </h:dataTable>
                         </div>
                     </div>
-                </div>
+
+                 </div>
 
             </div>
             <div id="content_grey">

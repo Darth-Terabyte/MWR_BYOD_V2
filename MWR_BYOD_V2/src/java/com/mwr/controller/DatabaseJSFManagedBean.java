@@ -311,7 +311,7 @@ public class DatabaseJSFManagedBean {
     public List getEmployeeList() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Employee");
+        Query query = session.createQuery("from Employee order by Surname asc");
         employeeList = query.list();
         return employeeList;
     }
