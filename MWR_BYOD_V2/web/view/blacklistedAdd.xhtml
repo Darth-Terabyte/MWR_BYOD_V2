@@ -42,50 +42,44 @@
                     <h5>New Blacklisted Application</h5>
                 </div>
                 <h:form>
-                <div class="blockH">
-                    <table class = "edit">
+                    <div class="blockH">
+                        <table class = "edit">
 
-                        <tr>
-                            <td>Name</td>
-                            <td>
-                                <h:inputText id="addblacklistedName"
-                                             value="#{bean.appName}"
-                                             required="true"
-                                             requiredMessage="Error: A name for the Application is required."
-                                             maxlength="25" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Type</td>
-                            <td>
-                                <h:inputText id="addblacklistedType"                                             
-                                             required="false"
-                                             requiredMessage="Error: A type for the Application is required."
-                                             maxlength="25" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Category</td>
-                            <td>
-                                <h:inputText id="addblacklistedCat"
-                                             value="#{bean.appCategory}"
-                                             required="true"
-                                             requiredMessage="Error: A catagory for the Application is required."
-                                             maxlength="25" />
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <h:inputText id="addblacklistedName"
+                                                 value="#{bean.appName}"
+                                                 required="true"
+                                                 requiredMessage="Error: A name for the Application is required."
+                                                 maxlength="25" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Category</td>
+                                <td>
+                                    <h:selectOneMenu id="addblacklistedCat" value="#{bean.appCategory}">
+                                        <f:selectItem itemValue="Low"   itemLabel ="Low"/>
+                                        <f:selectItem itemValue="Medium"   itemLabel ="Medium"/>
+                                        <f:selectItem itemValue="High"   itemLabel ="High"/>
+                                        <f:selectItem itemValue="Blocked"   itemLabel ="Blocked"/>
+                                    </h:selectOneMenu>
 
-                    </table>
-                    <div class="more2">
-                        <!--                        <a href="">Add Blacklisted Application</a>-->
-                        <h:commandLink id="register" value="Register" action="#{bean.addBlacklistedApp()}" />
+
+                                </td>
+                            </tr>
+
+                        </table>
+                        <div class="more2">
+                            <!--                        <a href="">Add Blacklisted Application</a>-->
+                            <h:commandLink id="register" value="Add" action="#{bean.addBlacklistedApp()}" />
+                        </div>
                     </div>
-                </div>
                 </h:form>
             </div>
             <div id="content_grey">
                 <div class="content_grey_container_box">
-                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">Univercity of Pretoria</a>.
+                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.
                         Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
                 </div>
             </div>

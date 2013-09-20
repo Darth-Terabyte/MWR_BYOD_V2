@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                            <h:dataTable id="dt1" value="#{bean.deniedScans}" var="result" styleClass ="listL" >
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Scan time" />
@@ -96,12 +96,6 @@
                                     </f:facet> 
 
                                     <h:outputText style="" value="#{result.totalScore}" ></h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Access Allowed" />
-                                    </f:facet> 
-                                    <h:outputText style="" value="#{result.accessAllowed}" ></h:outputText><br></br>                     
                                 </h:column>
                             </h:dataTable>
                         </div>
@@ -113,7 +107,7 @@
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                            <h:dataTable id="dt1" value="#{bean.allowedScans}" var="result" styleClass ="listL" >
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Scan time" />
@@ -162,12 +156,6 @@
 
                                     <h:outputText style="" value="#{result.totalScore}" ></h:outputText>
                                 </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Access Allowed" />
-                                    </f:facet> 
-                                    <h:outputText style="" value="#{result.accessAllowed}" ></h:outputText><br></br>                     
-                                </h:column>
                             </h:dataTable>
                         </div>
                     </div>
@@ -176,7 +164,7 @@
             </div>
             <div id="content_grey">
                 <div class="content_grey_container_box">
-                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">Univercity of Pretoria</a>.
+                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.
                         Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
                 </div>
             </div>

@@ -46,6 +46,9 @@ public class DatabaseJSFManagedBean {
     private int denied;
     private List<Employee> employeeDevices;
     private List<Settings> settings;
+    private List<Scanresults> allowedScans;
+    private List<Scanresults> deniedScans;
+    private Settings specificSetting;
 
     /**
      * Creates a new instance of DatabaseJSFManagedBean
@@ -339,7 +342,7 @@ public class DatabaseJSFManagedBean {
         Query query = session.createQuery("from Settings order by SettingDate desc");
         List settings = query.list();
         latestSetting = (Settings) settings.get(0);
-
+        session.close();
             return latestSetting;
         
         
@@ -492,6 +495,18 @@ public class DatabaseJSFManagedBean {
         return "devices.xhtml";
     }
     
+    public String removeApp(Blacklistedapplications app)
+    {        
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("delete from Blacklistedapplications where appID = :id");        
+        query.setParameter("id", app.getAppId());
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+        return "settings.xhtml";
+    }
+    
     public List<Settings> getSettings()
     {
         session = helper.getSessionFactory().openSession();
@@ -500,4 +515,35 @@ public class DatabaseJSFManagedBean {
         settings = query.list();
         return settings;
     }
+    
+    public List<Scanresults> getAllowedScans()
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Scanresults where accessAllowed = 1");        
+        allowedScans = query.list();
+        return allowedScans;
+    }
+    
+     public List<Scanresults> getDeniedScans()
+    {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Scanresults where accessAllowed = 0");        
+        deniedScans = query.list();
+        return deniedScans;
+    }
+     
+     public String setSpecificSetting(int id)
+     {
+        session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        specificSetting = (Settings)session.get(Settings.class,id);
+        return "specificSetting.xhtml";
+     }
+     
+      public Settings getSpecificSetting()     {
+        
+        return specificSetting;
+     }
 }

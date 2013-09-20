@@ -120,11 +120,14 @@
                             </f:facet> 
                             <h:outputText style="" value="#{result.accessAllowed}" ></h:outputText><br></br>                     
                         </h:column>
-                         <h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Setting ID" />
                             </f:facet> 
                             <h:outputText style="" value="#{result.settings.settingId}" ></h:outputText>
+                            <h:form>
+                                <h:commandButton styleClass="input" id="View" value="View Setting" action="#{bean.setSpecificSetting(result.settings.settingId)}"/>
+                            </h:form>
                         </h:column>
                     </h:dataTable>
                 </div>
@@ -132,7 +135,7 @@
             </div>
             <div id="content_grey">
                 <div class="content_grey_container_box">
-                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">Univercity of Pretoria</a>.
+                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.
                         Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
                 </div>
             </div>
