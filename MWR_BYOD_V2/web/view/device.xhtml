@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-           xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
-    
+
         <script type="text/javascript">
             function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
@@ -36,57 +36,99 @@
             </div>
 
             <div id="site_content">
-                <h4>#{Device.make} #{Device.model}</h4>
-                <h5>Owned by: #{Device.employee.empID} (#{Device.employee.name} #{Device.employee.surname})</h5>
-                <h5>Registered on: #{Device.dateRegistered}</h5>
+                <h4>#{bean.device.make} #{bean.device.model}</h4>
+                <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname}</h5>
+                <h5>Registered on: #{bean.device.dateRegistered}</h5>
                 <div class="blockH">
                     <h5>Device</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable styleClass = "listD">
+                    <table>
                         <tr class = "listDH">
-                            <td><a>Device ID</a></td>
-                            <td><a>Make + Model</a></td>
                             <td><a>Current rating</a></td>
                             <td><a>Last Scan Date</a></td>
-                            <td>Remove</td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td><a>#{Device.id}</a></td>
-                            <td><a>#{Device.make} #{Device.model}</a></td>
-                            <td><a>70%</a></td>
-                            <td><a>09/09/2013</a></td>
-                            <td><a>Remove</a></td>
+                            <td><a>#{bean.device_Results.get(0).totalScore}</a></td>
+                            <td><a>#{bean.device_Results.get(0).date}</a></td>
+                            <td>    
+                                <h:form>
+                                    <h:commandButton styleClass="input" id="View" value="Remove" action="#{bean.removeDevice(bean.device)}"/>
+                                </h:form>
+                            </td>
                         </tr>
-                    </h:dataTable>
+                    </table>
                 </div>
 
                 <div class="blockH">
                     <h5>Scans</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable styleClass = "listD">
-                        <tr class = "listDH">
-                            <td><a>Scan ID</a></td>
-                            <td><a>Date</a></td>
-                            <td><a>Rooted</a></td>
-                            <td><a>Debugging Enabled</a></td>
-                            <td><a>Unknown Sources Allowed</a></td>
-                            <td>Remove</td>
-                        </tr>
-                   </h:dataTable>
-                    <h:dataTable styleClass="listD">
-                       <!--c:forEach items="${Device.scans}" var ="deviceScans"></c:forEach-->
-                        <tr>
-                            <td><a>#{Device.scans.getID()}</a></td>
-                            <td><a>Xperia GO</a></td>
-                            <td><a>70%</a></td>
-                            <td><a>09/09/2013</a></td>
-                            <td><a>Remove</a></td>
-                        </tr>
+                    <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Scan time" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.date}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rooted" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.rooted}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.rootedScore}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="USB Debugging Enabled" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.debuggingEnabled}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.debuggingEnabledScore}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Apps from unknown sources allowed" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.unknownSourcesAllowed}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.unknownSourcesScore}" ></h:outputText>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Blacklisted Apps Installed" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.blacklistedApps}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.appsScore}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="API Level" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.osversion}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.osscore}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Total Score" />
+                            </f:facet> 
+
+                            <h:outputText style="" value="#{result.totalScore}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Access Allowed" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.accessAllowed}" ></h:outputText><br></br>                     
+                        </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Setting ID" />
+                            </f:facet> 
+                            <h:outputText style="" value="#{result.settings.settingId}" ></h:outputText>
+                        </h:column>
                     </h:dataTable>
                 </div>
-                
+
             </div>
             <div id="content_grey">
                 <div class="content_grey_container_box">

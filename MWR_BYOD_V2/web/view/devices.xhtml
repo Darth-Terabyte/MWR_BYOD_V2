@@ -129,6 +129,12 @@
                                     <h:outputText value="#{item.username}"></h:outputText>                    
                                 </h:column>
                                 <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.date}"></h:outputText>
+                                </h:column>
+                                <h:column>
                                     <h:form>
                                         <h:commandButton id="register" value="Register" action="#{bean.addDevice(item)}" />
                                     </h:form>
