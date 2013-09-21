@@ -546,4 +546,17 @@ public class DatabaseJSFManagedBean {
         
         return specificSetting;
      }
+      
+     public Scanresults getLatestScan(String mac, String serial, String androidID)
+     {
+         session = helper.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial order by Date desc");
+        query.setParameter("mac", mac);
+        query.setParameter("uid", androidID);
+        query.setParameter("serial", serial);
+        Scanresults scan = (Scanresults)query.list().get(0);
+        return scan;
+        
+     }
 }

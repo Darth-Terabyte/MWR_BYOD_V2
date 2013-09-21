@@ -4,7 +4,10 @@
  */
 package com.mwr.controller;
 
+import com.mwr.businesslogic.ScanSummary;
 import com.mwr.database.DeviceId;
+import com.mwr.database.Scanresults;
+import com.mwr.database.Settings;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -271,7 +274,10 @@ public class ControllerServlet extends HttpServlet {
               }
               else
               {
-                  response.getOutputStream().print("denied");
+                  response.getOutputStream().println("denied");
+                  ScanSummary summary = new ScanSummary();
+                  Scanresults scan = bean.getLatestScan(mac, serial, androidID);
+                  response.getOutputStream().print(summary.getSummary(scan.getRootedScore(),scan.getDebuggingEnabledScore(),scan.getUnknownSourcesScore(), scan.getOsscore(), scan.getBlacklistedApps()));
               }
               
               response.getOutputStream().flush();
