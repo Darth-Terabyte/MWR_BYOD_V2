@@ -48,7 +48,18 @@ public class DatabaseJSFManagedBean {
     private List<Settings> settings;
     private List<Scanresults> allowedScans;
     private List<Scanresults> deniedScans;
-    private Settings specificSetting;
+    private Settings specificSetting;    
+    private int rootedWeight;
+    private int debugWeight;
+    private int unknownSourcesWeight;
+    private int osWeight;
+    private int lowRiskApp;
+    private int mediumRiskApp;
+    private int highRiskApp;
+    private int blockedApp;
+    private int accessScore;
+  
+    
 
     /**
      * Creates a new instance of DatabaseJSFManagedBean
@@ -549,7 +560,7 @@ public class DatabaseJSFManagedBean {
       
      public Scanresults getLatestScan(String mac, String serial, String androidID)
      {
-         session = helper.getSessionFactory().openSession();
+        session = helper.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial order by Date desc");
         query.setParameter("mac", mac);
@@ -559,4 +570,60 @@ public class DatabaseJSFManagedBean {
         return scan;
         
      }
+     
+    public int getRootedWeight() {
+        getLatestSetting();
+        return latestSetting.getRootedWeight();
+    }
+
+    public int getDebugWeight() {
+        getLatestSetting();
+        return latestSetting.getDebugWeight();
+    }
+
+    public int getUnknownSourcesWeight() {
+        getLatestSetting();
+        return latestSetting.getUnknownSourcesWeight();
+    }
+
+    public int getOsWeight() {
+        getLatestSetting();
+        return latestSetting.getOsweight();
+    }
+
+    public int getLowRiskApp() {
+        getLatestSetting();
+        return latestSetting.getLowRiskApp();
+    }
+
+    public int getMediumRiskApp() {
+        getLatestSetting();
+        return latestSetting.getMediumRiskApp();
+    }
+
+    public int getHighRiskApp() {
+        getLatestSetting();
+        return latestSetting.getHighRiskApp();
+    }
+
+    public int getBlockedApp() {
+        getLatestSetting();
+        return latestSetting.getBlockedApp();
+    }
+    
+    public int getAccessScore() {
+        getLatestSetting();
+        return latestSetting.getAccessScore();
+    }
+    
+    public String addSetting()
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Settings setting = new Settings(accessScore, osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
+        session.save(setting);
+        session.getTransaction().commit();
+        session.close();
+        return "settings.xhtml";
+    }
 }

@@ -29,8 +29,8 @@ public class Settings  implements java.io.Serializable {
     }
 
 	
-    public Settings(Date settingDate, int osweight, int rootedWeight, int debugWeight, int unknownSourcesWeight, int lowRiskApp, int mediumRiskApp, int highRiskApp, int blockedApp) {
-        this.settingDate = settingDate;
+    public Settings(Integer access, int osweight, int rootedWeight, int debugWeight, int unknownSourcesWeight, int lowRiskApp, int mediumRiskApp, int highRiskApp, int blockedApp) {
+        this.settingDate = new Date();
         this.osweight = osweight;
         this.rootedWeight = rootedWeight;
         this.debugWeight = debugWeight;
@@ -39,6 +39,7 @@ public class Settings  implements java.io.Serializable {
         this.mediumRiskApp = mediumRiskApp;
         this.highRiskApp = highRiskApp;
         this.blockedApp = blockedApp;
+        this.accessScore = access;
     }
     public Settings(Integer accessScore, Date settingDate, int osweight, int rootedWeight, int debugWeight, int unknownSourcesWeight, int lowRiskApp, int mediumRiskApp, int highRiskApp, int blockedApp, Set scanresultses) {
        this.accessScore = accessScore;

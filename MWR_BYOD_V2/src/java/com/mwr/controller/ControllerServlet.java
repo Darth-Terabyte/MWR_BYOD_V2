@@ -277,7 +277,7 @@ public class ControllerServlet extends HttpServlet {
                   response.getOutputStream().println("denied");
                   ScanSummary summary = new ScanSummary();
                   Scanresults scan = bean.getLatestScan(mac, serial, androidID);
-                  response.getOutputStream().print(summary.getSummary(scan.getRootedScore(),scan.getDebuggingEnabledScore(),scan.getUnknownSourcesScore(), scan.getOsscore(), scan.getBlacklistedApps()));
+                  response.getOutputStream().print(summary.getSummary(scan.getRootedScore(),scan.getDebuggingEnabledScore(),scan.getUnknownSourcesScore(), scan.getOsscore(), scan.getBlacklistedApps(),scan.getAppsScore(),scan.getTotalScore()));
               }
               
               response.getOutputStream().flush();

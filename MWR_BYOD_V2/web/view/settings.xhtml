@@ -97,7 +97,7 @@
                         <tr>
                             <td><a>API Level</a></td>
                             <td>
-                                <input class = "val" type="range" name="OSRange" min="0" max="100" value= "#{bean.latestSetting.osweight}" onchange="updateTextInput(this.value, 'OSText');"></input>
+                                <input class = "val" type="range" name="OSRange" min="0" max="100" value= "#{bean.osWeight}" onchange="updateTextInput(this.value, 'OSText');"></input>
                             </td>
                             <td>
                                 <h:outputText  value="#{bean.latestSetting.osweight}%" id="OSText" class="value"> </h:outputText>
@@ -106,7 +106,7 @@
                         <tr>
                             <td><a>USB debugging</a></td>
                             <td>
-                                <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "#{bean.latestSetting.debugWeight}" onchange="updateTextInput(this.value, 'usbDebug');"></input>
+                                <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "#{bean.debugWeight}" onchange="updateTextInput(this.value, 'usbDebug');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" value="#{bean.latestSetting.debugWeight}%" id="usbDebug"> </h:outputText>
@@ -115,7 +115,7 @@
                         <tr>
                             <td><a>Unknown Sources Allowed</a></td>
                             <td>
-                                <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "#{bean.latestSetting.unknownSourcesWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
+                                <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "#{bean.unknownSourcesWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" value="#{bean.latestSetting.unknownSourcesWeight}%" id="unknownSrcWeight"> </h:outputText>
@@ -124,10 +124,19 @@
                         <tr>
                             <td><a>Rooted</a></td>
                             <td>
-                                <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
+                                <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" value="#{bean.latestSetting.rootedWeight}%" id="rootedWeight"> </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a>Access Score</a></td>
+                            <td>
+                                <input class = "val" type="range" name="acccessScore" min="0" max="100" value= "#{bean.accessScore}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
+                            </td>
+                            <td>
+                                <h:outputText class="value" value="#{bean.latestSetting.accessScore}%" id="accessScore"> </h:outputText>
                             </td>
                         </tr>
                     </table>
@@ -154,7 +163,7 @@
                         <tr>
                             <td><a>Low Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{bean.latestSetting.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
+                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{bean.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" id="lowText" value ="#{bean.latestSetting.lowRiskApp}%"> </h:outputText>
@@ -163,7 +172,7 @@
                         <tr>
                             <td><a>Medium Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{bean.latestSetting.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
+                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{bean.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" id="medText" value ="#{bean.latestSetting.mediumRiskApp}%"> </h:outputText>
@@ -172,7 +181,7 @@
                         <tr>
                             <td><a>High Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{bean.latestSetting.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
+                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{bean.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" id="highText" value ="#{bean.latestSetting.highRiskApp}%"> </h:outputText>
@@ -181,7 +190,7 @@
                         <tr>
                             <td><a>Blocked</a></td>
                             <td>
-                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{bean.latestSetting.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
+                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{bean.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" id="blockText" value ="#{bean.latestSetting.blockedApp}%"> </h:outputText>
@@ -195,7 +204,8 @@
 
 
                     <div class="more2">
-                        <a href="#">Save</a>
+
+                       
                     </div>
                 </div>
 
