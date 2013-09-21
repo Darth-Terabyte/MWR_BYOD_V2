@@ -2,7 +2,8 @@
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
        xmlns:h="http://java.sun.com/jsf/html"
-       xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" /> 
@@ -35,18 +36,23 @@
                     <h:form>
                         <h3>Register Device</h3>
                         <p>Register a device by entering the employee's ID or username:</p>                    
+
                         <h:inputText id="regEmpID"
                                      required="true"
                                      requiredMessage="Error: A username or ID is required."
                                      styleClass="input"
                                      maxlength="25"  />
+
                         <h:commandButton id="regEmpCheck" value="Check" styleClass="button" action="registerEmpCheck" />
+
                         <h:inputText id="regDevID"
                                      required="true"
-                                     requiredMessage="Error: A device model is required."
+                                     requiredMessage="Error: A davice make or model or ID is required."
                                      styleClass="input"
                                      maxlength="25"  />
+
                         <h:commandButton id="regDevCheck" value="Check" styleClass="button" action="registerDevCheck" />
+
                         <div class ="token">
                             <h:outputText id = "token" value="54fssf"></h:outputText>
                         </div>
@@ -157,9 +163,14 @@
                                         <h:outputText style="" value="#{result.blockedApp}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
-
+                                <h:dataTable id="dt3" styleClass ="listLSettings" value="#{bean.latestSetting}" var="result" >
+                                    <h:column>
+                                        <h:outputText class ="access" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
+                                    </h:column>
+                                    <h:outputText class ="access" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
+                                </h:dataTable>
                             </div>
-                            <h:outputText class ="access" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
+
                         </div>
                     </div>
                 </div>

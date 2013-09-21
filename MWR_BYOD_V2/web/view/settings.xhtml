@@ -12,6 +12,16 @@
             function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
             }
+            function scrollToElement(selector, time, verticalOffset) {
+                time = typeof(time) !== 'undefined' ? time : 1000;
+                verticalOffset = typeof(verticalOffset) !== 'undefined' ? verticalOffset : 0;
+                element = $(selector);
+                offset = element.offset();
+                offsetTop = offset.top + verticalOffset;
+                $('html, body').animate({
+                    scrollTop: offsetTop
+                }, time);
+            }
         </script>
     </h:head>
     <h:body>
@@ -41,15 +51,17 @@
                 <div class="blockHS">
                     <table id = "shortcut">
                         <tr>
-                            <td><a>Blacklisted Applications</a></td>
-                            <td><a>Weighted System</a></td>
-                            <td><a>Scan Settings</a></td>
+                            <td><a href ="#blackListed">Blacklisted Applications</a></td>
+                            <td><a href ="#weighted">Weighted System</a></td>
+                            <td><a href ="#appCat">Application Categories</a></td>
+                            <td><a href ="#scan">Scan Settings</a></td>
                         </tr>
                     </table>
                 </div>
 
-                <div class="blockH">
+                <div id ="blackListed" class="blockH">
                     <h5>Blacklisted Applications</h5>
+                    <a class ="up" href="#main">...to top</a>
                 </div>
                 <div class="blockH">
 
@@ -70,7 +82,7 @@
                         <h:column>
 
                             <h:form>
-                                <h:commandButton id="register" value="Remove" action="#{bean.removeApp(app)}" />
+                                <h:commandButton id="register" styleClass="button" value="Remove" action="#{bean.removeApp(app)}" />
                             </h:form>
 
                             <!--h:commandLink value="Remove" class="value"></h:commandLink-->
@@ -83,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="blockH">
+                <div class="blockH" id ="weighted">
                     <h5>Weighted System</h5>
                 </div>
 
@@ -150,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="blockH2">
+                <div class="blockH2" id ="appCat">
                     <h5>Application Categories</h5>
                 </div>
                 <div class="blockH2">                    
@@ -166,7 +178,7 @@
                                 <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{bean.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="lowText" value ="#{bean.latestSetting.lowRiskApp}%"> </h:outputText>
+                                <h:outputText class="value" id="lowText" value ="-#{bean.latestSetting.lowRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
@@ -175,7 +187,7 @@
                                 <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{bean.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="medText" value ="#{bean.latestSetting.mediumRiskApp}%"> </h:outputText>
+                                <h:outputText class="value" id="medText" value ="-#{bean.latestSetting.mediumRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
@@ -184,7 +196,7 @@
                                 <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{bean.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="highText" value ="#{bean.latestSetting.highRiskApp}%"> </h:outputText>
+                                <h:outputText class="value" id="highText" value ="-#{bean.latestSetting.highRiskApp}%"> </h:outputText>
                             </td>
                         </tr>
                         <tr>
@@ -193,7 +205,7 @@
                                 <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{bean.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="blockText" value ="#{bean.latestSetting.blockedApp}%"> </h:outputText>
+                                <h:outputText class="value" id="blockText" value ="-#{bean.latestSetting.blockedApp}%"> </h:outputText>
                             </td>
                         </tr>
                     </table>
@@ -204,12 +216,11 @@
 
 
                     <div class="more2">
-
-                       
+                        <a href="#">Save</a>
                     </div>
                 </div>
 
-                <div class="blockH">
+                <div class="blockH" id ="scan">
                     <h5>Scan Settings</h5>
                 </div>
                 <div class="blockH">

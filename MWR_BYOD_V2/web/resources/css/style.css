@@ -368,6 +368,15 @@ h:table
     padding-top: 5px;
     margin-bottom: 20px;
     text-align: center;
+    border-style: dotted;
+    border-color: white;
+    border-width: medium;
+}
+
+.up
+{
+    font: italic 12px Arial, Helvetica, sans-serif;
+    color: white;
 }
 
 .listLSettings a
