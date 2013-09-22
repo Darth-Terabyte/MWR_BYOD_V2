@@ -40,18 +40,16 @@
                         <p>Register a device by entering the employee's ID or username:</p>                    
 
                         <h:inputText id="regEmpID"
-                                     required="true"
                                      styleClass="input"
                                      maxlength="25"  />
 
-                        <h:commandButton id="regEmpCheck" value="Check" styleClass="button" action="registerEmpCheck" />
+                        <h:commandButton id="regEmpCheck" value="Check" styleClass="button" action="#{val.empExist(regEmpID)}" />
 
                         <h:inputText id="regDevID"
-                                     required="true"
                                      styleClass="input"
                                      maxlength="25"  />
 
-                        <h:commandButton id="regDevCheck" value="Check" styleClass="button" action="registerDevCheck" />
+                        <h:commandButton id="regDevCheck" value="Token" styleClass="button" action="#{val.devExist(regDevID)}" />
 
                         <div class ="token">
                             <h:outputText id = "token" value="54fssf"></h:outputText>
@@ -66,13 +64,11 @@
                     <h:form>
                         <p>Entering the employee's ID, username or cell number:</p>
                         <h:inputText id="fixDevUserID"
-                                     required="true"
                                      styleClass="input"
                                      maxlength="25" />
                         <h:commandButton id="fixDevUserIDCheck" styleClass="button" value="Check" action="fixDevUserIDCheck" />
 
                         <h:inputText id="fixDevID"
-                                     required="true"
                                      styleClass="input"
                                      maxlength="25" />
                         <h:commandButton id="fixDevIDCheck" styleClass="button" value="Check" action="fixDevIDCheck" />

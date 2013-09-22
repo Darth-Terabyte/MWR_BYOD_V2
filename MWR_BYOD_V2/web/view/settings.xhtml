@@ -11,6 +11,7 @@
         <script type="text/javascript">
             function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
+                
             }
         </script>
     </h:head>
@@ -91,66 +92,70 @@
                 </div>
 
                 <div class="blockH">                    
-                    <table class = "listD">
-                        <tr class = "listDH">
-                            <td>Weight Category</td>
-                            <td>Weight</td>
-                            <td>Value</td>
-                        </tr>
-                        <tr>
-                            <td><a>API Level</a></td>
-                            <td>
-                                <input class = "val" type="range" name="OSRange" min="0" max="100" value= "#{bean.osWeight}" onchange="updateTextInput(this.value, 'OSText');"></input>
-                            </td>
-                            <td>
-                                <h:outputText  value="#{bean.latestSetting.osweight}%" id="OSText" class="value"> </h:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a>USB debugging</a></td>
-                            <td>
-                                <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "#{bean.debugWeight}" onchange="updateTextInput(this.value, 'usbDebug');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" value="#{bean.latestSetting.debugWeight}%" id="usbDebug"> </h:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a>Unknown Sources Allowed</a></td>
-                            <td>
-                                <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "#{bean.unknownSourcesWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" value="#{bean.latestSetting.unknownSourcesWeight}%" id="unknownSrcWeight"> </h:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a>Rooted</a></td>
-                            <td>
-                                <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'rootedWeight');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" value="#{bean.latestSetting.rootedWeight}%" id="rootedWeight"> </h:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a>Access Score</a></td>
-                            <td>
-                                <input class = "val" type="range" name="acccessScore" min="0" max="100" value= "#{bean.accessScore}" onchange="updateTextInput(this.value, 'accessScore');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" value="#{bean.latestSetting.accessScore}%" id="accessScore"> </h:outputText>
-                            </td>
-                        </tr>
-                    </table>
+                    <h:form>
+                        <table class = "listD">
+                            <tr class = "listDH">
+                                <td>Weight Category</td>
+                                <td>Weight</td>
+                                <td>Value</td>
+                            </tr>
+                            <tr>
+                                <td>API Level</td>
+                                <td>
+                                    <input class = "val" type="range" name="OSRange" min="0" max="100" value= "#{bean.osWeight}" onchange="updateTextInput(this.value, 'OSText');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText  value="#{bean.latestSetting.osweight}%" id="OSText" class="value"> </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>USB debugging</td>
+                                <td>
+                                    <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "#{bean.debugWeight}" onchange="updateTextInput(this.value, 'usbDebug');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" value="#{bean.latestSetting.debugWeight}%" id="usbDebug"> </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Unknown Sources Allowed</td>
+                                <td>
+                                    <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "#{bean.unknownSourcesWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" value="#{bean.latestSetting.unknownSourcesWeight}%" id="unknownSrcWeight"> </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rooted</td>
+                                <td>
+                                    <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'rootedWeight');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" value="#{bean.latestSetting.rootedWeight}%" id="rootedWeight"> </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Access Score</td>
+                                <td>
+                                    <input class = "val" type="range" name="acccessScore" min="0" max="100" value= "#{bean.accessScore}" onchange="updateTextInput(this.value, 'accessScore');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" value="#{bean.latestSetting.accessScore}%" id="accessScore"> </h:outputText>
+                                </td>
+                            </tr>
+                        </table>
 
-                    <div class="more3">
-                        <h:outputText class="value" id="apps1" value="#{bean.getWeightSystemTotal()}%"></h:outputText>
-                    </div>
+                        <div class="more3">
+                            <h:outputText class="value" id="apps1" value="#{bean.getWeightSystemTotal()}%"></h:outputText>
+                        </div>
 
-                    <div class="more2">
-                        <a href="#">Save</a>
-                    </div>
+                        <div class="more2">
+
+                            <h:commandLink value='Save' action="#{bean.saveWeightSettings(OSText,usbDebug,unknownSrcWeight,rootedWeight,accessScore)}"> </h:commandLink>
+
+                        </div>
+                    </h:form>
                 </div>
 
                 <div class="blockH2" id ="appCat">

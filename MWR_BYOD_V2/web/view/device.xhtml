@@ -39,75 +39,84 @@
                 <h:form>
                     <h4>#{bean.device.make} #{bean.device.model}</h4>
                     <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee.empId)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
-                    
+
                     <h5>Registered on: #{bean.device.dateRegistered}</h5>
                 </h:form>
                 <div class="blockH">
                     <h5>Device</h5>
                 </div>
                 <div class="blockH">
-                    <table>
-                        <tr class = "listDH">
-                            <td><a>Current rating</a></td>
-                            <td><a>Last Scan Date</a></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><a>#{bean.device_Results.get(0).totalScore}</a></td>
-                            <td><a>#{bean.device_Results.get(0).date}</a></td>
-                            <td>    
-                                <h:form>
-                                    <h:commandButton styleClass="input" id="View" value="Remove" action="#{bean.removeDevice(bean.device)}"/>
-                                </h:form>
-                            </td>
-                        </tr>
-                    </table>
+                    <h:dataTable id="currDev" value="#{bean.device_Results}" var ="setting" styleClass ="listD">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Current rating:" />
+                            </f:facet>
+                            <h:outputText value="#{bean.device_Results.get(0).totalScore}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Last Scan Date:" />
+                            </f:facet>
+                            <h:outputText value="#{bean.device_Results.get(0).date}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:commandButton styleClass="button" id="View" value="Remove" action="#{bean.removeDevice(bean.device)}"/>
+                            </h:form>
+                        </h:column>>
+                    </h:dataTable>
+
                 </div>
 
                 <div class="blockH">
                     <h5>Scans</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                    <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listD" >
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Scan time" />
-                            </f:facet> 
+                            </f:facet>
                             <h:outputText style="" value="#{result.date}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Rooted" />
                             </f:facet> 
-                            <h:outputText style="" value="#{result.rooted}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.rooted}" ></h:outputText>
+
                             <h:outputText style="" value="#{result.rootedScore}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="USB Debugging Enabled" />
                             </f:facet> 
-                            <h:outputText style="" value="#{result.debuggingEnabled}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.debuggingEnabled}" ></h:outputText>
+
                             <h:outputText style="" value="#{result.debuggingEnabledScore}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Apps from unknown sources allowed" />
                             </f:facet> 
-                            <h:outputText style="" value="#{result.unknownSourcesAllowed}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.unknownSourcesAllowed}" ></h:outputText>
+
                             <h:outputText style="" value="#{result.unknownSourcesScore}" ></h:outputText>
                         </h:column> 
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Blacklisted Apps Installed" />
                             </f:facet> 
-                            <h:outputText style="" value="#{result.blacklistedApps}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.blacklistedApps}" ></h:outputText>
+
                             <h:outputText style="" value="#{result.appsScore}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="API Level" />
                             </f:facet> 
-                            <h:outputText style="" value="#{result.osversion}" ></h:outputText><br></br>
+                            <h:outputText style="" value="#{result.osversion}" ></h:outputText>
+
                             <h:outputText style="" value="#{result.osscore}" ></h:outputText>
                         </h:column>
                         <h:column>
@@ -127,7 +136,8 @@
                             <f:facet name="header">
                                 <h:outputText value="Setting ID" />
                             </f:facet> 
-                            <h:outputText style="" value="#{result.settings.settingId}" ></h:outputText>
+                            <h:outputText style="" value="#{result.settings.settingId}" ></h:outputText>                            
+
                             <h:form>
                                 <h:commandButton styleClass="input" id="View" value="View Setting" action="#{bean.setSpecificSetting(result.settings.settingId)}"/>
                             </h:form>

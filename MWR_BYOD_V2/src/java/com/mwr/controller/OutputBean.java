@@ -7,14 +7,6 @@ package com.mwr.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import com.mwr.database.*;
-import com.mwr.businesslogic.TokenGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Logger;
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 @ManagedBean(name = "out")
@@ -22,6 +14,7 @@ import org.hibernate.Session;
 public class OutputBean {
 
     private Session session;
+    private DatabaseJSFManagedBean b;
     private int rootedWeight, currRootedWeight;
     private int debugWeight, currDebugWeight;
     private int unknownSourcesWeight, currUnknownSourcesWeight;
@@ -31,11 +24,21 @@ public class OutputBean {
     private int highRiskApp, currHighRiskAppWeight;
     private int blockedApp, currBlockedAppWeight;
     private int accessScore, currAccessScore;
+    private Boolean rootedChanged, debugChanged, USChanged, OSChanged,
+            lowChanged, medChanged, highChanged, blockChanged, accessChanged;
 
     public OutputBean() {
-
         session = HibernateUtil.getSessionFactory().openSession();
-
+        b = new DatabaseJSFManagedBean();
+        rootedWeight = b.getRootedWeight();
+        debugWeight = b.getDebugWeight();
+        unknownSourcesWeight = b.getUnknownSourcesWeight();
+        osWeight =b.getOsWeight();
+        lowRiskApp = b.getLowRiskApp();
+        mediumRiskApp = b.getMediumRiskApp();
+        highRiskApp = b.getHighRiskApp();
+        blockedApp = b.getBlockedApp();
+        accessScore = b.getAccessScore();
     }
 
     public int getCurrentRootedWeight() {
@@ -83,45 +86,78 @@ public class OutputBean {
     }
 
     public void setCurrentUnknownSourcesEnabledWeight(int score) {
-         currUnknownSourcesWeight = score;
+        currUnknownSourcesWeight = score;
     }
 
     public void setCurrentOSWeight(int score) {
-         currOSWeight  = score;
+        currOSWeight = score;
     }
 
     public void setCurrentLowRiskAppWeight(int score) {
-        currLowRiskAppWeight  = score;
+        currLowRiskAppWeight = score;
     }
 
     public void setCurrentMedRiskAppWeight(int score) {
-        currMediumRiskAppWeight  = score;
+        currMediumRiskAppWeight = score;
     }
 
     public void setCurrentHighRiskAppWeight(int score) {
-        currHighRiskAppWeight  = score;
+        currHighRiskAppWeight = score;
     }
 
     public void setCurrentBlockedAppWeight(int score) {
-        currBlockedAppWeight  = score;
+        currBlockedAppWeight = score;
     }
 
     public void setCurrentAccessScore(int score) {
-        currAccessScore  = score;
+        currAccessScore = score;
     }
-    
-    public void compareWeights()
-    {
-    if (rootedWeight == currRootedWeight)
-    if (debugWeight == currDebugWeight)
-    if (unknownSourcesWeight == currUnknownSourcesWeight)
-    if (osWeight == currOSWeight)
-    if (lowRiskApp == currLowRiskAppWeight)
-    if (mediumRiskApp == currMediumRiskAppWeight)
-    if (highRiskApp == currHighRiskAppWeight)
-    if (blockedApp == currBlockedAppWeight)
-    if (accessScore == currAccessScore)
-        System.out.println("Yay!");
+
+    public void compareAndSaveWeights() {
+        if (rootedWeight == currRootedWeight) {
+            rootedChanged = false;
+        } else {
+            rootedChanged = true;
+        }
+        if (debugWeight == currDebugWeight) {
+            debugChanged = false;
+        } else {
+            debugChanged = true;
+        }
+        if (unknownSourcesWeight == currUnknownSourcesWeight) {
+            USChanged = false;
+        } else {
+            USChanged = true;
+        }
+        if (osWeight == currOSWeight) {
+            OSChanged = false;
+        } else {
+            OSChanged = true;
+        }
+        if (lowRiskApp == currLowRiskAppWeight) {
+            lowChanged = false;
+        } else {
+            lowChanged = true;
+        }
+        if (mediumRiskApp == currMediumRiskAppWeight) {
+            medChanged = false;
+        } else {
+            medChanged = true;
+        }
+        if (highRiskApp == currHighRiskAppWeight) {
+            highChanged = false;
+        } else {
+            highChanged = true;
+        }
+        if (blockedApp == currBlockedAppWeight) {
+            blockChanged = false;
+        } else {
+            blockChanged = true;
+        }
+        if (accessScore == currAccessScore) {
+            accessChanged = false;
+        } else {
+            accessChanged = true;
+        }
     }
-    
 }

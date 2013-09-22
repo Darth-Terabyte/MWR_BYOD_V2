@@ -47,19 +47,16 @@ public class DatabaseJSFManagedBean {
     private List<Scanresults> allowedScans;
     private List<Scanresults> deniedScans;
     private Settings specificSetting;
-    private int rootedWeight, currRootedWeight;
-    private int debugWeight, currDebugWeight;
-    private int unknownSourcesWeight, currUnknownSourcesWeight;
-    private int osWeight, currOSWeight;
-    private int lowRiskApp, currLowRiskAppWeight;
-    private int mediumRiskApp, currMediumRiskAppWeight;
-    private int highRiskApp, currHighRiskAppWeight;
-    private int blockedApp, currBlockedAppWeight;
-    private int accessScore, currAccessScore;
+    private int rootedWeight;
+    private int debugWeight;
+    private int unknownSourcesWeight;
+    private int osWeight;
+    private int lowRiskApp;
+    private int mediumRiskApp;
+    private int highRiskApp;
+    private int blockedApp;
+    private int accessScore;
 
-    /**
-     * Creates a new instance of DatabaseJSFManagedBean
-     */
     public DatabaseJSFManagedBean() {
 
         session = HibernateUtil.getSessionFactory().openSession();
@@ -131,29 +128,31 @@ public class DatabaseJSFManagedBean {
 
     public void changeAppCatagory(int id, String Catagory) {
     }
-    //remove a blacklisted Application
 
-    public void removeBlacklistedApp(int id) {
-    }
     //Save WeightSystem Settings
-
-    public void saveWeightSettings() {
+    public void saveWeightSettings(int api, int usb, int unknownS, int rooted, int access) {
+        osWeight = api;
+        debugWeight = usb;
+        unknownSourcesWeight = unknownS;
+        rootedWeight = rooted;
+        accessScore = access;
+        addSetting();
     }
 
     //Save Blacklisted Applications Settings
-    public void saveBlacklistedSettings() {
+    public void saveBlacklistedSettings(int low, int med, int high, int block) {
+        lowRiskApp = low;
+        mediumRiskApp = med;
+        highRiskApp = high;
+        blockedApp = block;
+        addSetting();
     }
-    //Save Blacklisted Applications Settings
 
-    public void saveBlacklistedCatagorySettings() {
-    }
-    //Save OS Settings
-
-    public void saveOSSettings() {
-    }
 
     //Save Scan Settings
     public void saveScanSettings() {
+        
+        addSetting();
     }
 
     /*===============================================
@@ -183,6 +182,24 @@ public class DatabaseJSFManagedBean {
                 return null;
             } else {
                 return e;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Device getDevice(String id) {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Device where id = :id");
+            query.setParameter("id", id);
+            List<Device> list = query.list();
+            Device d = list.get(0);
+            if (d == null) {
+                return null;
+            } else {
+                return d;
             }
         } catch (Exception e) {
             return null;
@@ -272,78 +289,6 @@ public class DatabaseJSFManagedBean {
         }
     }
 
-    public int getCurrentRootedWeight() {
-        return currRootedWeight;
-    }
-
-    public int getCurrentDebuggingEnabledWeight() {
-        return currDebugWeight;
-    }
-
-    public int getCurrentUnknownSourcesEnabledWeight() {
-        return currUnknownSourcesWeight;
-    }
-
-    public int getCurrentOSWeight() {
-        return currOSWeight;
-    }
-
-    public int getCurrentLowRiskAppWeight() {
-        return currLowRiskAppWeight;
-    }
-
-    public int getCurrentMedRiskAppWeight() {
-        return currMediumRiskAppWeight;
-    }
-
-    public int getCurrentHighRiskAppWeight() {
-        return currHighRiskAppWeight;
-    }
-
-    public int getCurrentBlockedAppWeight() {
-        return currBlockedAppWeight;
-    }
-
-    public int getCurrentAccessScore() {
-        return currAccessScore;
-    }
-
-    public void setCurrentRootedWeight(int score) {
-        currRootedWeight = score;
-    }
-
-    public void setCurrentDebuggingEnabledWeight(int score) {
-        currDebugWeight = score;
-    }
-
-    public void setCurrentUnknownSourcesEnabledWeight(int score) {
-         currUnknownSourcesWeight = score;
-    }
-
-    public void setCurrentOSWeight(int score) {
-         currOSWeight  = score;
-    }
-
-    public void setCurrentLowRiskAppWeight(int score) {
-        currLowRiskAppWeight  = score;
-    }
-
-    public void setCurrentMedRiskAppWeight(int score) {
-        currMediumRiskAppWeight  = score;
-    }
-
-    public void setCurrentHighRiskAppWeight(int score) {
-        currHighRiskAppWeight  = score;
-    }
-
-    public void setCurrentBlockedAppWeight(int score) {
-        currBlockedAppWeight  = score;
-    }
-
-    public void setCurrentAccessScore(int score) {
-        currAccessScore  = score;
-    }
-    
     public Employee getEmployee() {
         try {
             return employee;
@@ -381,7 +326,6 @@ public class DatabaseJSFManagedBean {
         Query query = session.createQuery("from Device");
         deviceList = query.list();
         return deviceList;
-
     }
 
     public List getTechnicianList() {
