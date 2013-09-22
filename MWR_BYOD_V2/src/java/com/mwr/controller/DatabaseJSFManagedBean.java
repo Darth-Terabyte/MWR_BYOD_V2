@@ -17,10 +17,6 @@ import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author Heindrich
- */
 @ManagedBean(name = "bean")
 @SessionScoped
 public class DatabaseJSFManagedBean {
@@ -51,15 +47,15 @@ public class DatabaseJSFManagedBean {
     private List<Scanresults> allowedScans;
     private List<Scanresults> deniedScans;
     private Settings specificSetting;
-    private int rootedWeight;
-    private int debugWeight;
-    private int unknownSourcesWeight;
-    private int osWeight;
-    private int lowRiskApp;
-    private int mediumRiskApp;
-    private int highRiskApp;
-    private int blockedApp;
-    private int accessScore;
+    private int rootedWeight, currRootedWeight;
+    private int debugWeight, currDebugWeight;
+    private int unknownSourcesWeight, currUnknownSourcesWeight;
+    private int osWeight, currOSWeight;
+    private int lowRiskApp, currLowRiskAppWeight;
+    private int mediumRiskApp, currMediumRiskAppWeight;
+    private int highRiskApp, currHighRiskAppWeight;
+    private int blockedApp, currBlockedAppWeight;
+    private int accessScore, currAccessScore;
 
     /**
      * Creates a new instance of DatabaseJSFManagedBean
@@ -276,6 +272,78 @@ public class DatabaseJSFManagedBean {
         }
     }
 
+    public int getCurrentRootedWeight() {
+        return currRootedWeight;
+    }
+
+    public int getCurrentDebuggingEnabledWeight() {
+        return currDebugWeight;
+    }
+
+    public int getCurrentUnknownSourcesEnabledWeight() {
+        return currUnknownSourcesWeight;
+    }
+
+    public int getCurrentOSWeight() {
+        return currOSWeight;
+    }
+
+    public int getCurrentLowRiskAppWeight() {
+        return currLowRiskAppWeight;
+    }
+
+    public int getCurrentMedRiskAppWeight() {
+        return currMediumRiskAppWeight;
+    }
+
+    public int getCurrentHighRiskAppWeight() {
+        return currHighRiskAppWeight;
+    }
+
+    public int getCurrentBlockedAppWeight() {
+        return currBlockedAppWeight;
+    }
+
+    public int getCurrentAccessScore() {
+        return currAccessScore;
+    }
+
+    public void setCurrentRootedWeight(int score) {
+        currRootedWeight = score;
+    }
+
+    public void setCurrentDebuggingEnabledWeight(int score) {
+        currDebugWeight = score;
+    }
+
+    public void setCurrentUnknownSourcesEnabledWeight(int score) {
+         currUnknownSourcesWeight = score;
+    }
+
+    public void setCurrentOSWeight(int score) {
+         currOSWeight  = score;
+    }
+
+    public void setCurrentLowRiskAppWeight(int score) {
+        currLowRiskAppWeight  = score;
+    }
+
+    public void setCurrentMedRiskAppWeight(int score) {
+        currMediumRiskAppWeight  = score;
+    }
+
+    public void setCurrentHighRiskAppWeight(int score) {
+        currHighRiskAppWeight  = score;
+    }
+
+    public void setCurrentBlockedAppWeight(int score) {
+        currBlockedAppWeight  = score;
+    }
+
+    public void setCurrentAccessScore(int score) {
+        currAccessScore  = score;
+    }
+    
     public Employee getEmployee() {
         try {
             return employee;
@@ -451,13 +519,14 @@ public class DatabaseJSFManagedBean {
         weights.add(latestSetting.getOsweight());
         weights.add(latestSetting.getRootedWeight());
         weights.add(latestSetting.getUnknownSourcesWeight());
-        
-        for(int i = 0; i < weights.size(); i++)
-            score+= weights.get(i);
+
+        for (int i = 0; i < weights.size(); i++) {
+            score += weights.get(i);
+        }
 
         return score;
     }
-    
+
     public int getWeightAppsTotal() {
         int score = 0;
         List<Integer> weights = new ArrayList<Integer>();
@@ -466,11 +535,28 @@ public class DatabaseJSFManagedBean {
         weights.add(latestSetting.getHighRiskApp());
         weights.add(latestSetting.getLowRiskApp());
         weights.add(latestSetting.getMediumRiskApp());
-        
-        for(int i = 0; i < weights.size(); i++)
-            score+= weights.get(i);
+
+        for (int i = 0; i < weights.size(); i++) {
+            score += weights.get(i);
+        }
 
         return score;
+    }
+
+    public int getScanDays() {
+        return 5;
+    }
+
+    public int getScanHours() {
+        return 0;
+    }
+
+    public int getScanMinutes() {
+        return 0;
+    }
+
+    public int getScanSeconds() {
+        return 0;
     }
 
     public String setDevice(DeviceId id) {

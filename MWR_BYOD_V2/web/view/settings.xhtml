@@ -219,22 +219,34 @@
                 <div class="blockH">
 
                     <h5>Anti-Virus Scan interval</h5>
-
-                    <table class = "listD">
-                        <tr>
-                            <td>Seconds</td>
-                            <td>Minutes</td>
-                            <td>Hours</td>
-                            <td>Days</td>
-                        </tr>
-                        <tr>
-                            <td><input type = "number"  class = "val" id="seconds"></input></td>
-                            <td><input type = "number" class = "val" id="minutes"></input></td>
-                            <td><input type = "number" class = "val" id="hours"> </input></td>
-                            <td><input type = "number" class = "val" id="days"> </input></td>
-                        </tr>
-                    </table>
-
+                    <h:form>
+                        <h:dataTable styleClass="listD" id="settingsScanInterval">
+                            <h:column>
+                                <f:facet name ="heading">
+                                    <h:outputText value="Seconds"></h:outputText>
+                                </f:facet>
+                                <h:inputText id="scanSeconds" value="#{bean.getScanSeconds()}" styleClass="input" size="2"  />
+                            </h:column>
+                            <h:column>
+                                <f:facet name ="heading">
+                                    <h:outputText value="Minutes"></h:outputText>
+                                </f:facet>
+                                <h:inputText id="scanMinutes" value="#{bean.getScanMinutes()}"  styleClass="input" size="2"  />
+                            </h:column>
+                            <h:column>
+                                <f:facet name ="heading">
+                                    <h:outputText value="Hours"></h:outputText>
+                                </f:facet>
+                                <h:inputText id="scanHours" value="#{bean.getScanHours()}"  styleClass="input" size="2"  />
+                            </h:column>
+                            <h:column>
+                                <f:facet name ="heading">
+                                    <h:outputText value="Days"></h:outputText>
+                                </f:facet>
+                                <h:inputText id="scanDays" value="#{bean.getScanDays()}"  styleClass="input" size="2"  />
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                     <div class="more2">
                         <a href="#">Save</a>
                     </div>
@@ -247,7 +259,7 @@
                 </div>
             </div>
 
-        </div><!--close main-->
+        </div>
     </h:body>
 </xhtml>
 

@@ -4,12 +4,14 @@
        xmlns:h="http://java.sun.com/jsf/html"
        xmlns:f="http://java.sun.com/jsf/core"
        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" /> 
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
     </h:head>
     <h:body>
+        
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -39,7 +41,6 @@
 
                         <h:inputText id="regEmpID"
                                      required="true"
-                                     requiredMessage="Error: A username or ID is required."
                                      styleClass="input"
                                      maxlength="25"  />
 
@@ -47,7 +48,6 @@
 
                         <h:inputText id="regDevID"
                                      required="true"
-                                     requiredMessage="Error: A davice make or model or ID is required."
                                      styleClass="input"
                                      maxlength="25"  />
 
@@ -67,14 +67,12 @@
                         <p>Entering the employee's ID, username or cell number:</p>
                         <h:inputText id="fixDevUserID"
                                      required="true"
-                                     requiredMessage="Error: A username or ID is required."
                                      styleClass="input"
                                      maxlength="25" />
                         <h:commandButton id="fixDevUserIDCheck" styleClass="button" value="Check" action="fixDevUserIDCheck" />
 
                         <h:inputText id="fixDevID"
                                      required="true"
-                                     requiredMessage="Error: A username or ID is required."
                                      styleClass="input"
                                      maxlength="25" />
                         <h:commandButton id="fixDevIDCheck" styleClass="button" value="Check" action="fixDevIDCheck" />
@@ -180,7 +178,7 @@
                         Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
                 </div>
             </div>
-        </div><!--close main-->
+        </div>
     </h:body>
 </xhtml>
 
