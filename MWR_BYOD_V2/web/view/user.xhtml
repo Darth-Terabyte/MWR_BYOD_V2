@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-            xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
@@ -30,31 +30,124 @@
             </div>
 
             <div id="site_content">
-                <h4>#{Employee.name} #{Employee.surname}</h4>
-                <h5>Username: #{Employee.username} ID: #{Employee.id}</h5>
+                <h4>#{bean.employee.empId} #{bean.employee.name} #{bean.employee.surname}</h4>
+                <h5>Owned by: #{bean.employee.username} #{bean.employee.idnumber} </h5>
+                <h5>Registered on: #{bean.employee.dateRegistered}</h5>
 
-                <div class="blockH2">
-                    <h5>Devices</h5>
-                </div>
-                <div class="blockH2">
-                    <table class = "listL">
-                        <tr class = "listLH">
-                            <td><a>Device ID</a></td>
-                            <td><a>Make + Model</a></td>
-                            <td><a>Current rating</a></td>
-                            <td><a>Last Scan Date</a></td>
-                            <td>Remove</td>
-                        </tr>
-                        <!--c:forEach -->
-                        <tr>
-                            <td><a>#{Device.id}</a></td>
-                            <td><a>#{Device.make} #{Device.model}</a></td>
-                            <td><a>70%</a></td>
-                            <td><a>09/09/2013</a></td>
-                            <td><a>Remove</a></td>
-                        </tr>
-                       <!--/c:forEach -->
-                    </table>
+                <div id="content">
+                    <div class="content_item">
+                        <div class="blockH2">
+                            <h5>Registration Queue</h5>
+                        </div>
+
+                        <div class="blockH2">
+                            <h:dataTable id="dt1" styleClass ="listL" value="#{bean.getWaitingList(bean.employee.idnumber)}" var="item" >
+                                <h:column>
+                                    <f:facet name="header" class="listLH">
+                                        <h:outputText value="Manufacturer" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{item.make}" ></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Model"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.model}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Token"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.token}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Username"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.username}"></h:outputText>                    
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.dateRegistered}"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <h:form>
+                                        <h:commandButton id="register" styleClass ="button" value="Register" action="#{bean.addDevice(item)}" />
+                                    </h:form>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                    </div>
+
+                    <div class="content_item">
+                        <div class="blockH2">
+                            <h5>Registered Devices</h5>
+                        </div>                        
+                        <div class="blockH2">
+                            <h:dataTable id="dt2" styleClass ="listL" value="#{bean.getEmployeeDevices(bean.employee.empId)}" var="item">
+                                <h:column>
+                                    <f:facet name="header" class="listLH">
+                                        <h:outputText value="Manufacturer" />
+                                    </f:facet> 
+                                    <h:outputText style="" value="#{item.make}" ></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Model"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.model}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="MAC Address"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.macaddress}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Serial Number"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.serialNumber}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="AndroidID"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.id.uid}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date registered"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.dateRegistered}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Owner"/>
+                                    </f:facet> 
+                                    <h:outputText value="#{item.getEmployee().name} #{item.getEmployee().surname}"></h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <h:form>
+                                        <h:commandButton styleClass="button" id="View" value="View" action="#{bean.setDevice(item.id)}"/>
+                                    </h:form>
+                                </h:column>
+
+                            </h:dataTable>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="content_grey">
@@ -63,7 +156,6 @@
                         Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
                 </div>
             </div>
-
         </div>
     </h:body>
 </xhtml>

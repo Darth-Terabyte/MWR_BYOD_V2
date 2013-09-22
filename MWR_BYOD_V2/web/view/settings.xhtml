@@ -12,16 +12,6 @@
             function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
             }
-            function scrollToElement(selector, time, verticalOffset) {
-                time = typeof(time) !== 'undefined' ? time : 1000;
-                verticalOffset = typeof(verticalOffset) !== 'undefined' ? verticalOffset : 0;
-                element = $(selector);
-                offset = element.offset();
-                offsetTop = offset.top + verticalOffset;
-                $('html, body').animate({
-                    scrollTop: offsetTop
-                }, time);
-            }
         </script>
     </h:head>
     <h:body>
@@ -61,7 +51,7 @@
 
                 <div id ="blackListed" class="blockH">
                     <h5>Blacklisted Applications</h5>
-                    <a class ="up" href="#main">...to top</a>
+                    <a class ="upD" href="#main">...to top</a>                    
                 </div>
                 <div class="blockH">
 
@@ -97,6 +87,7 @@
 
                 <div class="blockH" id ="weighted">
                     <h5>Weighted System</h5>
+                    <a class ="upD" href="#main">...to top</a> 
                 </div>
 
                 <div class="blockH">                    
@@ -136,7 +127,7 @@
                         <tr>
                             <td><a>Rooted</a></td>
                             <td>
-                                <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
+                                <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'rootedWeight');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" value="#{bean.latestSetting.rootedWeight}%" id="rootedWeight"> </h:outputText>
@@ -145,7 +136,7 @@
                         <tr>
                             <td><a>Access Score</a></td>
                             <td>
-                                <input class = "val" type="range" name="acccessScore" min="0" max="100" value= "#{bean.accessScore}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
+                                <input class = "val" type="range" name="acccessScore" min="0" max="100" value= "#{bean.accessScore}" onchange="updateTextInput(this.value, 'accessScore');"></input>
                             </td>
                             <td>
                                 <h:outputText class="value" value="#{bean.latestSetting.accessScore}%" id="accessScore"> </h:outputText>
@@ -154,7 +145,7 @@
                     </table>
 
                     <div class="more3">
-                        <h:outputText class="value" id="apps1"> %</h:outputText>
+                        <h:outputText class="value" id="apps1" value="#{bean.getWeightSystemTotal()}%"></h:outputText>
                     </div>
 
                     <div class="more2">
@@ -164,6 +155,7 @@
 
                 <div class="blockH2" id ="appCat">
                     <h5>Application Categories</h5>
+                    <a class ="upL" href="#main">...to top</a> 
                 </div>
                 <div class="blockH2">                    
                     <table class = "listL">
@@ -211,7 +203,7 @@
                     </table>
 
                     <div class="more3">
-                        <h:outputText class="value" id="apps2"></h:outputText> %
+                        <h:outputText class="value" id="apps2" value="#{bean.getWeightAppsTotal()}%"></h:outputText>
                     </div>
 
 
@@ -222,6 +214,7 @@
 
                 <div class="blockH" id ="scan">
                     <h5>Scan Settings</h5>
+                    <a class ="upD" href="#main">...to top</a> 
                 </div>
                 <div class="blockH">
 

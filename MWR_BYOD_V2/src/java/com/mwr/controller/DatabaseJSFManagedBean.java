@@ -9,6 +9,8 @@ import javax.faces.bean.SessionScoped;
 import com.mwr.database.*;
 import com.mwr.businesslogic.TokenGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -48,7 +50,7 @@ public class DatabaseJSFManagedBean {
     private List<Settings> settings;
     private List<Scanresults> allowedScans;
     private List<Scanresults> deniedScans;
-    private Settings specificSetting;    
+    private Settings specificSetting;
     private int rootedWeight;
     private int debugWeight;
     private int unknownSourcesWeight;
@@ -58,8 +60,6 @@ public class DatabaseJSFManagedBean {
     private int highRiskApp;
     private int blockedApp;
     private int accessScore;
-  
-    
 
     /**
      * Creates a new instance of DatabaseJSFManagedBean
@@ -79,8 +79,6 @@ public class DatabaseJSFManagedBean {
     }
 
     //get a specific Device for an Employee
-   
-
     //get a specific Scanresults for a Device
     public Scanresults getScanResult(String scanid) {
         return null;
@@ -181,7 +179,8 @@ public class DatabaseJSFManagedBean {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            Query query = session.createQuery("from Employee where empId = " + id);
+            Query query = session.createQuery("from Employee where empId = :id");
+            query.setParameter("id", id);
             List<Employee> list = query.list();
             Employee e = list.get(0);
             if (e == null) {
@@ -194,11 +193,6 @@ public class DatabaseJSFManagedBean {
         }
     }
     //get the Devices owned by the Employee with the empId = id
-
-    public List<Device> getEmployeeDevices(String id) {
-        Employee e = getEmployee(id);
-        return (List<Device>) e.getDevices();
-    }
 
     /*===============================================
      *||         Newly added END                   ||
@@ -282,81 +276,102 @@ public class DatabaseJSFManagedBean {
         }
     }
 
+    public Employee getEmployee() {
+        try {
+            return employee;
+        } catch (Exception e) {
+            System.err.println("Employee does not exist");
+        }
+        return employee;
+    }
+
     public List getWaitingList() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Devicenotregistered");
+        waitingList = query.list();
+        return waitingList;
+    }
+
+    public List getWaitingList(String id) {
+        List<Devicenotregistered> waitingListUnique = null;
+        try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            Query query = session.createQuery("from Devicenotregistered");
-            waitingList = query.list();
-            return waitingList;
+            Query query = session.createQuery("from Devicenotregistered where idnumber = :id");
+            query.setParameter("id", id);
+            waitingListUnique = query.list();
+        } catch (Exception e) {
+            System.err.println("Problem...");
+        }
+        return waitingListUnique;
     }
 
     public List getDeviceList() {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query query = session.createQuery("from Device");
-            deviceList = query.list();
-            return deviceList;
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Device");
+        deviceList = query.list();
+        return deviceList;
 
     }
 
     public List getTechnicianList() {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query query = session.createQuery("from Technician");
-            technicianList = query.list();
-            return technicianList;
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Technician");
+        technicianList = query.list();
+        return technicianList;
 
 
     }
 
     public List getTechnicianAdminList() {
 
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query query = session.createQuery("from Technician");
-            technicianList = query.list();
-            for (int i = 0; i < technicianList.size(); i++) {
-                if (technicianList.get(i).isAdmin()) {
-                    techAdmin.add(technicianList.get(i));
-                } else {
-                    techNonAdmin.add(technicianList.get(i));
-                }
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Technician");
+        technicianList = query.list();
+        for (int i = 0; i < technicianList.size(); i++) {
+            if (technicianList.get(i).isAdmin()) {
+                techAdmin.add(technicianList.get(i));
+            } else {
+                techNonAdmin.add(technicianList.get(i));
             }
-            return technicianList;
-  
+        }
+        return technicianList;
+
 
     }
 
     public List getEmployeeList() {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query query = session.createQuery("from Employee order by Surname asc");
-            employeeList = query.list();
-            return employeeList;
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Employee order by Surname asc");
+        employeeList = query.list();
+        return employeeList;
 
     }
 
     public List<Blacklistedapplications> getApps() {
 
-            session = HibernateUtil.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Blacklistedapplications");
         apps = query.list();
-            return apps;
+        return apps;
 
     }
 
-
     public Settings getLatestSetting() {
-            session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Settings order by SettingDate desc");
-        List settings = query.list();
-        latestSetting = (Settings) settings.get(0);
+        List setting = query.list();
+        latestSetting = (Settings) setting.get(0);
         session.close();
-            return latestSetting;
-        
-        
+        return latestSetting;
+
     }
 
     public boolean addScanResults(String mac, String serial, String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps, int api) {
@@ -403,54 +418,79 @@ public class DatabaseJSFManagedBean {
 
         apiScore = (17 - api) * latestSetting.getOsweight();
         totalScore = rootScore + debugScore + unknownScore + appScore + apiScore;
-        boolean allowed = false;
+        boolean allow = false;
         if (totalScore < latestSetting.getAccessScore()) {
-            allowed = true;
+            allow = true;
         }
 
-        results = new Scanresults(latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allowed, mac, androidID, serial);
+        results = new Scanresults(latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow, mac, androidID, serial);
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(results);
         session.getTransaction().commit();
 
-        return allowed;
+        return allow;
 
     }
-    
-     public List getEmployeeDevices(int id)
-    {
+
+    public List getEmployeeDevices(int id) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Device where employee_empID = :mac");
-        query.setParameter("is", id);
+        Query query = session.createQuery("from Device where employee_empID = :id");
+        query.setParameter("id", id);
         employeeDevices = query.list();
         return employeeDevices;
     }
 
-    public String setDevice(DeviceId id) {
-        try
-        {
-            session = helper.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial order by Date desc");
-        query.setParameter("mac", id.getMacaddress());
-        query.setParameter("uid", id.getUid());
-        query.setParameter("serial", id.getSerialNumber());
-        device_results = query.list();
-        query = session.createQuery("from Device where MACAddress = :mac and UID = :uid and SerialNumber = :serial");
-        query.setParameter("mac", id.getMacaddress());
-        query.setParameter("uid", id.getUid());
-        query.setParameter("serial", id.getSerialNumber());
-        device = (Device) query.list().get(0);
+    public int getWeightSystemTotal() {
+        int score = 0;
+        List<Integer> weights = new ArrayList<Integer>();
+
+        weights.add(latestSetting.getAccessScore());
+        weights.add(latestSetting.getDebugWeight());
+        weights.add(latestSetting.getOsweight());
+        weights.add(latestSetting.getRootedWeight());
+        weights.add(latestSetting.getUnknownSourcesWeight());
         
-        }
-        finally
-        {
-            
+        for(int i = 0; i < weights.size(); i++)
+            score+= weights.get(i);
+
+        return score;
+    }
+    
+    public int getWeightAppsTotal() {
+        int score = 0;
+        List<Integer> weights = new ArrayList<Integer>();
+
+        weights.add(latestSetting.getBlockedApp());
+        weights.add(latestSetting.getHighRiskApp());
+        weights.add(latestSetting.getLowRiskApp());
+        weights.add(latestSetting.getMediumRiskApp());
+        
+        for(int i = 0; i < weights.size(); i++)
+            score+= weights.get(i);
+
+        return score;
+    }
+
+    public String setDevice(DeviceId id) {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial order by Date desc");
+            query.setParameter("mac", id.getMacaddress());
+            query.setParameter("uid", id.getUid());
+            query.setParameter("serial", id.getSerialNumber());
+            device_results = query.list();
+            query = session.createQuery("from Device where MACAddress = :mac and UID = :uid and SerialNumber = :serial");
+            query.setParameter("mac", id.getMacaddress());
+            query.setParameter("uid", id.getUid());
+            query.setParameter("serial", id.getSerialNumber());
+            device = (Device) query.list().get(0);
+        } finally {
             return "device.xhtml";
         }
-        
+
     }
 
     public List getDevice_Results() {
@@ -459,11 +499,9 @@ public class DatabaseJSFManagedBean {
 
     public int getDeviceSize() {
         return getDeviceList().size();
-
     }
-    
-    public Device getDevice()
-    {
+
+    public Device getDevice() {
         return device;
     }
 
@@ -473,7 +511,7 @@ public class DatabaseJSFManagedBean {
     }
 
     public int getAllowed() {
-        session = helper.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Scanresults where accessAllowed = true");
         allowed = query.list().size();
@@ -482,95 +520,95 @@ public class DatabaseJSFManagedBean {
     }
 
     public int getDenied() {
-        
-        session = helper.getSessionFactory().openSession();
+
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Scanresults where accessAllowed = false");       
+        Query query = session.createQuery("from Scanresults where accessAllowed = false");
         denied = query.list().size();
         session.close();
         return denied;
     }
-    
-    public String removeDevice(Device device)
-    {        
-        session = helper.getSessionFactory().openSession();
+
+    public String removeDevice(Device device) {
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("delete from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial");        
-         query.setParameter("mac", device.getId().getMacaddress());
+        Query query = session.createQuery("delete from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial");
+        query.setParameter("mac", device.getId().getMacaddress());
         query.setParameter("uid", device.getId().getUid());
         query.setParameter("serial", device.getId().getSerialNumber());
         query.executeUpdate();
-        session.delete(device);    
+        session.delete(device);
         session.getTransaction().commit();
         session.close();
         return "devices.xhtml";
     }
-    
-    public String removeApp(Blacklistedapplications app)
-    {        
-        session = helper.getSessionFactory().openSession();
+
+    public String removeApp(Blacklistedapplications app) {
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("delete from Blacklistedapplications where appID = :id");        
+        Query query = session.createQuery("delete from Blacklistedapplications where appID = :id");
         query.setParameter("id", app.getAppId());
         query.executeUpdate();
         session.getTransaction().commit();
         session.close();
         return "settings.xhtml";
     }
-    
-    public List<Settings> getSettings()
-    {
-        session = helper.getSessionFactory().openSession();
+
+    public List<Settings> getSettings() {
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Settings");       
+        Query query = session.createQuery("from Settings");
         settings = query.list();
         return settings;
     }
-    
-    public List<Scanresults> getAllowedScans()
-    {
-        session = helper.getSessionFactory().openSession();
+
+    public List<Scanresults> getAllowedScans() {
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Scanresults where accessAllowed = 1");        
+        Query query = session.createQuery("from Scanresults where accessAllowed = 1");
         allowedScans = query.list();
         return allowedScans;
     }
-    
-     public List<Scanresults> getDeniedScans()
-    {
-        session = helper.getSessionFactory().openSession();
+
+    public List<Scanresults> getDeniedScans() {
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Scanresults where accessAllowed = 0");        
+        Query query = session.createQuery("from Scanresults where accessAllowed = 0");
         deniedScans = query.list();
         return deniedScans;
     }
-     
-     public String setSpecificSetting(int id)
-     {
-        session = helper.getSessionFactory().openSession();
+
+    public String setSpecificSetting(int id) {
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        specificSetting = (Settings)session.get(Settings.class,id);
+        specificSetting = (Settings) session.get(Settings.class, id);
         return "specificSetting.xhtml";
-     }
-     
-      public Settings getSpecificSetting()     {
-        
+    }
+
+    public String viewEmployee(int id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        employee = (Employee) session.get(Employee.class, id);
+        return "user.xhtml";
+    }
+
+    public Settings getSpecificSetting() {
+
         return specificSetting;
-     }
-      
-     public Scanresults getLatestScan(String mac, String serial, String androidID)
-     {
-        session = helper.getSessionFactory().openSession();
+    }
+
+    public Scanresults getLatestScan(String mac, String serial, String androidID) {
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Scanresults where device_MACAddress = :mac and device_UID = :uid and device_SerialNumber = :serial order by Date desc");
         query.setParameter("mac", mac);
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
-        Scanresults scan = (Scanresults)query.list().get(0);
+        Scanresults scan = (Scanresults) query.list().get(0);
         return scan;
-        
-     }
-     
+
+    }
+
     public int getRootedWeight() {
         getLatestSetting();
         return latestSetting.getRootedWeight();
@@ -610,14 +648,13 @@ public class DatabaseJSFManagedBean {
         getLatestSetting();
         return latestSetting.getBlockedApp();
     }
-    
+
     public int getAccessScore() {
         getLatestSetting();
         return latestSetting.getAccessScore();
     }
-    
-    public String addSetting()
-    {
+
+    public String addSetting() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Settings setting = new Settings(accessScore, osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);

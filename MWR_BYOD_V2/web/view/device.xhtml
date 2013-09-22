@@ -36,9 +36,12 @@
             </div>
 
             <div id="site_content">
-                <h4>#{bean.device.make} #{bean.device.model}</h4>
-                <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname}</h5>
-                <h5>Registered on: #{bean.device.dateRegistered}</h5>
+                <h:form>
+                    <h4>#{bean.device.make} #{bean.device.model}</h4>
+                    <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee.empId)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
+                    
+                    <h5>Registered on: #{bean.device.dateRegistered}</h5>
+                </h:form>
                 <div class="blockH">
                     <h5>Device</h5>
                 </div>
