@@ -377,6 +377,15 @@ public class DatabaseJSFManagedBean {
         Query query = session.createQuery("from Setting order by SettingDate desc");
         List setting = query.list();
         latestSetting = (Setting) setting.get(0);
+                rootedWeight = latestSetting.getRootedWeight();
+        debugWeight = latestSetting.getDebugWeight();
+        unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
+        osWeight = latestSetting.getOsweight();
+        lowRiskApp = latestSetting.getLowRiskApp();
+        mediumRiskApp = latestSetting.getMediumRiskApp();
+        highRiskApp = latestSetting.getHighRiskApp();
+        blockedApp = latestSetting.getBlockedApp();    
+        accessScore = latestSetting.getAccessScore();
         session.close();
         return latestSetting;
 
@@ -607,54 +616,45 @@ public class DatabaseJSFManagedBean {
         query.setParameter("mac", mac);
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
-        Scanresult scan = (Scanresult) query.list().get(0);
+        Scanresult scan = (Scanresult) query.list().get(0);   
         return scan;
 
     }
 
     public int getRootedWeight() {
-        getLatestSetting();
-        return latestSetting.getRootedWeight();
+        return rootedWeight;
     }
 
     public int getDebugWeight() {
-        getLatestSetting();
-        return latestSetting.getDebugWeight();
+        return debugWeight;
     }
 
-    public int getUnknownSourcesWeight() {
-        getLatestSetting();
-        return latestSetting.getUnknownSourcesWeight();
+    public int getUnknownSourcesWeight() {       
+        return unknownSourcesWeight;
     }
 
     public int getOsWeight() {
-        getLatestSetting();
-        return latestSetting.getOsweight();
+        return osWeight;
     }
 
     public int getLowRiskApp() {
-        getLatestSetting();
-        return latestSetting.getLowRiskApp();
+        return lowRiskApp;
     }
 
     public int getMediumRiskApp() {
-        getLatestSetting();
-        return latestSetting.getMediumRiskApp();
+        return mediumRiskApp;
     }
 
     public int getHighRiskApp() {
-        getLatestSetting();
-        return latestSetting.getHighRiskApp();
+        return highRiskApp;
     }
 
     public int getBlockedApp() {
-        getLatestSetting();
-        return latestSetting.getBlockedApp();
+        return blockedApp;
     }
 
     public int getAccessScore() {
-        getLatestSetting();
-        return latestSetting.getAccessScore();
+       return  accessScore;
     }
 
         public void setRootedWeight(int weight) {

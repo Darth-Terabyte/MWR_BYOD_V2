@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="blockH">                    
-                    <h:form>
+                    
                         <table class = "listD">
                             <tr class = "listDH">
                                 <td>Weight Category</td>
@@ -105,7 +105,7 @@
                                 </td>
                                 <td>
                                     <div class="more4">
-                                        <h:commandLink value='Save' action="#{bean.setOsWeight(12)}"> </h:commandLink>
+                                        <h:commandLink value='Save' action="#{bean.setOsWeight}"> </h:commandLink>
                                     </div>
                                 </td>
                             </tr>
@@ -115,7 +115,7 @@
                                     <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "#{bean.debugWeight}" onchange="updateTextInput(this.value, 'usbDebug');"></input>
                                 </td>
                                 <td>
-                                    <h:outputText class="value" value="#{bean.latestSetting.debugWeight}%" id="usbDebug"> </h:outputText>
+                                    <h:outputText class="value" value="#{bean.debugWeight}%" id="usbDebug"> </h:outputText>
                                 </td>
                                 <td>
                                     <div class="more4">
@@ -140,7 +140,7 @@
                             <tr>
                                 <td>Rooted</td>
                                 <td>
-                                    <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'rootedWeight');"></input>
+                                    <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.rootedWeight}" onchange="updateTextInput(this.value, 'rootedWeight');"></input>
                                 </td>
                                 <td>
                                     <h:outputText class="value" value="#{bean.latestSetting.rootedWeight}%" id="rootedWeight"> </h:outputText>
@@ -166,7 +166,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </h:form>
+                   
                 </div>
 
                 <div class="blockH2" id ="appCat">
@@ -247,6 +247,9 @@
                             </h:form>
                         </tr>
                     </table>
+                     <h:form>
+                                <h:commandButton id="save" styleClass="button" value="Save" action="#{bean.addSetting}" />
+                            </h:form>
                 </div>
 
                 <div class="blockH" id ="scan">
