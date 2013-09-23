@@ -39,7 +39,7 @@ public class ControllerServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        
+       
         // store category list in servlet context
 
         

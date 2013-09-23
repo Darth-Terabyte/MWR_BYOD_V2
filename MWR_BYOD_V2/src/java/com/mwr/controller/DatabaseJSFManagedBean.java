@@ -530,12 +530,11 @@ public class DatabaseJSFManagedBean {
     public String removeDevice(Device device) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("delete from Scanresult where device_MACAddress = :mac and device_UID = :androidid and device_SerialNumber = :serial");
+        Query query = session.createQuery("delete from Device where MACAddress = :mac and AndroidID = :androidid and SerialNumber = :serial");
         query.setParameter("mac", device.getId().getMacaddress());
-        query.setParameter("android", device.getId().getAndroidId());
+        query.setParameter("androidid", device.getId().getAndroidId());
         query.setParameter("serial", device.getId().getSerialNumber());
         query.executeUpdate();
-        session.delete(device);
         session.getTransaction().commit();
         session.close();
         return "devices.xhtml";

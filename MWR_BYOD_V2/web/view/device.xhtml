@@ -37,7 +37,7 @@
 
             <div id="site_content">
                 <h:form>
-                    <h4>#{bean.device.make} #{bean.device.model}</h4>
+                    <h4>#{bean.device.manufacturer} #{bean.device.model}</h4>
                     <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee.empId)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
 
                     <h5>Registered on: #{bean.device.dateRegistered}</h5>
@@ -61,7 +61,7 @@
                         </h:column>
                         <h:column>
                             <h:form>
-                                <h:commandButton styleClass="button" id="View" value="Remove" action="#{bean.removeDevice(bean.device)}"/>
+                                <h:commandButton styleClass="button" id="View" value="Remove device" action="#{bean.removeDevice(bean.device)}"/>
                             </h:form>
                         </h:column>>
                     </h:dataTable>
@@ -136,10 +136,10 @@
                             <f:facet name="header">
                                 <h:outputText value="Setting ID" />
                             </f:facet> 
-                            <h:outputText style="" value="#{result.settings.settingId}" ></h:outputText>                            
+                            <h:outputText style="" value="#{result.setting.settingId}" ></h:outputText>                            
 
                             <h:form>
-                                <h:commandButton styleClass="input" id="View" value="View Setting" action="#{bean.setSpecificSetting(result.settings.settingId)}"/>
+                                <h:commandButton styleClass="input" id="View" value="View Setting" action="#{bean.setSpecificSetting(result.setting.settingId)}"/>
                             </h:form>
                         </h:column>
                     </h:dataTable>
