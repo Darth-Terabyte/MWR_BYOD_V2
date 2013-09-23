@@ -9,27 +9,9 @@
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
         <script type="text/javascript">
-            function updateTextInput(val, text, w) {
+            function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
-                if (w === "os")
-            #{out.setCurrentOSWeight(val)};
-                if (w === "usb")
-            #{out.setCurrentDebuggingEnabledWeight(val)};
-                if (w === "unknown")
-            #{out.setCurrentUnknownSourcesEnabledWeight(val)};
-                if (w === "root")
-            #{out.setCurrentRootedWeight(val)};
-                if (w === "access")
-            #{out.setCurrentAccessScore(val)};
 
-                if (w === "low")
-            #{out.setCurrentLowRiskAppWeight(val)};
-                if (w === "med")
-            #{out.setCurrentMedRiskAppWeight(val)};
-                if (w === "high")
-            #{out.setCurrentHighRiskAppWeight(val)};
-                if (w === "block")
-            #{out.setCurrentBlockedAppWeight(val)};
             }
         </script>
     </h:head>
@@ -116,58 +98,52 @@
                             <tr>
                                 <td>API Level</td>
                                 <td>
-                                    <input class = "val" type="range" name="OSRange" min="0" max="100" value= "#{out.getCurrentOSWeight()}" onchange="updateTextInput(this.value, 'OSText', 'os');"></input>
+                                    <input class = "val" type="range" name="OSRange" min="0" max="100" value= "#{bean.osWeight}" onchange="updateTextInput(this.value, 'OSText');"></input>
                                 </td>
-                                <td>                                    
-                                    <h:outputText  value="#{out.getCurrentOSWeight()}%" id="OSText" class="value"> </h:outputText>                            
+                                <td>
+                                    <h:outputText  value="#{bean.latestSetting.osweight}%" id="OSText" class="value"> </h:outputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>USB debugging</td>
                                 <td>
-                                    <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "#{out.getCurrentDebuggingEnabledWeight()}" onchange="updateTextInput(this.value, 'usbDebug', 'usb');"></input>
+                                    <input class = "val" type="range" name="usbDebugRange" min="0" max="100" value= "#{bean.debugWeight}" onchange="updateTextInput(this.value, 'usbDebug');"></input>
                                 </td>
                                 <td>
-                                    <h:outputText class="value" value="#{out.getCurrentDebuggingEnabledWeight()}%" id="usbDebug"> </h:outputText>
+                                    <h:outputText class="value" value="#{bean.latestSetting.debugWeight}%" id="usbDebug"> </h:outputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Unknown Sources Allowed</td>
                                 <td>
-                                    <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "#{out.getCurrentUnknownSourcesEnabledWeight()}" onchange="updateTextInput(this.value, 'unknownSrcWeight', 'unknown');"></input>
+                                    <input class = "val" type="range" name="unknownSrcRange" min="0" max="100" value= "#{bean.unknownSourcesWeight}" onchange="updateTextInput(this.value, 'unknownSrcWeight');"></input>
                                 </td>
                                 <td>
-                                    <h:outputText class="value" value="#{out.getCurrentUnknownSourcesEnabledWeight()}%" id="unknownSrcWeight"> </h:outputText>
+                                    <h:outputText class="value" value="#{bean.latestSetting.unknownSourcesWeight}%" id="unknownSrcWeight"> </h:outputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Rooted</td>
                                 <td>
-                                    <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{out.getCurrentRootedWeight()}" onchange="updateTextInput(this.value, 'rootedWeight', 'root');"></input>
+                                    <input class = "val" type="range" name="rootedWeight" min="0" max="100" value= "#{bean.latestSetting.rootedWeight}" onchange="updateTextInput(this.value, 'rootedWeight');"></input>
                                 </td>
                                 <td>
-                                    <h:outputText class="value" value="#{out.getCurrentRootedWeight()}%" id="rootedWeight"> </h:outputText>
+                                    <h:outputText class="value" value="#{bean.latestSetting.rootedWeight}%" id="rootedWeight"> </h:outputText>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Access Score</td>
                                 <td>
-                                    <input class = "val" type="range" name="acccessScore" min="0" max="100" value= "#{out.getCurrentAccessScore()}" onchange="updateTextInput(this.value, 'accessScore', 'access');"></input>
+                                    <input class = "val" type="range" name="acccessScore" min="0" max="100" value= "#{bean.accessScore}" onchange="updateTextInput(this.value, 'accessScore');"></input>
                                 </td>
                                 <td>
-                                    <h:outputText class="value" value="#{out.getCurrentAccessScore()}%" id="accessScore"> </h:outputText>
+                                    <h:outputText class="value" value="#{bean.latestSetting.accessScore}%" id="accessScore"> </h:outputText>
                                 </td>
                             </tr>
                         </table>
 
                         <div class="more3">
-                            <h:outputText class="value" id="apps1" value="#{out.getWeightSystemTotal()}%"></h:outputText>
-                        </div>
-
-                        <div class="more2">
-                            <h:form>
-                                <h:commandLink value='Save' action="#{out.saveWeightSettings()}"> </h:commandLink>
-                            </h:form>
+                            <h:commandLink value='Save' action="#{bean.saveWeightSettings(OSText,usbDebug,unknownSrcWeight,rootedWeight,accessScore)}"> </h:commandLink>
                         </div>
                     </h:form>
                 </div>
@@ -182,55 +158,66 @@
                             <td><a>Category</a></td>
                             <td></td>
                             <td>Value</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><a>Low Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{bean.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText', 'low');"></input>
+                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{bean.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="lowText" value ="-#{bean.latestSetting.lowRiskApp}%"> </h:outputText>
+                                <h:outputText class="value" id="lowText" value ="#{bean.latestSetting.lowRiskApp}%"> </h:outputText>
+                            </td>
+                            
+                            <td>
+                                <div class="more4">
+                                    <a href="#">Save</a>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td><a>Medium Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{bean.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText', 'med');"></input>
+                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{bean.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="medText" value ="-#{bean.latestSetting.mediumRiskApp}%"> </h:outputText>
+                                <h:outputText class="value" id="medText" value ="#{bean.latestSetting.mediumRiskApp}%"> </h:outputText>
+                            </td>
+                            <td>
+                                <div class="more4">
+                                    <h:commandLink value='Save' action=""> </h:commandLink>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td><a>High Risk</a></td>
                             <td>
-                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{bean.highRiskApp}" onchange="updateTextInput(this.value, 'highText', 'high');"></input>
+                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{bean.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="highText" value ="-#{bean.latestSetting.highRiskApp}%"> </h:outputText>
+                                <h:outputText class="value" id="highText" value ="#{bean.latestSetting.highRiskApp}%"> </h:outputText>
+                            </td>                            
+                            <td>
+                                <div class="more4">
+                                    <h:commandLink value='Save' action=""> </h:commandLink>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td><a>Blocked</a></td>
                             <td>
-                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{bean.blockedApp}" onchange="updateTextInput(this.value, 'blockText', 'block');"></input>
+                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{bean.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
                             </td>
                             <td>
-                                <h:outputText class="value" id="blockText" value ="-#{bean.latestSetting.blockedApp}%"> </h:outputText>
+                                <h:outputText class="value" id="blockText" value ="#{bean.latestSetting.blockedApp}%"> </h:outputText>
+                            </td>
+                            <td>
+                                <div class="more4">
+                                    <h:commandLink value='Save' action="#{bean.setBlockedApp()}"> </h:commandLink>
+                                </div>
                             </td>
                         </tr>
                     </table>
-
-                    <div class="more3">
-                        <h:outputText class="value" id="apps2" value="#{out.getWeightAppsTotal()}%"></h:outputText>
-                    </div>
-
-
-                    <div class="more2">
-                        <h:form>
-                            <h:commandLink value='Save' action="#{out.saveBlacklistedSettings()}"> </h:commandLink>
-                        </h:form>
-                    </div>
                 </div>
 
                 <div class="blockH" id ="scan">
@@ -269,7 +256,7 @@
                         </h:dataTable>
                     </h:form>
                     <div class="more2">
-                        <a href="#">Save</a>
+                        <h:commandLink value='Save'> </h:commandLink>
                     </div>
                 </div>
             </div>
