@@ -7,6 +7,8 @@ package com.mwr.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import com.mwr.database.*;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Session;
 
 @ManagedBean(name = "out")
@@ -30,15 +32,27 @@ public class OutputBean {
     public OutputBean() {
         session = HibernateUtil.getSessionFactory().openSession();
         b = new DatabaseJSFManagedBean();
-        rootedWeight = b.getRootedWeight();
-        debugWeight = b.getDebugWeight();
-        unknownSourcesWeight = b.getUnknownSourcesWeight();
-        osWeight =b.getOsWeight();
-        lowRiskApp = b.getLowRiskApp();
-        mediumRiskApp = b.getMediumRiskApp();
-        highRiskApp = b.getHighRiskApp();
-        blockedApp = b.getBlockedApp();
-        accessScore = b.getAccessScore();
+        Settings s = b.getLatestSetting();
+        
+        rootedWeight = s.getRootedWeight();
+        debugWeight = s.getDebugWeight();
+        unknownSourcesWeight = s.getUnknownSourcesWeight();
+        osWeight =s.getOsweight();
+        lowRiskApp = s.getLowRiskApp();
+        mediumRiskApp = s.getMediumRiskApp();
+        highRiskApp = s.getHighRiskApp();
+        blockedApp = s.getBlockedApp();
+        accessScore = s.getAccessScore();
+        
+        currRootedWeight = rootedWeight;
+        currDebugWeight = debugWeight;
+        currUnknownSourcesWeight = unknownSourcesWeight;
+        currOSWeight = osWeight;
+        currLowRiskAppWeight = lowRiskApp;
+        currMediumRiskAppWeight = mediumRiskApp;
+        currHighRiskAppWeight = highRiskApp;
+        currBlockedAppWeight = blockedApp;
+        currAccessScore = accessScore;
     }
 
     public int getCurrentRootedWeight() {
@@ -159,5 +173,48 @@ public class OutputBean {
         } else {
             accessChanged = true;
         }
+    }
+    
+    public int getWeightSystemTotal() {
+        int score = 0;
+        List<Integer> weights = new ArrayList<Integer>();
+
+        weights.add(currAccessScore);
+        weights.add(currDebugWeight);
+        weights.add(currOSWeight);
+        weights.add(currRootedWeight);
+        weights.add(currUnknownSourcesWeight);
+
+        for (int i = 0; i < weights.size(); i++) {
+            score += weights.get(i);
+        }
+
+        return score;
+    }
+
+    public int getWeightAppsTotal() {
+        int score = 0;
+        List<Integer> weights = new ArrayList<Integer>();
+
+        weights.add(currLowRiskAppWeight);
+        weights.add(currMediumRiskAppWeight);
+        weights.add(currHighRiskAppWeight);
+        weights.add(currBlockedAppWeight);
+
+        for (int i = 0; i < weights.size(); i++) {
+            score += weights.get(i);
+        }
+
+        return score;
+    }
+    
+    //Save WeightSystem Settings
+    public void saveWeightSettings() {
+        b.saveWeightSettings(currOSWeight,currDebugWeight,currUnknownSourcesWeight,currRootedWeight,currAccessScore);
+    }
+
+    //Save Blacklisted Applications Settings
+    public void saveBlacklistedSettings() {
+        b.saveBlacklistedSettings(currLowRiskAppWeight, currMediumRiskAppWeight, currHighRiskAppWeight, currBlockedAppWeight);
     }
 }

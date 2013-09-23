@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
 
-@ManagedBean(name = "val")
+@ManagedBean(name = "validation")
 @SessionScoped
 public class ValidationBean {
 

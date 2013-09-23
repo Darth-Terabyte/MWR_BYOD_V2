@@ -448,39 +448,6 @@ public class DatabaseJSFManagedBean {
         return employeeDevices;
     }
 
-    public int getWeightSystemTotal() {
-        int score = 0;
-        List<Integer> weights = new ArrayList<Integer>();
-
-        weights.add(latestSetting.getAccessScore());
-        weights.add(latestSetting.getDebugWeight());
-        weights.add(latestSetting.getOsweight());
-        weights.add(latestSetting.getRootedWeight());
-        weights.add(latestSetting.getUnknownSourcesWeight());
-
-        for (int i = 0; i < weights.size(); i++) {
-            score += weights.get(i);
-        }
-
-        return score;
-    }
-
-    public int getWeightAppsTotal() {
-        int score = 0;
-        List<Integer> weights = new ArrayList<Integer>();
-
-        weights.add(latestSetting.getBlockedApp());
-        weights.add(latestSetting.getHighRiskApp());
-        weights.add(latestSetting.getLowRiskApp());
-        weights.add(latestSetting.getMediumRiskApp());
-
-        for (int i = 0; i < weights.size(); i++) {
-            score += weights.get(i);
-        }
-
-        return score;
-    }
-
     public int getScanDays() {
         return 5;
     }
