@@ -6,15 +6,15 @@ CREATE SCHEMA IF NOT EXISTS `byod` DEFAULT CHARACTER SET utf8 COLLATE utf8_unico
 USE `byod` ;
 
 -- -----------------------------------------------------
--- Table `byod`.`blacklistedapplications`
+-- Table `byod`.`blacklistedapp`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `byod`.`blacklistedapplications` (
+CREATE  TABLE IF NOT EXISTS `byod`.`blacklistedapp` (
   `AppID` INT(11) NOT NULL AUTO_INCREMENT ,
   `AppName` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `AppCategory` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   PRIMARY KEY (`AppID`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
@@ -33,7 +33,7 @@ CREATE  TABLE IF NOT EXISTS `byod`.`employee` (
   PRIMARY KEY (`empID`) ,
   UNIQUE INDEX `userID_UNIQUE` (`empID` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 27
+AUTO_INCREMENT = 35
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -41,14 +41,14 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `byod`.`device`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `byod`.`device` (
-  `Make` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `Manufacturer` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `Model` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `DateRegistered` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `MACAddress` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
-  `UID` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `AndroidID` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `SerialNumber` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `employee_empID` INT(10) UNSIGNED NOT NULL ,
-  PRIMARY KEY (`MACAddress`, `UID`, `SerialNumber`) ,
+  PRIMARY KEY (`MACAddress`, `AndroidID`, `SerialNumber`) ,
   INDEX `fk_device_employee_idx` (`employee_empID` ASC) ,
   CONSTRAINT `fk_device_employee`
     FOREIGN KEY (`employee_empID` )
@@ -64,10 +64,10 @@ COLLATE = utf8_unicode_ci;
 -- Table `byod`.`devicenotregistered`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `byod`.`devicenotregistered` (
-  `Make` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `Manufacturer` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `Model` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `DateRegistered` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `MACAdress` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `MACAddress` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `AndroidID` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `SerialNumber` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `token` VARCHAR(5) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
@@ -76,38 +76,38 @@ CREATE  TABLE IF NOT EXISTS `byod`.`devicenotregistered` (
   `IDNumber` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `Name` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
   `Surname` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
-  PRIMARY KEY (`MACAdress`, `AndroidID`, `SerialNumber`) )
+  PRIMARY KEY (`MACAddress`, `AndroidID`, `SerialNumber`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `byod`.`settings`
+-- Table `byod`.`setting`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `byod`.`settings` (
+CREATE  TABLE IF NOT EXISTS `byod`.`setting` (
   `SettingID` INT(11) NOT NULL AUTO_INCREMENT ,
-  `AccessScore` INT(11) NULL DEFAULT NULL ,
+  `AccessScore` INT(11) NOT NULL ,
   `SettingDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `OSWeight` INT(11) NOT NULL ,
-  `RootedWeight` INT(11) NOT NULL ,
-  `DebugWeight` INT(11) NOT NULL ,
-  `UnknownSourcesWeight` INT(11) NOT NULL ,
-  `LowRiskApp` INT(11) NOT NULL ,
-  `MediumRiskApp` INT(11) NOT NULL ,
-  `HighRiskApp` INT(11) NOT NULL ,
-  `BlockedApp` INT(11) NOT NULL ,
+  `OSWeight` INT(11) NOT NULL DEFAULT '5' ,
+  `RootedWeight` INT(11) NOT NULL DEFAULT '100' ,
+  `DebugWeight` INT(11) NOT NULL DEFAULT '10' ,
+  `UnknownSourcesWeight` INT(11) NOT NULL DEFAULT '10' ,
+  `LowRiskApp` INT(11) NOT NULL DEFAULT '5' ,
+  `MediumRiskApp` INT(11) NOT NULL DEFAULT '10' ,
+  `HighRiskApp` INT(11) NOT NULL DEFAULT '20' ,
+  `BlockedApp` INT(11) NOT NULL DEFAULT '100' ,
   PRIMARY KEY (`SettingID`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `byod`.`scanresults`
+-- Table `byod`.`scanresult`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `byod`.`scanresults` (
+CREATE  TABLE IF NOT EXISTS `byod`.`scanresult` (
   `scanID` INT(11) NOT NULL AUTO_INCREMENT ,
   `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `rooted` TINYINT(1) NOT NULL ,
@@ -131,34 +131,29 @@ CREATE  TABLE IF NOT EXISTS `byod`.`scanresults` (
   INDEX `fk_scanresults_settings1_idx` (`settings_SettingID` ASC) ,
   CONSTRAINT `fk_scanresults_device1`
     FOREIGN KEY (`device_MACAddress` , `device_UID` , `device_SerialNumber` )
-    REFERENCES `byod`.`device` (`MACAddress` , `UID` , `SerialNumber` )
+    REFERENCES `byod`.`device` (`MACAddress` , `AndroidID` , `SerialNumber` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_scanresults_settings1`
     FOREIGN KEY (`settings_SettingID` )
-    REFERENCES `byod`.`settings` (`SettingID` )
+    REFERENCES `byod`.`setting` (`SettingID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `byod`.`technician`
+-- Table `byod`.`user`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `byod`.`technician` (
-  `technicianID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `employeeCode` VARCHAR(60) NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `byod`.`user` (
+  `userID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
   `userName` VARCHAR(45) NOT NULL ,
   `password` VARCHAR(45) NOT NULL ,
-  `photo` BLOB NULL DEFAULT NULL ,
-  `dateRegistered` DATETIME NOT NULL ,
-  `admin` TINYINT(1) NOT NULL ,
-  PRIMARY KEY (`technicianID`) ,
-  UNIQUE INDEX `userID_UNIQUE` (`technicianID` ASC) ,
-  UNIQUE INDEX `employeeID_UNIQUE` (`employeeCode` ASC) )
+  PRIMARY KEY (`userID`) ,
+  UNIQUE INDEX `userID_UNIQUE` (`userID` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
