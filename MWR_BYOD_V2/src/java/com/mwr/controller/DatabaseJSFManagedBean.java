@@ -9,11 +9,9 @@ import javax.faces.bean.SessionScoped;
 import com.mwr.database.*;
 import com.mwr.businesslogic.TokenGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -30,10 +28,6 @@ public class DatabaseJSFManagedBean {
     private List<Device> deviceList;
     private List<Employee> employeeList;
     private List<Technician> technicianList, techAdmin, techNonAdmin;
-    private List<String> systemStatus;
-    private String mac;
-    private String serial;
-    private String android;
     private Settings latestSetting;
     private List<Blacklistedapplications> apps;
     private Scanresults results;
@@ -389,12 +383,12 @@ public class DatabaseJSFManagedBean {
     public boolean addScanResults(String mac, String serial, String androidID, boolean rooted, boolean debug, boolean unknown, String installedApps, int api) {
         getLatestSetting();
         getApps();
-        int totalScore = 0;
+        int totalScore;
         int rootScore = 0;
         int debugScore = 0;
         int unknownScore = 0;
         int appScore = 0;
-        int apiScore = 0;
+        int apiScore;
 
         if (rooted) {
             rootScore = latestSetting.getRootedWeight();
