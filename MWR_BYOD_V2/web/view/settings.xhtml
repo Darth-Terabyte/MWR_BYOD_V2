@@ -11,27 +11,27 @@
         <script type="text/javascript">
             function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
-
             }
         </script>
     </h:head>
     <h:body>
+        
 
         <div id="main">
             <div id="header">
                 <div id="banner">
                     <div id="welcome">
-                        <h1><a href = "/BYOD/faces/view/home.xhtml">BYOD</a></h1>
+                        <h1><h:link hreflang = "/BYOD/faces/view/home.xhtml">BYOD</h:link></h1>
                         <h2>Bring Your Own Device Asset Tracker</h2>
                     </div>
                     <div id="menubar">
                         <ul id="menu">
-                            <li class="current"><a href="/BYOD/faces/view/home.xhtml">Home</a></li>
-                            <li><a href="/BYOD/faces/view/settings.xhtml">Settings</a></li>
-                            <li><a href="/BYOD/faces/view/devices.xhtml">Devices</a></li>
-                            <li><a href="/BYOD/faces/view/users.xhtml">Users</a></li>
-                            <li><a href="/BYOD/faces/view/scans.xhtml">Scans</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li class="current"><h:link hreflang="/BYOD/faces/view/home.xhtml">Home</h:link></li>
+                            <li><h:link hreflang="/BYOD/faces/view/settings.xhtml">Settings</h:link></li>
+                            <li><h:link hreflang="/BYOD/faces/view/devices.xhtml">Devices</h:link></li>
+                            <li><h:link hreflang="/BYOD/faces/view/users.xhtml">Users</h:link></li>
+                            <li><h:link hreflang="/BYOD/faces/view/scans.xhtml">Scans</h:link></li>
+                            <li><h:link hreflang="#">Logout</h:link></li>
                         </ul>
                     </div>
                 </div>
@@ -42,17 +42,17 @@
                 <div class="blockHS">
                     <table id = "shortcut">
                         <tr>
-                            <td><a href ="#blackListed">Blacklisted Applications</a></td>
-                            <td><a href ="#weighted">Weighted System</a></td>
-                            <td><a href ="#appCat">Application Categories</a></td>
-                            <td><a href ="#scan">Scan Settings</a></td>
+                            <td><h:link hreflang ="#blackListed">Blacklisted Applications</h:link></td>
+                            <td><h:link hreflang ="#weighted">Weighted System</h:link></td>
+                            <td><h:link hreflang ="#appCat">Application Categories</h:link></td>
+                            <td><h:link hreflang ="#scan">Scan Settings</h:link></td>
                         </tr>
                     </table>
                 </div>
 
                 <div id ="blackListed" class="blockH">
                     <h5>Blacklisted Applications</h5>
-                    <a class ="upD" href="#main">...to top</a>                    
+                    <h:link class ="upD" hreflang="#main" value ="...to top"></h:link>                    
                 </div>
                 <div class="blockH">
 
@@ -78,13 +78,13 @@
 
                     </h:dataTable>
                     <div class="more2">
-                        <a href="blacklistedAdd.xhtml">Add Blacklisted Application</a>
+                        <h:link hreflang="blacklistedAdd.xhtml">Add Blacklisted Application</h:link>
                     </div>
                 </div>
 
                 <div class="blockH" id ="weighted">
                     <h5>Weighted System</h5>
-                    <a class ="upD" href="#main">...to top</a> 
+                    <h:link class ="upD" hreflang="#main" value ="...to top"></h:link>
                 </div>
 
                 <div class="blockH">                    
@@ -103,6 +103,11 @@
                                 <td>
                                     <h:outputText  value="#{bean.latestSetting.osweight}%" id="OSText" class="value"> </h:outputText>
                                 </td>
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setOsWeight(12)}"> </h:commandLink>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>USB debugging</td>
@@ -111,6 +116,11 @@
                                 </td>
                                 <td>
                                     <h:outputText class="value" value="#{bean.latestSetting.debugWeight}%" id="usbDebug"> </h:outputText>
+                                </td>
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setDebugWeight(12)}"> </h:commandLink>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -121,6 +131,11 @@
                                 <td>
                                     <h:outputText class="value" value="#{bean.latestSetting.unknownSourcesWeight}%" id="unknownSrcWeight"> </h:outputText>
                                 </td>
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setUnknownSourcesWeight(15)}"> </h:commandLink>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Rooted</td>
@@ -129,6 +144,11 @@
                                 </td>
                                 <td>
                                     <h:outputText class="value" value="#{bean.latestSetting.rootedWeight}%" id="rootedWeight"> </h:outputText>
+                                </td>
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setRootedWeight(15)}"> </h:commandLink>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -139,90 +159,99 @@
                                 <td>
                                     <h:outputText class="value" value="#{bean.latestSetting.accessScore}%" id="accessScore"> </h:outputText>
                                 </td>
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setAccessScore(15)}"> </h:commandLink>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
-
-                        <div class="more3">
-                            <h:commandLink value='Save' action="#{bean.saveWeightSettings(OSText,usbDebug,unknownSrcWeight,rootedWeight,accessScore)}"> </h:commandLink>
-                        </div>
                     </h:form>
                 </div>
 
                 <div class="blockH2" id ="appCat">
                     <h5>Application Categories</h5>
-                    <a class ="upL" href="#main">...to top</a> 
+                    <h:link class ="upL" hreflang="#main" value ="...to top"></h:link>
                 </div>
                 <div class="blockH2">                    
                     <table class = "listL">
                         <tr class = "listLH">
-                            <td><a>Category</a></td>
+                            <td><h:link>Category</h:link></td>
                             <td></td>
                             <td>Value</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><a>Low Risk</a></td>
-                            <td>
-                                <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{bean.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" id="lowText" value ="#{bean.latestSetting.lowRiskApp}%"> </h:outputText>
-                            </td>
-                            
-                            <td>
-                                <div class="more4">
-                                    <a href="#">Save</a>
-                                </div>
-                            </td>
+                            <h:form>
+                                <td><h:link>Low Risk</h:link></td>
+                                <td>
+                                    <input class = "val" type="range" name="lowRange" min="0" max="100" value= "#{bean.lowRiskApp}" onchange="updateTextInput(this.value, 'lowText');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" id="lowText" value ="#{bean.latestSetting.lowRiskApp}%"> </h:outputText>
+                                </td>
+
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setLowRiskApp(15)}"> </h:commandLink>
+                                    </div>
+                                </td>
+                            </h:form>
                         </tr>
                         <tr>
-                            <td><a>Medium Risk</a></td>
-                            <td>
-                                <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{bean.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" id="medText" value ="#{bean.latestSetting.mediumRiskApp}%"> </h:outputText>
-                            </td>
-                            <td>
-                                <div class="more4">
-                                    <h:commandLink value='Save' action=""> </h:commandLink>
-                                </div>
-                            </td>
+                            <h:form>
+                                <td><h:link>Medium Risk</h:link></td>
+                                <td>
+                                    <input class = "val" type="range" name="medRange" min="0" max="100" value= "#{bean.mediumRiskApp}" onchange="updateTextInput(this.value, 'medText');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" id="medText" value ="#{bean.latestSetting.mediumRiskApp}%"> </h:outputText>
+                                </td>
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setMediumRiskApp(15)}"> </h:commandLink>
+                                    </div>
+                                </td>
+                            </h:form>
                         </tr>
                         <tr>
-                            <td><a>High Risk</a></td>
-                            <td>
-                                <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{bean.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" id="highText" value ="#{bean.latestSetting.highRiskApp}%"> </h:outputText>
-                            </td>                            
-                            <td>
-                                <div class="more4">
-                                    <h:commandLink value='Save' action=""> </h:commandLink>
-                                </div>
-                            </td>
+                            <h:form>
+                                <td><h:link>High Risk</h:link></td>
+                                <td>
+                                    <input class = "val" type="range" name="highRange" min="0" max="100" value= "#{bean.highRiskApp}" onchange="updateTextInput(this.value, 'highText');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" id="highText" value ="#{bean.latestSetting.highRiskApp}%"> </h:outputText>
+                                </td>                            
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setHighRiskApp(15)}"> </h:commandLink>
+                                    </div>
+                                </td>
+                            </h:form>
                         </tr>
                         <tr>
-                            <td><a>Blocked</a></td>
-                            <td>
-                                <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{bean.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
-                            </td>
-                            <td>
-                                <h:outputText class="value" id="blockText" value ="#{bean.latestSetting.blockedApp}%"> </h:outputText>
-                            </td>
-                            <td>
-                                <div class="more4">
-                                    <h:commandLink value='Save' action="#{bean.setBlockedApp()}"> </h:commandLink>
-                                </div>
-                            </td>
+                            <h:form>
+                                <td><h:link>Blocked</h:link></td>
+                                <td>
+                                    <input class = "val" type="range" name="blockRange" min="0" max="100" value= "#{bean.blockedApp}" onchange="updateTextInput(this.value, 'blockText');"></input>
+                                </td>
+                                <td>
+                                    <h:outputText class="value" id="blockText" value ="#{bean.latestSetting.blockedApp}%"> </h:outputText>
+                                </td>
+                                <td>
+                                    <div class="more4">
+                                        <h:commandLink value='Save' action="#{bean.setBlockedApp(15)}"> </h:commandLink>
+                                    </div>
+                                </td>
+                            </h:form>
                         </tr>
                     </table>
                 </div>
 
                 <div class="blockH" id ="scan">
                     <h5>Scan Settings</h5>
-                    <a class ="upD" href="#main">...to top</a> 
+                    <h:link class ="upD" hreflang="#main" value ="...to top"></h:link>
                 </div>
                 <div class="blockH">
 
@@ -254,16 +283,17 @@
                                 <h:inputText id="scanDays" value="#{bean.getScanDays()}"  styleClass="input" size="5"  />
                             </h:column>
                         </h:dataTable>
+
+                        <div class="more2">
+                            <h:commandLink value='Save'> </h:commandLink>
+                        </div>
                     </h:form>
-                    <div class="more2">
-                        <h:commandLink value='Save'> </h:commandLink>
-                    </div>
                 </div>
             </div>
             <div id="content_grey">
                 <div class="content_grey_container_box">
-                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.
-                        Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
+                    <p> Website by Lux in Tenebris student group from the <h:link hreflang = "https://www.up.ac.za">University of Pretoria</h:link>.
+                        Supported by <h:link hreflang = "https://www.mwrinfosecurity.com">MWR InfoSecurity</h:link>.</p>
                 </div>
             </div>
 
