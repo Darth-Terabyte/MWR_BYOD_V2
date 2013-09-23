@@ -46,25 +46,27 @@
                     <h5>Device</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable id="currDev" value="#{bean.device_Results}" var ="setting" styleClass ="listD">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Current rating:" />
-                            </f:facet>
-                            <h:outputText value="#{bean.device_Results.get(0).totalScore}" ></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Last Scan Date:" />
-                            </f:facet>
-                            <h:outputText value="#{bean.device_Results.get(0).date}" ></h:outputText>
-                        </h:column>
-                        <h:column>
-                            <h:form>
-                                <h:commandButton styleClass="button" id="View" value="Remove device" action="#{bean.removeDevice(bean.device)}"/>
-                            </h:form>
-                        </h:column>>
-                    </h:dataTable>
+                    <table>
+                        <tr>
+                            <td>
+                                <f:facet name="header">
+                                    <h:outputText value="Current rating:" />
+                                </f:facet>
+                                <h:outputText rendered="#{bean.device_Results.size() > 0}" value="#{bean.device_Results.get(0).totalScore}" ></h:outputText>
+                            </td>
+                            <td>
+                                <f:facet name="header">
+                                    <h:outputText value="Last Scan Date:" />
+                                </f:facet>
+                                <h:outputText rendered="#{bean.device_Results.size() > 0}" value="#{bean.device_Results.get(0).date}" ></h:outputText>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton styleClass="button" id="View" value="Remove device" action="#{bean.removeDevice(bean.device)}"/>
+                                </h:form>
+                            </td>
+                        </tr>
+                    </table>
 
                 </div>
 
