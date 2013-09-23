@@ -208,13 +208,5 @@ public class OutputBean {
         return score;
     }
     
-    //Save WeightSystem Settings
-    public void saveWeightSettings() {
-        b.saveWeightSettings(currOSWeight,currDebugWeight,currUnknownSourcesWeight,currRootedWeight,currAccessScore);
-    }
-
-    //Save Blacklisted Applications Settings
-    public void saveBlacklistedSettings() {
-        b.saveBlacklistedSettings(currLowRiskAppWeight, currMediumRiskAppWeight, currHighRiskAppWeight, currBlockedAppWeight);
-    }
+    
 }

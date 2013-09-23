@@ -132,6 +132,8 @@ public class DatabaseJSFManagedBean {
         accessScore = access;
         addSetting();
     }
+    
+    
 
     //Save Blacklisted Applications Settings
     public void saveBlacklistedSettings(int low, int med, int high, int block) {
@@ -645,6 +647,51 @@ public class DatabaseJSFManagedBean {
         return latestSetting.getAccessScore();
     }
 
+        public void setRootedWeight(int weight) {
+        getLatestSetting();
+        latestSetting.setRootedWeight(weight);
+    }
+
+    public void setDebugWeight(int weight) {
+        getLatestSetting();
+        latestSetting.setDebugWeight(weight);
+    }
+
+    public void setUnknownSourcesWeight(int weight) {
+        getLatestSetting();
+        latestSetting.setUnknownSourcesWeight(weight);
+    }
+
+    public void setOsWeight(int weight) {
+        getLatestSetting();
+        latestSetting.setOsweight(weight);
+    }
+
+    public void setLowRiskApp(int weight) {
+        getLatestSetting();
+        latestSetting.setLowRiskApp(weight);
+    }
+
+    public void setMediumRiskApp(int weight) {
+        getLatestSetting();
+        latestSetting.setMediumRiskApp(weight);
+    }
+
+    public void setHighRiskApp(int weight) {
+        getLatestSetting();
+        latestSetting.setHighRiskApp(weight);
+    }
+
+    public void setBlockedApp(int weight) {
+        getLatestSetting();
+        latestSetting.setBlockedApp(weight);
+    }
+
+    public void setAccessScore(int weight) {
+        getLatestSetting();
+        latestSetting.setAccessScore(weight);
+    }
+    
     public String addSetting() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
