@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12 Sep 2013 9:35:11 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.mwr.database.Blacklistedapplications" table="blacklistedapplications" catalog="byod">
+    <class name="com.mwr.database.Blacklistedapp" table="blacklistedapp" catalog="byod">
         <id name="appId" type="java.lang.Integer">
             <column name="AppID" />
             <generator class="identity" />

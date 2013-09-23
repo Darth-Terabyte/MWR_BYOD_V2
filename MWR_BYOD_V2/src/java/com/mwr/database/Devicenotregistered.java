@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 29-Aug-2013 18:05:58 by Hibernate Tools 3.2.1.GA
+// Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -11,7 +11,7 @@ public class Devicenotregistered  implements java.io.Serializable {
 
 
      private DevicenotregisteredId id;
-     private String make;
+     private String manufacturer;
      private String model;
      private Date dateRegistered;
      private String token;
@@ -24,19 +24,17 @@ public class Devicenotregistered  implements java.io.Serializable {
     public Devicenotregistered() {
     }
 
-    public Devicenotregistered(DevicenotregisteredId pk, String make, String model, String username, String password, String idnumber, String name, String surname,String token) {
-             
-       this.id = pk; 
-       this.make = make;
+    public Devicenotregistered(DevicenotregisteredId id, String manufacturer, String model, Date dateRegistered, String token, String username, String password, String idnumber, String name, String surname) {
+       this.id = id;
+       this.manufacturer = manufacturer;
        this.model = model;
-       this.dateRegistered = new Date();      
+       this.dateRegistered = dateRegistered;
+       this.token = token;
        this.username = username;
        this.password = password;
        this.idnumber = idnumber;
        this.name = name;
        this.surname = surname;
-       this.token = token;
-      
     }
    
     public DevicenotregisteredId getId() {
@@ -46,12 +44,12 @@ public class Devicenotregistered  implements java.io.Serializable {
     public void setId(DevicenotregisteredId id) {
         this.id = id;
     }
-    public String getMake() {
-        return this.make;
+    public String getManufacturer() {
+        return this.manufacturer;
     }
     
-    public void setMake(String make) {
-        this.make = make;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
     public String getModel() {
         return this.model;

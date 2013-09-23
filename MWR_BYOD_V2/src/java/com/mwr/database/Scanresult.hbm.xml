@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12 Sep 2013 11:46:09 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.mwr.database.Scanresults" table="scanresults" catalog="byod">
-        <id name="scanId" type="int">
+    <class name="com.mwr.database.Scanresult" table="scanresult" catalog="byod">
+        <id name="scanId" type="java.lang.Integer">
             <column name="scanID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="settings" class="com.mwr.database.Settings" fetch="select">
+        <many-to-one name="device" class="com.mwr.database.Device" fetch="select">
+            <column name="device_MACAddress" length="45" not-null="true" />
+            <column name="device_UID" length="45" not-null="true" />
+            <column name="device_SerialNumber" length="45" not-null="true" />
+        </many-to-one>
+        <many-to-one name="setting" class="com.mwr.database.Setting" fetch="select">
             <column name="settings_SettingID" not-null="true" />
         </many-to-one>
         <property name="date" type="timestamp">
@@ -49,15 +54,6 @@
         </property>
         <property name="accessAllowed" type="boolean">
             <column name="accessAllowed" not-null="true" />
-        </property>
-        <property name="deviceMacaddress" type="string">
-            <column name="device_MACAddress" length="45" not-null="true" />
-        </property>
-        <property name="deviceUid" type="string">
-            <column name="device_UID" length="45" not-null="true" />
-        </property>
-        <property name="deviceSerialNumber" type="string">
-            <column name="device_SerialNumber" length="45" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

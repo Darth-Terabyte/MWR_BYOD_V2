@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 29-Aug-2013 18:05:59 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.mwr.database.Devicenotregistered" table="devicenotregistered" catalog="byod">
         <composite-id name="id" class="com.mwr.database.DevicenotregisteredId">
-            <key-property name="macadress" type="string">
-                <column name="MACAdress" length="45" />
+            <key-property name="macaddress" type="string">
+                <column name="MACAddress" length="45" />
             </key-property>
             <key-property name="androidId" type="string">
                 <column name="AndroidID" length="45" />
@@ -15,8 +15,8 @@
                 <column name="SerialNumber" length="45" />
             </key-property>
         </composite-id>
-        <property name="make" type="string">
-            <column name="Make" length="45" not-null="true" />
+        <property name="manufacturer" type="string">
+            <column name="Manufacturer" length="45" not-null="true" />
         </property>
         <property name="model" type="string">
             <column name="Model" length="45" not-null="true" />

@@ -91,13 +91,13 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.hibernate-support.classpath}</file>
+                    <file>${file.reference.org-netbeans-modules-java-j2seproject-copylibstask.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
-                <root id="src.dir" name="Source Packages"/>
+                <root id="src.dir"/>
             </source-roots>
             <test-roots/>
         </data>

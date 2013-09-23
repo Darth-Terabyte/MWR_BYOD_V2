@@ -2,9 +2,11 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="byod"/>
-  <table-filter match-name="scanresults"/>
+  <table-filter match-name="user"/>
   <table-filter match-name="devicenotregistered"/>
-  <table-filter match-name="device"/>
-  <table-filter match-name="technician"/>
+  <table-filter match-name="scanresult"/>
+  <table-filter match-name="setting"/>
+  <table-filter match-name="blacklistedapp"/>
   <table-filter match-name="employee"/>
+  <table-filter match-name="device"/>
 </hibernate-reverse-engineering>

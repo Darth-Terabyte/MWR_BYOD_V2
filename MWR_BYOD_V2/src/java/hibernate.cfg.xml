@@ -14,5 +14,12 @@
     <mapping resource="com/mwr/database/Scanresults.hbm.xml"/>
     <mapping resource="com/mwr/database/Settings.hbm.xml"/>
     <mapping resource="com/mwr/database/Blacklistedapplications.hbm.xml"/>
+    <mapping resource="com/mwr/database/Blacklistedapp.hbm.xml"/>
+    <mapping/>
+    <mapping resource="com/mwr/database/Setting.hbm.xml"/>
+    <mapping/>
+    <mapping/>
+    <mapping resource="com/mwr/database/Scanresult.hbm.xml"/>
+    <mapping resource="com/mwr/database/User.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

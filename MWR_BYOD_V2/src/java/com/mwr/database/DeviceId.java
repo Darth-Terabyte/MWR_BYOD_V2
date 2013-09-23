@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 29-Aug-2013 18:05:58 by Hibernate Tools 3.2.1.GA
+// Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA
 
 
 
@@ -10,23 +10,22 @@ public class DeviceId  implements java.io.Serializable {
 
 
      private String macaddress;
-     private String uid;
+     private String androidId;
      private String serialNumber;
 
     public DeviceId() {
     }
-    
-    public DeviceId(DevicenotregisteredId id)
-    {
-        this.macaddress = id.getMacadress();
-        this.serialNumber = id.getSerialNumber();
-        this.uid = id.getAndroidId();
-    }
 
-    public DeviceId(String macaddress, String uid, String serialNumber) {
+    public DeviceId(String macaddress, String androidId, String serialNumber) {
        this.macaddress = macaddress;
-       this.uid = uid;
+       this.androidId = androidId;
        this.serialNumber = serialNumber;
+    }
+    
+    public DeviceId(DevicenotregisteredId id) {
+       this.macaddress = id.getMacaddress();
+       this.androidId = id.getAndroidId();
+       this.serialNumber = id.getSerialNumber();
     }
    
     public String getMacaddress() {
@@ -36,12 +35,12 @@ public class DeviceId  implements java.io.Serializable {
     public void setMacaddress(String macaddress) {
         this.macaddress = macaddress;
     }
-    public String getUid() {
-        return this.uid;
+    public String getAndroidId() {
+        return this.androidId;
     }
     
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setAndroidId(String androidId) {
+        this.androidId = androidId;
     }
     public String getSerialNumber() {
         return this.serialNumber;
@@ -59,7 +58,7 @@ public class DeviceId  implements java.io.Serializable {
 		 DeviceId castOther = ( DeviceId ) other; 
          
 		 return ( (this.getMacaddress()==castOther.getMacaddress()) || ( this.getMacaddress()!=null && castOther.getMacaddress()!=null && this.getMacaddress().equals(castOther.getMacaddress()) ) )
- && ( (this.getUid()==castOther.getUid()) || ( this.getUid()!=null && castOther.getUid()!=null && this.getUid().equals(castOther.getUid()) ) )
+ && ( (this.getAndroidId()==castOther.getAndroidId()) || ( this.getAndroidId()!=null && castOther.getAndroidId()!=null && this.getAndroidId().equals(castOther.getAndroidId()) ) )
  && ( (this.getSerialNumber()==castOther.getSerialNumber()) || ( this.getSerialNumber()!=null && castOther.getSerialNumber()!=null && this.getSerialNumber().equals(castOther.getSerialNumber()) ) );
    }
    
@@ -67,7 +66,7 @@ public class DeviceId  implements java.io.Serializable {
          int result = 17;
          
          result = 37 * result + ( getMacaddress() == null ? 0 : this.getMacaddress().hashCode() );
-         result = 37 * result + ( getUid() == null ? 0 : this.getUid().hashCode() );
+         result = 37 * result + ( getAndroidId() == null ? 0 : this.getAndroidId().hashCode() );
          result = 37 * result + ( getSerialNumber() == null ? 0 : this.getSerialNumber().hashCode() );
          return result;
    }   

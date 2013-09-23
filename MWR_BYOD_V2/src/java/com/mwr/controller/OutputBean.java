@@ -32,7 +32,7 @@ public class OutputBean {
     public OutputBean() {
         session = HibernateUtil.getSessionFactory().openSession();
         b = new DatabaseJSFManagedBean();
-        Settings s = b.getLatestSetting();
+        Setting s = b.getLatestSetting();
         
         rootedWeight = s.getRootedWeight();
         debugWeight = s.getDebugWeight();

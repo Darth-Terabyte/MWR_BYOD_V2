@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 29-Aug-2013 18:05:58 by Hibernate Tools 3.2.1.GA
+// Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -19,7 +19,7 @@ public class Employee  implements java.io.Serializable {
      private String name;
      private String surname;
      private String idnumber;
-     private Set<Device> devices = new HashSet<Device>(0);
+     private Set devices = new HashSet(0);
 
     public Employee() {
     }
@@ -33,7 +33,7 @@ public class Employee  implements java.io.Serializable {
         this.surname = surname;
         this.idnumber = idnumber;
     }
-    public Employee(String username, String password, Date dateRegistered, String name, String surname, String idnumber, Set<Device> devices) {
+    public Employee(String username, String password, Date dateRegistered, String name, String surname, String idnumber, Set devices) {
        this.username = username;
        this.password = password;
        this.dateRegistered = dateRegistered;
@@ -92,11 +92,11 @@ public class Employee  implements java.io.Serializable {
     public void setIdnumber(String idnumber) {
         this.idnumber = idnumber;
     }
-    public Set<Device> getDevices() {
+    public Set getDevices() {
         return this.devices;
     }
     
-    public void setDevices(Set<Device> devices) {
+    public void setDevices(Set devices) {
         this.devices = devices;
     }
 

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12 Sep 2013 11:46:09 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 23 Sep 2013 5:48:30 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.mwr.database.Settings" table="settings" catalog="byod">
+    <class name="com.mwr.database.Setting" table="setting" catalog="byod">
         <id name="settingId" type="java.lang.Integer">
             <column name="SettingID" />
             <generator class="identity" />
         </id>
-        <property name="accessScore" type="java.lang.Integer">
-            <column name="AccessScore" />
+        <property name="accessScore" type="int">
+            <column name="AccessScore" not-null="true" />
         </property>
         <property name="settingDate" type="timestamp">
             <column name="SettingDate" length="19" not-null="true" />
@@ -38,11 +38,5 @@
         <property name="blockedApp" type="int">
             <column name="BlockedApp" not-null="true" />
         </property>
-        <set name="scanresultses" inverse="true">
-            <key>
-                <column name="settings_SettingID" not-null="true" />
-            </key>
-            <one-to-many class="com.mwr.database.Scanresults" />
-        </set>
     </class>
 </hibernate-mapping>
