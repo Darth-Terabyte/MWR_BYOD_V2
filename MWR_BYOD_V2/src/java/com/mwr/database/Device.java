@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA
+// Generated 24 Sep 2013 1:24:20 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -17,25 +17,28 @@ public class Device  implements java.io.Serializable {
      private String manufacturer;
      private String model;
      private Date dateRegistered;
+     private String token;
      private Set scanresults = new HashSet(0);
 
     public Device() {
     }
 
 	
-    public Device(DeviceId id, Employee employee, String manufacturer, String model, Date dateRegistered) {
+    public Device(DeviceId id, Employee employee, String manufacturer, String model, Date dateRegistered, String token) {
         this.id = id;
         this.employee = employee;
         this.manufacturer = manufacturer;
         this.model = model;
         this.dateRegistered = dateRegistered;
+        this.token = token;
     }
-    public Device(DeviceId id, Employee employee, String manufacturer, String model, Date dateRegistered, Set scanresults) {
+    public Device(DeviceId id, Employee employee, String manufacturer, String model, Date dateRegistered, String token, Set scanresults) {
        this.id = id;
        this.employee = employee;
        this.manufacturer = manufacturer;
        this.model = model;
        this.dateRegistered = dateRegistered;
+       this.token = token;
        this.scanresults = scanresults;
     }
    
@@ -73,6 +76,13 @@ public class Device  implements java.io.Serializable {
     
     public void setDateRegistered(Date dateRegistered) {
         this.dateRegistered = dateRegistered;
+    }
+    public String getToken() {
+        return this.token;
+    }
+    
+    public void setToken(String token) {
+        this.token = token;
     }
     public Set getScanresults() {
         return this.scanresults;

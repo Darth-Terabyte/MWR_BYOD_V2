@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class TokenGenerator {
     
-    public String generateToken(String mac,String uid, String serial) throws NoSuchAlgorithmException
+    public String generateToken(String mac,String uid, String serial,String password) throws NoSuchAlgorithmException
     {
         String composite =mac+uid+serial;
         MessageDigest digester = MessageDigest.getInstance("MD5");
@@ -23,13 +23,23 @@ public class TokenGenerator {
         {
             builder.append(String.format("%02x",b&0xff));
         }
-        String hashkey = builder.toString();
-        int skip = Math.round((float)hashkey.length()/5);
+        String hashkeyComposite = builder.toString();
+
+        String finalHash = hashkeyComposite + password;        
+        byte[] hash3 = digester.digest(finalHash.getBytes());
+        builder = new StringBuilder(2*hash3.length);
+        for (byte b : hash3)
+        {
+            builder.append(String.format("%02x",b&0xff));
+        }
+        String hashkeyFinal = builder.toString();
+        
+        int skip = Math.round((float)hashkeyFinal.length()/5);
         int index = 0;
         String token = "";
         for (int i=0;i<5;i++)
         {
-                token += hashkey.charAt(index);
+                token += hashkeyFinal.charAt(index);
                 index += skip;
         }
         return token;

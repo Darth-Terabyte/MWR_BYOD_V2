@@ -230,7 +230,7 @@ public class DatabaseJSFManagedBean {
     public void addToWaitingList(String mac, String android, String serial, String make, String model, String username, String password, String idnumber, String name, String surname) throws NoSuchAlgorithmException {
         try {
             TokenGenerator gen = new TokenGenerator();
-            String token = gen.generateToken(mac, android, serial);
+            String token = gen.generateToken(mac, android, serial,password);
             DevicenotregisteredId devicePK = new DevicenotregisteredId(mac, android, serial);
             device_not = new Devicenotregistered(devicePK, make, model,new Date(), username, password, idnumber, name, surname, token);
             session = HibernateUtil.getSessionFactory().openSession();
@@ -258,7 +258,7 @@ public class DatabaseJSFManagedBean {
 
             Employee emp = addEmployee(d.getUsername(), d.getPassword(), d.getName(), d.getSurname(), d.getIdnumber());
             DeviceId id = new DeviceId(d.getId());
-            Device dev = new Device(id, emp, d.getManufacturer(), d.getModel(), new Date());
+            Device dev = new Device(id, emp, d.getManufacturer(), d.getModel(), new Date(),d.getToken());
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(dev);
@@ -435,7 +435,7 @@ public class DatabaseJSFManagedBean {
             }
         }
 
-        apiScore = (17 - api) * latestSetting.getOsweight();
+        apiScore = (17 - api) * latestSetting.getApiweight();
         totalScore = rootScore + debugScore + unknownScore + appScore + apiScore;
         boolean allow = false;
         if (totalScore < latestSetting.getAccessScore()) {
@@ -676,7 +676,7 @@ public class DatabaseJSFManagedBean {
 
     public void setOsWeight(int weight) {
         getLatestSetting();
-        latestSetting.setOsweight(weight);
+        latestSetting.setApiweight(weight);
     }
 
     public void setLowRiskApp(int weight) {
@@ -723,4 +723,16 @@ public class DatabaseJSFManagedBean {
                 
 		
 	}
+    
+    public String getToken(String mac, String androidID, String serial)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("token from Device where MACAddress = :mac and AndroidID = :uid and SerialNumber = :serial");
+        query.setParameter("mac", mac);
+        query.setParameter("uid", androidID);
+        query.setParameter("serial", serial);
+        Device device = (Device) query.list().get(0);   
+        return device.getToken();
+    }
 }

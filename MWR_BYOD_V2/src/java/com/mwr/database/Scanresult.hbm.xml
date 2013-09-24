@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 24 Sep 2013 1:24:20 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.mwr.database.Scanresult" table="scanresult" catalog="byod">
         <id name="scanId" type="java.lang.Integer">
@@ -43,11 +43,11 @@
         <property name="appsScore" type="int">
             <column name="appsScore" not-null="true" />
         </property>
-        <property name="osversion" type="string">
-            <column name="OSVersion" length="45" not-null="true" />
+        <property name="apilevel" type="string">
+            <column name="APILevel" length="45" not-null="true" />
         </property>
-        <property name="osscore" type="int">
-            <column name="OSScore" not-null="true" />
+        <property name="apiscore" type="int">
+            <column name="APIScore" not-null="true" />
         </property>
         <property name="totalScore" type="int">
             <column name="totalScore" not-null="true" />

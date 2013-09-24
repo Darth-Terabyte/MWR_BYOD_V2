@@ -1,5 +1,5 @@
 package com.mwr.database;
-// Generated 23 Sep 2013 5:37:49 PM by Hibernate Tools 3.2.1.GA
+// Generated 24 Sep 2013 1:24:20 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -22,15 +22,15 @@ public class Scanresult  implements java.io.Serializable {
      private int unknownSourcesScore;
      private String blacklistedApps;
      private int appsScore;
-     private String osversion;
-     private int osscore;
+     private String apilevel;
+     private int apiscore;
      private int totalScore;
      private boolean accessAllowed;
 
     public Scanresult() {
     }
 
-    public Scanresult(Device device, Setting setting, Date date, boolean rooted, int rootedScore, boolean debuggingEnabled, int debuggingEnabledScore, boolean unknownSourcesAllowed, int unknownSourcesScore, String blacklistedApps, int appsScore, String osversion, int osscore, int totalScore, boolean accessAllowed) {
+    public Scanresult(Device device, Setting setting, Date date, boolean rooted, int rootedScore, boolean debuggingEnabled, int debuggingEnabledScore, boolean unknownSourcesAllowed, int unknownSourcesScore, String blacklistedApps, int appsScore, String apilevel, int apiscore, int totalScore, boolean accessAllowed) {
        this.device = device;
        this.setting = setting;
        this.date = date;
@@ -42,8 +42,8 @@ public class Scanresult  implements java.io.Serializable {
        this.unknownSourcesScore = unknownSourcesScore;
        this.blacklistedApps = blacklistedApps;
        this.appsScore = appsScore;
-       this.osversion = osversion;
-       this.osscore = osscore;
+       this.apilevel = apilevel;
+       this.apiscore = apiscore;
        this.totalScore = totalScore;
        this.accessAllowed = accessAllowed;
     }
@@ -132,19 +132,19 @@ public class Scanresult  implements java.io.Serializable {
     public void setAppsScore(int appsScore) {
         this.appsScore = appsScore;
     }
-    public String getOsversion() {
-        return this.osversion;
+    public String getApilevel() {
+        return this.apilevel;
     }
     
-    public void setOsversion(String osversion) {
-        this.osversion = osversion;
+    public void setApilevel(String apilevel) {
+        this.apilevel = apilevel;
     }
-    public int getOsscore() {
-        return this.osscore;
+    public int getApiscore() {
+        return this.apiscore;
     }
     
-    public void setOsscore(int osscore) {
-        this.osscore = osscore;
+    public void setApiscore(int apiscore) {
+        this.apiscore = apiscore;
     }
     public int getTotalScore() {
         return this.totalScore;
