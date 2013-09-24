@@ -95,7 +95,7 @@
                             <h3>Usage Statistics</h3>
                             <div class = "val">
                                 <table>
-                                    <tr><td>Registered Devices: </td> <td><h:outputText id="numReg" value="#{bean.getDeviceSize()}" ></h:outputText></td></tr>
+                                    <tr><td>Registered Devices: </td> <td><h:outputText  id="numReg" value="#{bean.getDeviceSize()}" ></h:outputText></td></tr>
                                     <tr><td>Registered Queue: </td> <td><h:outputText id="numQueue" value="#{bean.getQueueSize()}" ></h:outputText></td></tr>
                                     <tr><td>Access Allowed: </td> <td><h:outputText id="numAllowed" value="#{bean.getAllowed()}"></h:outputText></td></tr>
                                     <tr><td>Access Denied: </td> <td><h:outputText id="numDenied" value="#{bean.getDenied()}"> </h:outputText></td></tr>
@@ -105,7 +105,7 @@
                         <div class="config">
                             <h3>System Configuration</h3>
                             <div class = "val">
-                                <h:dataTable id="dt2" styleClass ="listLSettings" value="#{bean.latestSetting}" var="result" >
+                                <h:dataTable id="dt2" styleClass ="listLSettings" rendered="#{bean.latestSetting != null}" value="#{bean.latestSetting}" var="result" >
                                     <h:column>
                                         <f:facet name="header" >
                                             <h:outputText value=""/>

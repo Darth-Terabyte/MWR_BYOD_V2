@@ -134,8 +134,6 @@ public class DatabaseJSFManagedBean {
         accessScore = access;
         addSetting();
     }
-    
-    
 
     //Save Blacklisted Applications Setting
     public void saveBlacklistedSettings(int low, int med, int high, int block) {
@@ -146,10 +144,9 @@ public class DatabaseJSFManagedBean {
         addSetting();
     }
 
-
     //Save Scan Setting
     public void saveScanSettings() {
-        
+
         addSetting();
     }
 
@@ -232,7 +229,7 @@ public class DatabaseJSFManagedBean {
             TokenGenerator gen = new TokenGenerator();
             String token = gen.generateToken(mac, android, serial);
             DevicenotregisteredId devicePK = new DevicenotregisteredId(mac, android, serial);
-            device_not = new Devicenotregistered(devicePK, make, model,new Date(), username, password, idnumber, name, surname, token);
+            device_not = new Devicenotregistered(devicePK, make, model, new Date(), username, password, idnumber, name, surname, token);
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(device_not);
@@ -286,7 +283,6 @@ public class DatabaseJSFManagedBean {
 //            session.close();
 //        }
 //    }
-
     public Employee getEmployee() {
         try {
             return employee;
@@ -335,7 +331,6 @@ public class DatabaseJSFManagedBean {
 //
 //
 //    }
-
 //    public List getTechnicianAdminList() {
 //
 //        session = HibernateUtil.getSessionFactory().openSession();
@@ -353,7 +348,6 @@ public class DatabaseJSFManagedBean {
 //
 //
 //    }
-
     public List getEmployeeList() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -379,15 +373,15 @@ public class DatabaseJSFManagedBean {
         Query query = session.createQuery("from Setting order by SettingDate desc");
         List setting = query.list();
         latestSetting = (Setting) setting.get(0);
-//                rootedWeight = latestSetting.getRootedWeight();
-//        debugWeight = latestSetting.getDebugWeight();
-//        unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
-//        osWeight = latestSetting.getOsweight();
-//        lowRiskApp = latestSetting.getLowRiskApp();
-//        mediumRiskApp = latestSetting.getMediumRiskApp();
-//        highRiskApp = latestSetting.getHighRiskApp();
-//        blockedApp = latestSetting.getBlockedApp();    
-//        accessScore = latestSetting.getAccessScore();
+        rootedWeight = latestSetting.getRootedWeight();
+        debugWeight = latestSetting.getDebugWeight();
+        unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
+        osWeight = latestSetting.getOsweight();
+        lowRiskApp = latestSetting.getLowRiskApp();
+        mediumRiskApp = latestSetting.getMediumRiskApp();
+        highRiskApp = latestSetting.getHighRiskApp();
+        blockedApp = latestSetting.getBlockedApp();
+        accessScore = latestSetting.getAccessScore();
         session.close();
         return latestSetting;
 
@@ -441,16 +435,16 @@ public class DatabaseJSFManagedBean {
         if (totalScore < latestSetting.getAccessScore()) {
             allow = true;
         }
-        
-         session = HibernateUtil.getSessionFactory().openSession();
+
+        session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-       Query query = session.createQuery("from Device where MACAddress = :mac and AndroidID = :androidid and SerialNumber = :serial");
+        Query query = session.createQuery("from Device where MACAddress = :mac and AndroidID = :androidid and SerialNumber = :serial");
         query.setParameter("mac", mac);
         query.setParameter("serial", serial);
         query.setParameter("androidid", androidID);
         List<Device> devices = query.list();
         Device device = devices.get(0);
-        results = new Scanresult(device,latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow);
+        results = new Scanresult(device, latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow);
         session.save(results);
         session.getTransaction().commit();
         return allow;
@@ -545,13 +539,13 @@ public class DatabaseJSFManagedBean {
         query.setParameter("mac", device.getId().getMacaddress());
         query.setParameter("androidid", device.getId().getAndroidId());
         query.setParameter("serial", device.getId().getSerialNumber());
-        query.executeUpdate();        
+        query.executeUpdate();
         query = session.createQuery("delete from Device where MACAddress = :mac and AndroidID = :androidid and SerialNumber = :serial");
         query.setParameter("mac", device.getId().getMacaddress());
         query.setParameter("androidid", device.getId().getAndroidId());
         query.setParameter("serial", device.getId().getSerialNumber());
-        query.executeUpdate();       
-        
+        query.executeUpdate();
+
         session.getTransaction().commit();
         session.close();
         return "devices.xhtml";
@@ -618,7 +612,7 @@ public class DatabaseJSFManagedBean {
         query.setParameter("mac", mac);
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
-        Scanresult scan = (Scanresult) query.list().get(0);   
+        Scanresult scan = (Scanresult) query.list().get(0);
         return scan;
 
     }
@@ -631,7 +625,7 @@ public class DatabaseJSFManagedBean {
         return debugWeight;
     }
 
-    public int getUnknownSourcesWeight() {       
+    public int getUnknownSourcesWeight() {
         return unknownSourcesWeight;
     }
 
@@ -656,71 +650,80 @@ public class DatabaseJSFManagedBean {
     }
 
     public int getAccessScore() {
-       return  accessScore;
+        return accessScore;
     }
 
-        public void setRootedWeight(int weight) {
-        getLatestSetting();
-        latestSetting.setRootedWeight(weight);
+    public void setRootedWeight(int weight) {
+        rootedWeight = weight;
+        addSetting();
     }
 
     public void setDebugWeight(int weight) {
-        getLatestSetting();
-        latestSetting.setDebugWeight(weight);
+        debugWeight = weight;
+        addSetting();
     }
 
     public void setUnknownSourcesWeight(int weight) {
-        getLatestSetting();
-        latestSetting.setUnknownSourcesWeight(weight);
+        unknownSourcesWeight = weight;
+        addSetting();
     }
 
     public void setOsWeight(int weight) {
-        getLatestSetting();
-        latestSetting.setOsweight(weight);
+        osWeight = weight;
+        addSetting();
     }
 
     public void setLowRiskApp(int weight) {
-        getLatestSetting();
-        latestSetting.setLowRiskApp(weight);
+        lowRiskApp = weight;
+        addSetting();
     }
 
     public void setMediumRiskApp(int weight) {
-        getLatestSetting();
-        latestSetting.setMediumRiskApp(weight);
+        mediumRiskApp = weight;
+        addSetting();
     }
 
     public void setHighRiskApp(int weight) {
-        getLatestSetting();
-        latestSetting.setHighRiskApp(weight);
+        highRiskApp = weight;
+        addSetting();
     }
 
     public void setBlockedApp(int weight) {
-        getLatestSetting();
-        latestSetting.setBlockedApp(weight);
+        blockedApp = weight;
+        addSetting();
     }
 
     public void setAccessScore(int weight) {
-        getLatestSetting();
-        latestSetting.setAccessScore(weight);
+        accessScore = weight;
+        addSetting();
     }
-    
-    public void addSetting() {
-        
-           Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(osWeight)); 
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        Setting setting = new Setting(accessScore,new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
-//        session.save(setting);
-//        session.getTransaction().commit();
-//        session.close();
-//        return "settings.xhtml";
+
+    public String addSetting() {
+
+        Logger.getLogger("OS Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(osWeight));
+        Logger.getLogger("Rooted Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(rootedWeight));
+        Logger.getLogger("Debugging Enabled Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(debugWeight));
+        Logger.getLogger("Unkown Sources Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(unknownSourcesWeight));
+        Logger.getLogger("Low Risk App Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(lowRiskApp));
+        Logger.getLogger("Medium Risk App Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(mediumRiskApp));
+        Logger.getLogger("High Risk App Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(highRiskApp));
+        Logger.getLogger("Blocked App Weight: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(blockedApp));
+        Logger.getLogger("Access Score: " + DatabaseJSFManagedBean.class.getName()).info(Integer.toString(accessScore));
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Setting setting = new Setting(accessScore, new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
+        session.save(setting);
+        session.getTransaction().commit();
+        session.close();
+        return "settings.xhtml";
     }
-    
-    public void  delete(ActionEvent event){
-		
-		int selected = (Integer)event.getComponent().getAttributes().get("selected");
-                  Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(selected)); 
-                
-		
-	}
+
+    public void delete(ActionEvent event) {
+
+        int selected = (Integer) event.getComponent().getAttributes().get("selected");
+        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(selected));
+
+
+    }
 }
