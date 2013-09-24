@@ -377,15 +377,15 @@ public class DatabaseJSFManagedBean {
         Query query = session.createQuery("from Setting order by SettingDate desc");
         List setting = query.list();
         latestSetting = (Setting) setting.get(0);
-                rootedWeight = latestSetting.getRootedWeight();
-        debugWeight = latestSetting.getDebugWeight();
-        unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
-        osWeight = latestSetting.getOsweight();
-        lowRiskApp = latestSetting.getLowRiskApp();
-        mediumRiskApp = latestSetting.getMediumRiskApp();
-        highRiskApp = latestSetting.getHighRiskApp();
-        blockedApp = latestSetting.getBlockedApp();    
-        accessScore = latestSetting.getAccessScore();
+//                rootedWeight = latestSetting.getRootedWeight();
+//        debugWeight = latestSetting.getDebugWeight();
+//        unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
+//        osWeight = latestSetting.getOsweight();
+//        lowRiskApp = latestSetting.getLowRiskApp();
+//        mediumRiskApp = latestSetting.getMediumRiskApp();
+//        highRiskApp = latestSetting.getHighRiskApp();
+//        blockedApp = latestSetting.getBlockedApp();    
+//        accessScore = latestSetting.getAccessScore();
         session.close();
         return latestSetting;
 
