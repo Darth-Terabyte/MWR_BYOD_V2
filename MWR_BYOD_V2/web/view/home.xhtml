@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:h="http://java.sun.com/jsf/html"
-       xmlns:f="http://java.sun.com/jsf/core"
-       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" /> 
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
     </h:head>
     <h:body>
-        
+
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -94,25 +94,33 @@
                         <div class="usage">
                             <h3>Usage Statistics</h3>
                             <div class = "val">
-                                <table>
-                                    <tr><td>Registered Devices: </td> <td><h:outputText id="numReg" value="#{bean.getDeviceSize()}" ></h:outputText></td></tr>
-                                    <tr><td>Registered Queue: </td> <td><h:outputText id="numQueue" value="#{bean.getQueueSize()}" ></h:outputText></td></tr>
-                                    <tr><td>Access Allowed: </td> <td><h:outputText id="numAllowed" value="#{bean.getAllowed()}"></h:outputText></td></tr>
-                                    <tr><td>Access Denied: </td> <td><h:outputText id="numDenied" value="#{bean.getDenied()}"> </h:outputText></td></tr>
-                                </table>
+                                <h:panelGrid columns ="2">
+                                    <h:outputLabel value="Registered Devices:"></h:outputLabel>
+                                    <h:outputText  id="numReg" value="#{bean.getDeviceSize()}" ></h:outputText>
+                                </h:panelGrid>
+                                <h:panelGrid columns ="2">
+                                    <h:outputLabel value="Registered Queue:"></h:outputLabel>
+                                    <h:outputText id="numQueue" value="#{bean.getQueueSize()}" ></h:outputText>
+                                </h:panelGrid>
+                                <h:panelGrid columns ="2">
+                                    <h:outputLabel value="Access Allowed:"></h:outputLabel>
+                                    <h:outputText id="numAllowed" value="#{bean.getAllowed()}"></h:outputText>
+                                </h:panelGrid>
+                                <h:panelGrid columns ="2">
+                                    <h:outputLabel value="Access Denied:"></h:outputLabel>
+                                    <h:outputText id="numDenied" value="#{bean.getDenied()}"> </h:outputText>
+                                </h:panelGrid>
                             </div>
                         </div>
                         <div class="config">
                             <h3>System Configuration</h3>
                             <div class = "val">
-                                <h:dataTable id="dt2" styleClass ="listLSettings" value="#{bean.latestSetting}" var="result" >
+                                <h:dataTable id="dt2" styleClass ="listLSettings" rendered="#{bean.latestSetting != null}" value="#{bean.latestSetting}" var="result" >
                                     <h:column>
                                         <f:facet name="header" >
                                             <h:outputText value=""/>
                                         </f:facet>
-
                                         <h:outputText value="Weights" class ="normalW"/>
-
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
@@ -168,6 +176,7 @@
                     </div>
                 </div>
             </div>
+            
             <div id="content_grey">
                 <div class="content_grey_container_box">
                     <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.
