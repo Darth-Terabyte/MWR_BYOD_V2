@@ -374,7 +374,7 @@ public class DatabaseJSFManagedBean {
         rootedWeight = latestSetting.getRootedWeight();
         debugWeight = latestSetting.getDebugWeight();
         unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
-        osWeight = latestSetting.getOsweight();
+        osWeight = latestSetting.getApiweight();
         lowRiskApp = latestSetting.getLowRiskApp();
         mediumRiskApp = latestSetting.getMediumRiskApp();
         highRiskApp = latestSetting.getHighRiskApp();
@@ -728,12 +728,16 @@ public class DatabaseJSFManagedBean {
         session.close();
         return "settings.xhtml";
     }
-
-    public void delete(ActionEvent event) {
-
-        int selected = (Integer) event.getComponent().getAttributes().get("selected");
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(selected));
-
-
+    
+    public String getToken(String mac, String androidID, String serial)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("token from Device where MACAddress = :mac and AndroidID = :uid and SerialNumber = :serial");
+        query.setParameter("mac", mac);
+        query.setParameter("uid", androidID);
+        query.setParameter("serial", serial);
+        Device device = (Device) query.list().get(0);   
+        return device.getToken();
     }
 }
