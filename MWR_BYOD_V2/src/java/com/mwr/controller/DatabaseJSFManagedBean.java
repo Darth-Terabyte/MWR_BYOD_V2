@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.faces.event.ActionEvent;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -702,13 +704,23 @@ public class DatabaseJSFManagedBean {
         latestSetting.setAccessScore(weight);
     }
     
-    public String addSetting() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Setting setting = new Setting(accessScore,new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
-        session.save(setting);
-        session.getTransaction().commit();
-        session.close();
-        return "settings.xhtml";
+    public void addSetting() {
+        
+           Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(osWeight)); 
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        Setting setting = new Setting(accessScore,new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
+//        session.save(setting);
+//        session.getTransaction().commit();
+//        session.close();
+//        return "settings.xhtml";
     }
+    
+    public void  delete(ActionEvent event){
+		
+		int selected = (Integer)event.getComponent().getAttributes().get("selected");
+                  Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(selected)); 
+                
+		
+	}
 }

@@ -99,7 +99,7 @@ CREATE  TABLE IF NOT EXISTS `byod`.`setting` (
   `BlockedApp` INT(11) NOT NULL DEFAULT '100' ,
   PRIMARY KEY (`SettingID`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
