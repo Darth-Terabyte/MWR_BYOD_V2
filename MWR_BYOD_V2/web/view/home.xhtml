@@ -41,18 +41,18 @@
 
                         <h:inputText id="regEmpID"
                                      styleClass="input"
-                                     maxlength="25"  />
+                                     maxlength="25" value ="#{validation.empID}" />
 
-                        <h:commandButton id="regEmpCheck" value="Check" styleClass="button" action="#{val.empExist(regEmpID)}" />
+                        <h:commandButton id="regEmpCheck" value="Check" styleClass="button" action="#{validation.empExist()}" />
 
                         <h:inputText id="regDevID"
                                      styleClass="input"
-                                     maxlength="25"  />
+                                     maxlength="25" value ="#{validation.empID}" />
 
-                        <h:commandButton id="regDevCheck" value="Token" styleClass="button" action="#{val.devExist(regDevID)}" />
+                        <h:commandButton id="regDevCheck" value="Token" styleClass="button" action="#{validation.devExist()}" />
 
                         <div class ="token">
-                            <h:outputText id = "token" value="54fssf"></h:outputText>
+                            <h:outputText id = "token" value="#{validation.token}"></h:outputText>
                         </div>
                         <div class="more">
                             <a href="#">Register Device</a>
