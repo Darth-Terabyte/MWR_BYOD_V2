@@ -1,9 +1,9 @@
-
 package com.mwr.controller;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import com.mwr.database.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -12,7 +12,7 @@ import org.hibernate.Session;
 
 @ManagedBean(name = "settings")
 @SessionScoped
-public class SettingsBean {
+public class SettingsBean implements Serializable {
 
     private Session session;
     private int rootedWeight;
@@ -23,15 +23,15 @@ public class SettingsBean {
     private int mediumRiskApp;
     private int highRiskApp;
     private int blockedApp;
-    private int accessScore; 
+    private int accessScore;
     private String appName;
     private String appCategory;
     private Setting latestSetting;
     private List<Setting> settings;
     private List<Scanresult> allowedScans;
-    private List<Scanresult> deniedScans;        
+    private List<Scanresult> deniedScans;
     private Setting specificSetting;
-    
+
     public int getRootedWeight() {
         return rootedWeight;
     }
@@ -118,10 +118,9 @@ public class SettingsBean {
 
     public void setAppCategory(String appCategory) {
         this.appCategory = appCategory;
-    }  
-    
-    public void saveSettings()
-    {
+    }
+
+    public void saveSettings() {
         addSetting();
     }
 
@@ -140,13 +139,13 @@ public class SettingsBean {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Setting setting = new Setting(accessScore, new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
-        latestSetting = setting;
+
         session.save(setting);
         session.getTransaction().commit();
         session.close();
         return "settings.xhtml";
     }
-    
+
     //add a blacklisted Application
     public String addBlacklistedApp() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -157,7 +156,7 @@ public class SettingsBean {
         session.close();
         return "settings.xhtml";
     }
-    
+
     public Setting getLatestSetting() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -176,7 +175,7 @@ public class SettingsBean {
         session.close();
         return latestSetting;
     }
-    
+
     public String removeApp(Blacklistedapp app) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -222,6 +221,4 @@ public class SettingsBean {
     public Setting getSpecificSetting() {
         return specificSetting;
     }
-
-
 }

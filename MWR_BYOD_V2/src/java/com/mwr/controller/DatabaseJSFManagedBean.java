@@ -43,6 +43,7 @@ public class DatabaseJSFManagedBean {
     private int highRiskApp;
     private int blockedApp;
     private int accessScore;
+
     private List<Employee> employeeDevices;
 
     public DatabaseJSFManagedBean() {
@@ -51,7 +52,7 @@ public class DatabaseJSFManagedBean {
 
     public void logout() {
     }
-
+    
     public boolean deviceRegistered(String mac, String serial, String androidID) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -66,7 +67,6 @@ public class DatabaseJSFManagedBean {
             return true;
         }
     }
-
     public String getLink(String link) {
 
         return "/BYOD/faces/view/" + link + ".xhtml";
@@ -112,7 +112,6 @@ public class DatabaseJSFManagedBean {
      *===============================================
      */
     //validate password for a Technician
-
     public Boolean correctPassword(String empid) {
         return null;
     }
@@ -129,11 +128,11 @@ public class DatabaseJSFManagedBean {
     public void addToWaitingList(String mac, String android, String serial, String make, String model, String username, String password, String idnumber, String name, String surname) throws NoSuchAlgorithmException {
         try {
             TokenGenerator gen = new TokenGenerator();
-            String token = gen.generateToken(mac, android, serial, password);
-            Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(password);
-            Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(token);
+            String token = gen.generateToken(mac, android, serial,password);
+             Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(password);
+               Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(token);
             DevicenotregisteredId devicePK = new DevicenotregisteredId(mac, android, serial);
-            device_not = new Devicenotregistered(devicePK, make, model, new Date(), token, username, password, idnumber, name, surname);
+            device_not = new Devicenotregistered(devicePK, make, model, new Date(), token,username, password, idnumber, name, surname);
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(device_not);
@@ -154,7 +153,8 @@ public class DatabaseJSFManagedBean {
         return employee;
     }
 
-    public String viewEmployee(String id) {
+    public String viewEmployee(String id)
+    {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -166,15 +166,15 @@ public class DatabaseJSFManagedBean {
             session.close();
             return "user.xhtml";
         }
-
+        
     }
-
+    
     public void addDevice(Devicenotregistered d) {
         try {
 
             Employee emp = addEmployee(d.getUsername(), d.getPassword(), d.getName(), d.getSurname(), d.getIdnumber());
             DeviceId id = new DeviceId(d.getId());
-            Device dev = new Device(id, emp, d.getManufacturer(), d.getModel(), new Date(), d.getToken());
+            Device dev = new Device(id, emp, d.getManufacturer(), d.getModel(), new Date(),d.getToken());
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(dev);
@@ -216,7 +216,6 @@ public class DatabaseJSFManagedBean {
         session.beginTransaction();
         Query query = session.createQuery("from Devicenotregistered");
         waitingList = query.list();
-        session.close();
         return waitingList;
     }
 
@@ -228,7 +227,6 @@ public class DatabaseJSFManagedBean {
             Query query = session.createQuery("from Devicenotregistered where idnumber = :id");
             query.setParameter("id", id);
             waitingListUnique = query.list();
-            session.close();
         } catch (Exception e) {
             System.err.println("Problem...");
         }
@@ -240,7 +238,6 @@ public class DatabaseJSFManagedBean {
         session.beginTransaction();
         Query query = session.createQuery("from Device");
         deviceList = query.list();
-        session.close();
         return deviceList;
     }
 
@@ -259,7 +256,6 @@ public class DatabaseJSFManagedBean {
 //        session.beginTransaction();
 //        Query query = session.createQuery("from Technician");
 //        technicianList = query.list();
-//    session.close();
 //        for (int i = 0; i < technicianList.size(); i++) {
 //            if (technicianList.get(i).isAdmin()) {
 //                techAdmin.add(technicianList.get(i));
@@ -276,7 +272,6 @@ public class DatabaseJSFManagedBean {
         session.beginTransaction();
         Query query = session.createQuery("from Employee order by Surname asc");
         employeeList = query.list();
-        session.close();
         return employeeList;
 
     }
@@ -287,11 +282,10 @@ public class DatabaseJSFManagedBean {
         session.beginTransaction();
         Query query = session.createQuery("from Blacklistedapp");
         apps = query.list();
-        session.close();
         return apps;
 
     }
-
+    
     public Setting getLatestSetting() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -367,11 +361,10 @@ public class DatabaseJSFManagedBean {
         query.setParameter("serial", serial);
         query.setParameter("androidid", androidID);
         List<Device> devices = query.list();
-        Device dev = devices.get(0);
-        results = new Scanresult(dev, latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow);
+        Device device = devices.get(0);
+        results = new Scanresult(device, latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow);
         session.save(results);
         session.getTransaction().commit();
-        session.close();
         return allow;
 
     }
@@ -382,7 +375,6 @@ public class DatabaseJSFManagedBean {
         Query query = session.createQuery("from Device where employee_empID = :id");
         query.setParameter("id", id);
         employeeDevices = query.list();
-        session.close();
         return employeeDevices;
     }
 
@@ -401,13 +393,13 @@ public class DatabaseJSFManagedBean {
             query.setParameter("serial", id.getSerialNumber());
             device = (Device) query.list().get(0);
         } finally {
-            session.close();
             return "device.xhtml";
         }
 
     }
-
-    public void setDevice(Device d) {
+    
+    public void setDevice(Device d)
+    {
         device = d;
     }
 
@@ -466,14 +458,13 @@ public class DatabaseJSFManagedBean {
         return "devices.xhtml";
     }
 
+
     public String viewEmployee(int id) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         employee = (Employee) session.get(Employee.class, id);
-        session.close();
         return "user.xhtml";
     }
-
     public Scanresult getLatestScan(String mac, String serial, String androidID) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -482,20 +473,19 @@ public class DatabaseJSFManagedBean {
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
         Scanresult scan = (Scanresult) query.list().get(0);
-        session.close();
         return scan;
 
     }
-
-    public String getToken(String mac, String androidID, String serial) {
+    
+    public String getToken(String mac, String androidID, String serial)
+    {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Device where MACAddress = :mac and AndroidID = :uid and SerialNumber = :serial");
         query.setParameter("mac", mac);
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
-        Device dev = (Device) query.list().get(0);
-        session.close();
+        Device dev = (Device) query.list().get(0);   
         return dev.getToken();
     }
 }
