@@ -114,7 +114,7 @@
                         <div class="config">
                             <h3>System Configuration</h3>
                             <div class = "val">
-                                <h:dataTable id="dt2" styleClass ="listLSettings" rendered="#{bean.latestSetting != null}" value="#{bean.latestSetting}" var="result" >
+                                <h:dataTable id="dt2" styleClass ="listLSettings" rendered="#{settings.latestSetting != null}" value="#{settings.latestSetting}" var="result" >
                                     <h:column>
                                         <f:facet name="header" >
                                             <h:outputText value=""/>
@@ -164,9 +164,9 @@
                                         <h:outputText style="" value="#{result.blockedApp}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
-                                <h:dataTable id="dt3" styleClass ="listLSettings" value="#{bean.latestSetting}" var="result" >
+                                <h:dataTable id="dt3" styleClass ="listLSettings" value="#{settings.latestSetting}" var="result" >
                                     <h:column>
-                                        <h:outputText class ="access" value="Access Margin: #{bean.latestSetting.accessScore}" ></h:outputText>
+                                        <h:outputText class ="access" value="Access Margin: #{settings.latestSetting.accessScore}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
                             </div>

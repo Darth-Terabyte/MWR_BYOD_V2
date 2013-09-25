@@ -44,7 +44,6 @@
                             <td><a href ="#blackListed">Blacklisted Applications</a></td>
                             <td><a href ="#weighted">Weighted System</a></td>
                             <td><a href ="#appCat">Application Categories</a></td>
-                            <td><a href ="#scan">Scan Settings</a></td>
                         </tr>
                     </table>
                 </div>
@@ -69,7 +68,7 @@
                         </h:column>
                         <h:column>
                             <h:form>
-                                <h:commandButton id="register" styleClass="button" value="Remove" action="#{bean.removeApp(app)}" />
+                                <h:commandButton id="register" styleClass="button" value="Remove" action="#{settings.removeApp(app)}" />
                             </h:form>
                         </h:column>
                     </h:dataTable>
@@ -97,14 +96,14 @@
                                 <h:outputLabel value="Access Score"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="6" styleClass ="listItem">
-                                <h:inputText id="apiLevel" styleClass="input" maxlength="25" value="#{bean.osWeight}" />
-                                <h:inputText id="usbDebug" styleClass="input" maxlength="25" value="#{bean.debugWeight}"   />
-                                <h:inputText id="unknown" styleClass="input" maxlength="25" value="#{bean.unknownSourcesWeight}"   />
-                                <h:inputText id="rooted" styleClass="input" maxlength="25" value="#{bean.rootedWeight}"   />
-                                <h:inputText id="access" styleClass="input" maxlength="25" value="#{bean.accessScore}"  />
+                                <h:inputText id="apiLevel" styleClass="input" maxlength="25" value="#{settings.osWeight}" />
+                                <h:inputText id="usbDebug" styleClass="input" maxlength="25" value="#{settings.debugWeight}"   />
+                                <h:inputText id="unknown" styleClass="input" maxlength="25" value="#{settings.unknownSourcesWeight}"   />
+                                <h:inputText id="rooted" styleClass="input" maxlength="25" value="#{settings.rootedWeight}"   />
+                                <h:inputText id="access" styleClass="input" maxlength="25" value="#{settings.accessScore}"  />
                             </h:panelGrid>
                             <div class="more3">
-                                <h:commandLink value="Save Settings"  action="#{bean.saveSettings()}"> </h:commandLink>
+                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}"> </h:commandLink>
                             </div>
                         </h:panelGroup>
                     </h:form>
@@ -127,13 +126,13 @@
                                 <h:outputLabel value="Blocked"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="5" styleClass ="listItem">
-                                <h:inputText id="apiLevel" styleClass="input" maxlength="25" value="#{bean.lowRiskApp}" />
-                                <h:inputText id="usbDebug" styleClass="input" maxlength="25" value="#{bean.mediumRiskApp}"   />
-                                <h:inputText id="unknown" styleClass="input" maxlength="25" value="#{bean.highRiskApp}"   />
-                                <h:inputText id="rooted" styleClass="input" maxlength="25" value="#{bean.blockedApp}"   />
+                                <h:inputText id="apiLevel" styleClass="input" maxlength="25" value="#{settings.lowRiskApp}" />
+                                <h:inputText id="usbDebug" styleClass="input" maxlength="25" value="#{settings.mediumRiskApp}"   />
+                                <h:inputText id="unknown" styleClass="input" maxlength="25" value="#{settings.highRiskApp}"   />
+                                <h:inputText id="rooted" styleClass="input" maxlength="25" value="#{settings.blockedApp}"   />
                             </h:panelGrid>
                             <div class="more2">
-                                <h:commandLink value="Save Settings"  action="#{bean.saveSettings()}"> </h:commandLink>
+                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}"> </h:commandLink>
                             </div>
                         </h:panelGroup>
                     </h:form>

@@ -46,11 +46,11 @@
                     <div class="content_item" id ='accessDenied'>
                         <div class="blockH2" >
                             <h5>Access Denied Scans</h5>
-                            <a class ="upD" href="#main">...to top</a>
+                            <a class ="upL" href="#main">...to top</a>
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable id="dt1" value="#{bean.deniedScans}" var="result" styleClass ="listL" >
+                            <h:dataTable id="dt1" value="#{settings.deniedScans}" var="result" styleClass ="listL" >
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Scan time" />
@@ -106,11 +106,11 @@
                     <div class="content_item" id ='accessGranted'>
                         <div class="blockH2">
                             <h5>Access Granted Scans</h5>
-                            <a class ="upD" href="#main">...to top</a>
+                            <a class ="upL" href="#main">...to top</a>
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable id="dt1" value="#{bean.allowedScans}" var="result" styleClass ="listL" >
+                            <h:dataTable id="dt1" value="#{settings.allowedScans}" var="result" styleClass ="listL" >
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Scan time" />

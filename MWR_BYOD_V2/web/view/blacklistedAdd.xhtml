@@ -50,7 +50,7 @@
                                 <td>Name</td>
                                 <td>
                                     <h:inputText id="addblacklistedName"
-                                                 value="#{bean.appName}"
+                                                 value="#{settings.appName}"
                                                  required="true"
                                                  requiredMessage="Error: A name for the Application is required."
                                                  maxlength="25" />
@@ -59,7 +59,7 @@
                             <tr>
                                 <td>Category</td>
                                 <td>
-                                    <h:selectOneMenu id="addblacklistedCat" value="#{bean.appCategory}">
+                                    <h:selectOneMenu id="addblacklistedCat" value="#{settings.appCategory}">
                                         <f:selectItem itemValue="Low"   itemLabel ="Low"/>
                                         <f:selectItem itemValue="Medium"   itemLabel ="Medium"/>
                                         <f:selectItem itemValue="High"   itemLabel ="High"/>
