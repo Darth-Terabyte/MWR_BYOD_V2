@@ -38,6 +38,8 @@ public class DatabaseJSFManagedBean {
     private String appCategory;
     private int allowed;
     private int denied;
+    private String token,valid;
+
     private List<Employee> employeeDevices;
     private List<Setting> settings;
     private List<Scanresult> allowedScans;
@@ -67,14 +69,10 @@ public class DatabaseJSFManagedBean {
     public void logout() {
     }
 
-    //get a specific Device for an Employee
-    //get a specific Scanresult for a Device
-    public Scanresult getScanResult(String scanid) {
-        return null;
-    }
-
     //get a token for a Device for an Employee
     public String getDeviceToken(String devid) {
+        Device d = getDevice(devid);
+        //return d.token;
         return null;
     }
 
@@ -655,47 +653,59 @@ public class DatabaseJSFManagedBean {
 
     public void setRootedWeight(int weight) {
         rootedWeight = weight;
-        addSetting();
     }
 
     public void setDebugWeight(int weight) {
         debugWeight = weight;
-        addSetting();
     }
 
     public void setUnknownSourcesWeight(int weight) {
         unknownSourcesWeight = weight;
-        addSetting();
     }
 
     public void setOsWeight(int weight) {
         osWeight = weight;
-        addSetting();
     }
 
     public void setLowRiskApp(int weight) {
         lowRiskApp = weight;
-        addSetting();
     }
 
     public void setMediumRiskApp(int weight) {
         mediumRiskApp = weight;
-        addSetting();
     }
 
     public void setHighRiskApp(int weight) {
         highRiskApp = weight;
-        addSetting();
     }
 
     public void setBlockedApp(int weight) {
         blockedApp = weight;
-        addSetting();
     }
 
     public void setAccessScore(int weight) {
         accessScore = weight;
+    }
+    
+    public void saveSettings()
+    {
         addSetting();
+    }
+    
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getValid() {
+        return valid;
+    }
+
+    public void setValid(String valid) {
+        this.valid = valid;
     }
 
     public String addSetting() {

@@ -447,10 +447,23 @@ h:table
     height: 325px;
     color: #000077;
 }
-.listD tr
+.listDH2
 {
+    font: bold 22px Arial, Helvetica, sans-serif;
+    color: #000077;
+    height: 40px;
+    width: 80%;
 }
-
+.listItem
+{
+    text-align: center;
+    height: 40px;
+    width: 800px;
+}
+.listItem1
+{
+    width: 550px;
+}
 #shortcut
 {
     text-align: center;
@@ -465,7 +478,7 @@ h:table
 
 .register, .projects, .fix
 { width: 240px;
-  height: 220px;
+  height: 230px;
   float: left;
   text-align: center;
   margin-right: 23px;
@@ -588,12 +601,14 @@ h:table
 
 .more3
 {
+    margin-left:65%;
     text-align: center;
-    margin-top:2px;
-    margin-left:65%;	
-    font: bold 110% Arial, Helvetica, sans-serif;
+    margin-top:15px;
+    margin-bottom:15px;
+    font: bold 15px Arial, Helvetica, sans-serif;
+    color: black;
     height: 15px;
-    width: 100px;
+    width: 250px;
     padding: 5px 10px 7px 10px;
     background: #FFF;
     border-radius: 10px 10px 10px 10px;
@@ -601,9 +616,9 @@ h:table
 
 .more4
 {
+    margin-left:35%;
     text-align: center;
-    margin-top:2px;
-    margin-left:2px;	
+    margin-top:2px;	
     font: bold 15px Arial, Helvetica, sans-serif;
     color: black;
     height: 15px;

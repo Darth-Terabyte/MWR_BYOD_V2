@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
-</h:head>
+    </h:head>
     <h:body>
         <div id="main">
             <div id="header">
@@ -41,9 +41,9 @@
                                             <td>Password: </td> 
                                             <td>
                                                 <h:inputSecret id="logintechPass"
-                                                             required="true"
-                                                             requiredMessage="Error: A password is required."
-                                                             maxlength="25" />
+                                                               required="true"
+                                                               requiredMessage="Error: A password is required."
+                                                               maxlength="25" />
                                             </td>
                                         </tr>
                                     </table>
@@ -53,9 +53,9 @@
                                 </h:form>
                                 <div><p>Not registered?</p></div>
                                 <div class="more">
-                                      <a href="/BYOD/faces/registerTech.xhtml">Register here!</a>
-                                    </div>
-                                
+                                    <a href="/BYOD/faces/registerTech.xhtml">Register here!</a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -69,6 +69,8 @@
             </div>
 
         </div>
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body>
 </xhtml>
 
