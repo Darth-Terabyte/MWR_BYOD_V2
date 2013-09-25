@@ -37,46 +37,45 @@
                 <div class="register">
                     <h:form>
                         <h3>Register Device</h3>
-                        <p>Register a device by entering the employee's ID or username:</p>                    
-
+                        <p>Register a device by entering the employee's ID and selecting the device:</p>                    
+                        <h:outputText value="EmpID:"></h:outputText>
                         <h:inputText id="regEmpID"
                                      styleClass="input"
-                                     maxlength="25" value ="#{validation.empID}" />
-
-                        <h:commandButton id="regEmpCheck" value="Check" styleClass="button" action="#{validation.empExist()}" />
-
+                                     maxlength="25" value ="#{register.empID}" />
+                        <h:outputText value="DevID:  "></h:outputText>
                         <h:inputText id="regDevID"
                                      styleClass="input"
-                                     maxlength="25" value ="#{validation.empID}" />
+                                     maxlength="25" value ="#{register.empID}" />
 
-                        <h:commandButton id="regDevCheck" value="Token" styleClass="button" action="#{validation.devExist()}" />
+                        <h:commandButton id="regDevCheck" value="Get Token" styleClass="button" action="#{register.getDevToken()}" />
 
                         <div class ="token">
-                            <h:outputText id = "token" value="#{validation.token}"></h:outputText>
+                            <h:outputText id = "token" value="#{register.token}"></h:outputText>
                         </div>
                         <div class="more">
-                            <a href="#">Register Device</a>
+                            <h:commandLink action="#{register.regDevice()}" value="Register Device"></h:commandLink>
                         </div> 
                     </h:form>
                 </div>
                 <div class="fix">
                     <h3>Fix Device</h3>
                     <h:form>
-                        <p>Entering the employee's ID, username or cell number:</p>
+                        <p>Fix a device by entering the employee's ID and selecting the device:</p>
+                        <h:outputText value="EmpID:"></h:outputText>
                         <h:inputText id="fixDevUserID"
                                      styleClass="input"
-                                     maxlength="25" />
-                        <h:commandButton id="fixDevUserIDCheck" styleClass="button" value="Check" action="fixDevUserIDCheck" />
-
+                                     maxlength="25"
+                                     value ="#{fix.empID}"/>
+                        <h:outputText value="DevID: "></h:outputText>
                         <h:inputText id="fixDevID"
                                      styleClass="input"
-                                     maxlength="25" />
-                        <h:commandButton id="fixDevIDCheck" styleClass="button" value="Check" action="fixDevIDCheck" />
+                                     maxlength="25"
+                                     value ="#{fix.devID}"/>
                         <div class="middle">
-                            <h:outputText id = "valid" value="Valid!"></h:outputText>
+                            <h:outputText id = "valid" value="#{fix.display}"></h:outputText>
                         </div>
                         <div class="more">
-                            <a href="device.xhtml">Fix!</a>
+                            <h:commandLink action="#{fix.fixDevice()}" value="Fix Device"></h:commandLink>
                         </div>
                     </h:form>
                 </div>

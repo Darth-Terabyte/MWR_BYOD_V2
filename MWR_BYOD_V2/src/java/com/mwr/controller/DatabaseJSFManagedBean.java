@@ -198,8 +198,6 @@ public class DatabaseJSFManagedBean {
             return null;
         }
     }
-    //get the Devices owned by the Employee with the empId = id
-
     /*===============================================
      *||         Newly added END                   ||
      *===============================================
@@ -494,6 +492,11 @@ public class DatabaseJSFManagedBean {
             return "device.xhtml";
         }
 
+    }
+    
+    public void setDevice(Device d)
+    {
+        device = d;
     }
 
     public List getDevice_Results() {
