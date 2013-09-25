@@ -226,8 +226,10 @@ public class DatabaseJSFManagedBean {
         try {
             TokenGenerator gen = new TokenGenerator();
             String token = gen.generateToken(mac, android, serial,password);
+             Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(password);
+               Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(token);
             DevicenotregisteredId devicePK = new DevicenotregisteredId(mac, android, serial);
-            device_not = new Devicenotregistered(devicePK, make, model, new Date(), username, password, idnumber, name, surname, token);
+            device_not = new Devicenotregistered(devicePK, make, model, new Date(), token,username, password, idnumber, name, surname);
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.save(device_not);
@@ -733,7 +735,7 @@ public class DatabaseJSFManagedBean {
     {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("token from Device where MACAddress = :mac and AndroidID = :uid and SerialNumber = :serial");
+        Query query = session.createQuery("from Device where MACAddress = :mac and AndroidID = :uid and SerialNumber = :serial");
         query.setParameter("mac", mac);
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);

@@ -219,22 +219,27 @@ public class ControllerServlet extends HttpServlet {
                 boolean registered = bean.deviceRegistered(mac, serial, androidID);
 
                 if (registered) {
-
+                    Logger.getLogger(ControllerServlet.class.getName()).info("registered");
                     TokenGenerator gen = new TokenGenerator();
                     String deviceToken = bean.getToken(mac, androidID, serial);
                     String calculatedToken = "";
                     try {
-                        calculatedToken = gen.generateToken(mac, androidID, serial, password);
+                         calculatedToken = gen.generateToken(mac, androidID, serial, password);
+                         Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(calculatedToken + " " + deviceToken);
+                       
                     } catch (NoSuchAlgorithmException ex) {
                         Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                     boolean match = calculatedToken.equals(deviceToken);
-
+                    Logger.getLogger(ControllerServlet.class.getName()).info("Password: " + password);
+                    Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(calculatedToken + " " + deviceToken);
                     if (match) {
+                        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info("match");
                         boolean allowed = bean.addScanResults(mac, serial, androidID, root, debug, unknown, apps, api);
 
                         if (allowed) {
+                            Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info("allowed");
                             response.getOutputStream().print("allowed");
                         } else {
                             response.getOutputStream().println("denied");
