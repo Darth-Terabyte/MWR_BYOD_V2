@@ -5,6 +5,7 @@ import com.mwr.database.DeviceId;
 import com.mwr.database.Devicenotregistered;
 import com.mwr.database.Employee;
 import com.mwr.database.HibernateUtil;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -13,7 +14,7 @@ import org.hibernate.Query;
 
 @ManagedBean(name = "fix")
 @SessionScoped
-public class FixWidgetBean {
+public class FixWidgetBean implements Serializable{
 
     private org.hibernate.Session session;
     private Boolean devExist = false;

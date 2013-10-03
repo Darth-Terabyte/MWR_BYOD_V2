@@ -5,6 +5,7 @@ import com.mwr.database.DeviceId;
 import com.mwr.database.Devicenotregistered;
 import com.mwr.database.Employee;
 import com.mwr.database.HibernateUtil;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -14,7 +15,7 @@ import org.hibernate.Session;
 
 @ManagedBean(name = "register")
 @SessionScoped
-public class RegistrationWidgetBean {
+public class RegistrationWidgetBean implements Serializable{
 
     private Session session;
     private Boolean devExist = false;

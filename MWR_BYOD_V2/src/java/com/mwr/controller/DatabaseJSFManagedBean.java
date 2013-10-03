@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import com.mwr.database.*;
 import com.mwr.businesslogic.TokenGenerator;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +20,7 @@ import org.hibernate.Session;
 
 @ManagedBean(name = "bean")
 @SessionScoped
-public class DatabaseJSFManagedBean {
+public class DatabaseJSFManagedBean implements Serializable{
 
     private Session session;
     private Employee employee;

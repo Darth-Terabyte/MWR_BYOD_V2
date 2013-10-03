@@ -32,6 +32,10 @@ public class SettingsBean implements Serializable {
     private List<Scanresult> deniedScans;
     private Setting specificSetting;
 
+    public SettingsBean() {
+        //Setting s = getLatestSetting();
+    }
+
     public int getRootedWeight() {
         return rootedWeight;
     }
@@ -139,7 +143,6 @@ public class SettingsBean implements Serializable {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Setting setting = new Setting(accessScore, new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
-
         session.save(setting);
         session.getTransaction().commit();
         session.close();
@@ -173,6 +176,17 @@ public class SettingsBean implements Serializable {
         blockedApp = latestSetting.getBlockedApp();
         accessScore = latestSetting.getAccessScore();
         session.close();
+        System.out.println("Setting: \n"
+                + "Rooted: " + rootedWeight + "\n"
+                + "Debug: " + debugWeight + "\n"
+                + "UnknownSrc: " + unknownSourcesWeight + "\n"
+                + "OS: " + osWeight + "\n"
+                + "Low Risk: " + lowRiskApp + "\n"
+                + "Med Risk: " + mediumRiskApp + "\n"
+                + "High Risk: " + highRiskApp + "\n"
+                + "Blocked: " + blockedApp + "\n"
+                + "Access: " + accessScore + "\n"
+                + "================================================");
         return latestSetting;
     }
 
