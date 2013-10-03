@@ -56,24 +56,24 @@
                     <h:dataTable id="settingsBA" styleClass ="listD" value="#{bean.apps}" var="app" >
                         <h:column>
                             <f:facet name="header" class="listDH">
-                                <h:outputText value="Name" class="listDH"/>
+                                <h:outputText value="Name" class="listDH" title="The name of the Android Mobile Application"/>
                             </f:facet> 
                             <h:outputText style="" value="#{app.appName}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header" class="listDH">
-                                <h:outputText value="Category" class="listDH"/>
+                                <h:outputText value="Category" class="listDH" title="The category which the Application belongs to (Low,Medium,High Risk)"/>
                             </f:facet> 
                             <h:outputText style="" value="#{app.appCategory}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <h:form>
-                                <h:commandButton id="register" styleClass="button" value="Remove" action="#{settings.removeApp(app)}" />
+                                <h:commandButton id="register" styleClass="button" value="Remove" action="#{settings.removeApp(app)}"  title="Remove the Application from th Blacklisted Apps list"/>
                             </h:form>
                         </h:column>
                     </h:dataTable>
                     <div class="more2">
-                        <a href="blacklistedAdd.xhtml">Add Blacklisted Application</a>
+                        <a href="blacklistedAdd.xhtml"  title="Add a Android Mobile Application to the Blacklist">Add Blacklisted Application</a>
                     </div>
                 </div>
 
@@ -86,24 +86,24 @@
                     <h:form>
                         <h:panelGroup styleClass="listD">
                             <h:panelGrid columns ="6" styleClass ="listDH">
-                                <h:outputLabel value="Weight Category"></h:outputLabel>
+                                <h:outputLabel value="Weight Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="6" styleClass ="listItem">
-                                <h:outputLabel value="API Level"></h:outputLabel>
-                                <h:outputLabel value="USB Debugging"></h:outputLabel>
-                                <h:outputLabel value="Unknown Sources"></h:outputLabel>
-                                <h:outputLabel value="Rooted"></h:outputLabel>
-                                <h:outputLabel value="Access Score"></h:outputLabel>
+                                <h:outputLabel value="API Level" title="The weight the Android Version carries according to its API"></h:outputLabel>
+                                <h:outputLabel value="USB Debugging" title="The weight carried if a device has USB Debugging Enabled"></h:outputLabel>
+                                <h:outputLabel value="Unknown Sources" title="The weight carried if a device has Unknown Sources Enabled"></h:outputLabel>
+                                <h:outputLabel value="Rooted" title="The weight carried if a device is rooted"></h:outputLabel>
+                                <h:outputLabel value="Access Score" title="The score a device should avoid getting to gain access to the network"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="6" styleClass ="listItem">
-                                <h:inputText id="apiLevel" styleClass="input" maxlength="25" value="#{settings.osWeight}" />
-                                <h:inputText id="usbDebug" styleClass="input" maxlength="25" value="#{settings.debugWeight}"   />
-                                <h:inputText id="unknown" styleClass="input" maxlength="25" value="#{settings.unknownSourcesWeight}"   />
-                                <h:inputText id="rooted" styleClass="input" maxlength="25" value="#{settings.rootedWeight}"   />
-                                <h:inputText id="access" styleClass="input" maxlength="25" value="#{settings.accessScore}"  />
+                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.osWeight}" />
+                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.debugWeight}"   />
+                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.unknownSourcesWeight}"   />
+                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.rootedWeight}"   />
+                                <h:inputText id="access" styleClass="input" maxlength="3" value="#{settings.accessScore}"  />
                             </h:panelGrid>
                             <div class="more3">
-                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}"> </h:commandLink>
+                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}" title="Save the settings you have altered"> </h:commandLink>
                             </div>
                         </h:panelGroup>
                     </h:form>
@@ -117,22 +117,22 @@
                     <h:form>
                         <h:panelGroup styleClass="listL">
                             <h:panelGrid columns ="5" styleClass ="listLH">
-                                <h:outputLabel value="Application Category"></h:outputLabel>
+                                <h:outputLabel value="Application Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="5" styleClass ="listItem"  style="color:white;">
-                                <h:outputLabel value="Low Risk"></h:outputLabel>
-                                <h:outputLabel value="Medium Risk"></h:outputLabel>
-                                <h:outputLabel value="High Risk"></h:outputLabel>
-                                <h:outputLabel value="Blocked"></h:outputLabel>
+                                <h:outputLabel value="Low Risk" title="The weight an Application of Low Risk carries"></h:outputLabel>
+                                <h:outputLabel value="Medium Risk" title="The weight an Application of Medium Risk carries"></h:outputLabel>
+                                <h:outputLabel value="High Risk" title="The weight an Application of High Risk carries"></h:outputLabel>
+                                <h:outputLabel value="Blocked" title="The weight a Blocked Application carries"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="5" styleClass ="listItem">
-                                <h:inputText id="apiLevel" styleClass="input" maxlength="25" value="#{settings.lowRiskApp}" />
-                                <h:inputText id="usbDebug" styleClass="input" maxlength="25" value="#{settings.mediumRiskApp}"   />
-                                <h:inputText id="unknown" styleClass="input" maxlength="25" value="#{settings.highRiskApp}"   />
-                                <h:inputText id="rooted" styleClass="input" maxlength="25" value="#{settings.blockedApp}"   />
+                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.lowRiskApp}" />
+                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.mediumRiskApp}"   />
+                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.highRiskApp}"   />
+                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.blockedApp}"   />
                             </h:panelGrid>
                             <div class="more2">
-                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}"> </h:commandLink>
+                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}" title="Save the settings you have altered"> </h:commandLink>
                             </div>
                         </h:panelGroup>
                     </h:form>
