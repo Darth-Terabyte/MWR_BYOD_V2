@@ -68,6 +68,23 @@ public class DatabaseJSFManagedBean implements Serializable{
             return true;
         }
     }
+    
+    
+    public boolean deviceWaiting(String mac, String serial, String androidID) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Devicenotregistered where MACAddress = :mac and AndroidID = :androidid and SerialNumber = :serial");
+        query.setParameter("mac", mac);
+        query.setParameter("serial", serial);
+        query.setParameter("androidid", androidID);
+        List<Device> devices = query.list();
+        if (devices.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public String getLink(String link) {
 
         return "/BYOD/faces/view/" + link + ".xhtml";

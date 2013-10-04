@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -308,7 +310,13 @@ public class ControllerServlet extends HttpServlet {
                 if (registered) {
                     response.getOutputStream().print("registered");
                 } else {
-                    response.getOutputStream().print("not registered");
+                    boolean waiting = bean.deviceWaiting(mac, serial, androidID);
+                    if (waiting)
+                    {
+                        response.getOutputStream().print("waiting");
+                    }
+                    else
+                        response.getOutputStream().print("not registered");
                 }
 
                 response.getOutputStream().flush();
