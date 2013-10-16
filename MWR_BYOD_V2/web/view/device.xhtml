@@ -42,34 +42,12 @@
                     <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee.empId)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
 
                     <h5>Registered on: #{bean.device.dateRegistered}</h5>
-                </h:form>
-                <div class="blockH">
-                    <h5>Device</h5>
-                </div>
-                <div class="blockH">
-                    <table>
-                        <tr>
-                            <td>
-                                <f:facet name="header">
-                                    <h:outputText value="Current rating:" />
-                                </f:facet>
-                                <h:outputText rendered="#{bean.device_Results.size() > 0}" value="#{bean.device_Results.get(0).totalScore}" ></h:outputText>
-                            </td>
-                            <td>
-                                <f:facet name="header">
-                                    <h:outputText value="Last Scan Date:" />
-                                </f:facet>
-                                <h:outputText rendered="#{bean.device_Results.size() > 0}" value="#{bean.device_Results.get(0).date}" ></h:outputText>
-                            </td>
-                            <td>
-                                <h:form>
-                                    <h:commandButton styleClass="button" id="View" value="Remove device" action="#{bean.removeDevice(bean.device)}"/>
-                                </h:form>
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
+                    
+                    <h:outputText rendered="#{bean.device_Results.size() > 0}" value="Current Rating: #{bean.device_Results.get(0).totalScore}" ></h:outputText>
+                    <h:outputText rendered="#{bean.device_Results.size() > 0}" value="Last Date Scanned: #{bean.device_Results.get(0).date}" ></h:outputText>
+                    <h:commandButton  styleClass="button" id="View" value="Remove device" action="#{bean.removeDevice(bean.device)}"/>
+                                
+                </h:form>                
 
                 <div class="blockH">
                     <h5>Scans</h5>

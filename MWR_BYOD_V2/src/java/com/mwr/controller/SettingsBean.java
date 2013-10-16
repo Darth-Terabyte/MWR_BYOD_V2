@@ -130,16 +130,6 @@ public class SettingsBean implements Serializable {
 
     public String addSetting() {
 
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(osWeight));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(rootedWeight));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(debugWeight));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(unknownSourcesWeight));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(lowRiskApp));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(mediumRiskApp));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(highRiskApp));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(blockedApp));
-        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(Integer.toString(accessScore));
-
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Setting setting = new Setting(accessScore, new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
@@ -176,17 +166,6 @@ public class SettingsBean implements Serializable {
         blockedApp = latestSetting.getBlockedApp();
         accessScore = latestSetting.getAccessScore();
         session.close();
-        System.out.println("Setting: \n"
-                + "Rooted: " + rootedWeight + "\n"
-                + "Debug: " + debugWeight + "\n"
-                + "UnknownSrc: " + unknownSourcesWeight + "\n"
-                + "OS: " + osWeight + "\n"
-                + "Low Risk: " + lowRiskApp + "\n"
-                + "Med Risk: " + mediumRiskApp + "\n"
-                + "High Risk: " + highRiskApp + "\n"
-                + "Blocked: " + blockedApp + "\n"
-                + "Access: " + accessScore + "\n"
-                + "================================================");
         return latestSetting;
     }
 

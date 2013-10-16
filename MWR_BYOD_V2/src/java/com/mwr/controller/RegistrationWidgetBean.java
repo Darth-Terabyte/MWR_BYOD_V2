@@ -6,6 +6,7 @@ import com.mwr.database.Devicenotregistered;
 import com.mwr.database.Employee;
 import com.mwr.database.HibernateUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -15,11 +16,12 @@ import org.hibernate.Session;
 
 @ManagedBean(name = "register")
 @SessionScoped
-public class RegistrationWidgetBean implements Serializable{
+public class RegistrationWidgetBean implements Serializable {
 
     private Session session;
     private Boolean devExist = false;
     private Boolean empExist = false;
+    private Boolean tokenFlag = false;
     private String devExists = "";
     private String empExists = "";
     private String token = " ";
@@ -27,64 +29,28 @@ public class RegistrationWidgetBean implements Serializable{
     private String devID;
     private Employee emp;
     private Devicenotregistered empDev;
+    private ArrayList<String> empDevs;
+    private List<Devicenotregistered> empDevList;
 
-    public Employee getEmployee() {
+    public RegistrationWidgetBean() {
+        this.empDevs = new ArrayList<String>();
+    }
+
+    public void getEmployee() {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Employee where empId = :id");
             query.setParameter("id", empID);
             List<Employee> list = query.list();
-            Employee e = list.get(0);
-            if (e == null) {
-                return null;
-            } else {
-                return e;
-            }
+            emp = list.get(0);
+
         } catch (Exception e) {
-            return null;
+            token = empID + " does not exist";
         }
     }
 
-    public void regDevice() {
-        empExist();
-        devExist();
-        
-        if (devExist && empExist)
-        try {            
-            DeviceId id = new DeviceId(empDev.getId());
-            Device dev = new Device(id, emp, empDev.getManufacturer(), empDev.getModel(), new Date(),empDev.getToken());
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.save(dev);
-            session.getTransaction().commit();
-            session.close();
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.delete(empDev);
-            session.getTransaction().commit();
-            token = "";
-
-        } finally {
-            session.close();
-        }
-        else token = "Not possible";
-
-    }
-    
-    public List<Devicenotregistered> getEmployeeUnregDevices() {
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query query = session.createQuery("from Devicenotregistered where id = :id");
-            query.setParameter("id", emp.getIdnumber());
-            List<Devicenotregistered> list = query.list();
-            return list;
-        } finally {
-            session.close();
-        }
-    }
-    public Devicenotregistered getNonRegDevice() {
+    public void getNonRegDevice() {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -93,17 +59,70 @@ public class RegistrationWidgetBean implements Serializable{
             List<Devicenotregistered> list = query.list();
             Devicenotregistered d = list.get(0);
             if (d == null) {
-                return null;
-            } else {
-                return d;
+                token = empID + " does not exist";
+                return;
             }
+            empDev = d;
         } catch (Exception e) {
-            return null;
+            token = empID + " does not exist";
+        }
+    }
+
+    public void regDevice() {
+        empExist();
+        devExist();
+
+        if (devExist && empExist && tokenFlag) {
+            try {
+                DeviceId id = new DeviceId(empDev.getId());
+                Device dev = new Device(id, emp, empDev.getManufacturer(), empDev.getModel(), new Date(), empDev.getToken());
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                session.save(dev);
+                session.getTransaction().commit();
+                session.close();
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                session.delete(empDev);
+                session.getTransaction().commit();
+                token = "";
+
+            } finally {
+                session.close();
+            }
+        } else {
+            token = "Not possible";
+        }
+
+    }
+
+    public void getEmployeeUnregDevices() {
+        if (emp == null) {
+        } else {
+            try {
+
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                Query query = session.createQuery("from Devicenotregistered where idnumber = :id");
+                query.setParameter("id", emp.getIdnumber());
+                List<Devicenotregistered> list = query.list();
+                if (!list.isEmpty()) {
+                    empDevList = list;
+                } else {
+                    token = "Not possible";
+                }
+            } finally {
+                session.close();
+            }
+
+            for (int i = 0; i < empDevList.size(); i++) {
+                empDevs.add(empDevList.get(i).getManufacturer() + " " + empDevList.get(i).getModel());
+            }
         }
     }
 
     public void empExist() {
-        emp = getEmployee();
+        getEmployee();
         if (emp == null) {
             empExist = false;
             empExists = empID + " does not exist!";
@@ -115,7 +134,7 @@ public class RegistrationWidgetBean implements Serializable{
     }
 
     public void devExist() {
-        empDev = getNonRegDevice();
+        getNonRegDevice();
         if (empDev == null) {
             devExist = false;
             devExists = devID + " does not exist!";
@@ -181,20 +200,55 @@ public class RegistrationWidgetBean implements Serializable{
     public void setToken(String token) {
         this.token = token;
     }
-    public void getDevToken()
-    {
+
+    public Employee getEmp() {
+        return emp;
+    }
+
+    public void setEmp(Employee emp) {
+        this.emp = emp;
+    }
+
+    public Devicenotregistered getEmpDev() {
+        return empDev;
+    }
+
+    public void setEmpDev(Devicenotregistered empDev) {
+        this.empDev = empDev;
+    }
+
+    public List<Devicenotregistered> getEmpDevList() {
+        return empDevList;
+    }
+
+    public void setEmpDevList(List<Devicenotregistered> empDevList) {
+        this.empDevList = empDevList;
+    }
+
+    public ArrayList<String> getEmpDevs() {
+        return empDevs;
+    }
+
+    public void setEmpDevs(ArrayList<String> empDevs) {
+        this.empDevs = empDevs;
+    }
+
+    public void getDevToken() {
         empExist();
         devExist();
-        
+
         if (empExist == false) {
             token = empExists;
+            tokenFlag = false;
             return;
         }
         if (devExist == false) {
             token = devExists;
+            tokenFlag = false;
             return;
         }
 
         token = empDev.getToken();
+        tokenFlag = true;
     }
 }

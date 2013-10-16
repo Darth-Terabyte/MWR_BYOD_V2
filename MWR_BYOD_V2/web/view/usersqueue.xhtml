@@ -49,55 +49,44 @@
                         </div>
 
                         <div class="blockH2">
-                            <h:dataTable id="usersReg" styleClass="ListL" value="#{bean.deviceList}" var="item" >
-
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="EmpID" class="listLH"/>
-                                    </f:facet> 
-                                    <h:commandLink action="#{bean.viewEmployee(item.empId)}" value="#{item.empId}"></h:commandLink>
-                                </h:column>
-
+                            <h:dataTable id="usersReg" styleClass="ListL" value="#{bean.waitingList}" var="item" >
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Fullname" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText style="" value="#{item.employee.name} #{item.employee.surname}" ></h:outputText>
+                                    <h:outputText style="" value="#{item.name} #{item.surname}" ></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="IDNumber" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{item.employee.idnumber}"></h:outputText>
+                                    <h:outputText value="#{item.idnumber}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Username" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{item.employee.username}"></h:outputText>
+                                    <h:outputText value="#{item.username}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Date registered" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText value="#{item.employee.dateRegistered}"></h:outputText>
+                                    <h:outputText value="#{item.dateRegistered}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Devices" class="listLH"/>
-                                        <h:form>
-                                            <h:commandLink action="#{bean.viewEmployee(emp.empId)}" value="View"></h:commandLink>
-                                        </h:form>
                                     </f:facet> 
-
+                                    <h:form>
+                                        <h:commandLink action="#{bean.viewEmployee(emp.empId)}" value="View"></h:commandLink>
+                                    </h:form>
                                 </h:column>
-
                                 <h:column>
-
                                 </h:column>
                             </h:dataTable>
                         </div>

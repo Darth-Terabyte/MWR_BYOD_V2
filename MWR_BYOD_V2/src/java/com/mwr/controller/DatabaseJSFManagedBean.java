@@ -379,8 +379,8 @@ public class DatabaseJSFManagedBean implements Serializable{
         query.setParameter("serial", serial);
         query.setParameter("androidid", androidID);
         List<Device> devices = query.list();
-        Device device = devices.get(0);
-        results = new Scanresult(device, latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow);
+        Device dev = devices.get(0);
+        results = new Scanresult(dev, latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow);
         session.save(results);
         session.getTransaction().commit();
         return allow;
@@ -421,6 +421,12 @@ public class DatabaseJSFManagedBean implements Serializable{
         device = d;
     }
 
+    public String setDev(Device d)
+    {
+        device = d;
+        return "device.xhtml";
+    }
+    
     public List getDevice_Results() {
         return device_results;
     }
