@@ -48,21 +48,21 @@
                     </table>
                 </div>
 
-                <div id ="blackListed" class="blockH">
+                <div id ="blackListed" class="blockH2">
                     <h5>Blacklisted Applications</h5>
                     <a class ="upD" href="#main" value ="...to top"></a>                    
                 </div>
-                <div class="blockH">
-                    <h:dataTable id="settingsBA" styleClass ="listD1" value="#{bean.apps}" var="app" >
+                <div class="blockH2">
+                    <h:dataTable id="settingsBA" styleClass ="listD1" value="#{bean.apps}" var="app" style="color:white;">
                         <h:column>
-                            <f:facet name="header" class="listDH">
-                                <h:outputText value="Name" class="listDH" title="The name of the Android Mobile Application"/>
+                            <f:facet name="header" class="listLH" >
+                                <h:outputText value="Name" class="listLH" title="The name of the Android Mobile Application"/>
                             </f:facet> 
                             <h:outputText style="" value="#{app.appName}" ></h:outputText>
                         </h:column>
                         <h:column>
-                            <f:facet name="header" class="listDH">
-                                <h:outputText value="Category" class="listDH" title="The category which the Application belongs to (Low,Medium,High Risk)"/>
+                            <f:facet name="header" class="listLH">
+                                <h:outputText value="Category" class="listLH" title="The category which the Application belongs to (Low,Medium,High Risk)"/>
                             </f:facet> 
                             <h:outputText style="" value="#{app.appCategory}" ></h:outputText>
                         </h:column>
@@ -77,25 +77,25 @@
                     </div>
                 </div>
 
-                <div class="blockH" id ="weighted">
+                <div class="blockH2" id ="weighted">
                     <h5>Weighted System</h5>
                     <a class ="upD" href="#main" value ="...to top"></a>
                 </div>
 
-                <div class="blockH">
+                <div class="blockH2">
                     <h:form>
-                        <h:panelGroup styleClass="listD">
-                            <h:panelGrid columns ="6" styleClass ="listDH">
+                        <h:panelGroup styleClass="listL">
+                            <h:panelGrid columns ="6" styleClass ="listLH">
                                 <h:outputLabel value="Weight Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
                             </h:panelGrid>
-                            <h:panelGrid columns ="6" styleClass ="listItem">
+                            <h:panelGrid columns ="6" styleClass ="listItem" style="color:white;">
                                 <h:outputLabel value="API Level" title="The weight the Android Version carries according to its API"></h:outputLabel>
                                 <h:outputLabel value="USB Debugging" title="The weight carried if a device has USB Debugging Enabled"></h:outputLabel>
                                 <h:outputLabel value="Unknown Sources" title="The weight carried if a device has Unknown Sources Enabled"></h:outputLabel>
                                 <h:outputLabel value="Rooted" title="The weight carried if a device is rooted"></h:outputLabel>
                                 <h:outputLabel value="Access Score" title="The score a device should avoid getting to gain access to the network"></h:outputLabel>
                             </h:panelGrid>
-                            <h:panelGrid columns ="6" styleClass ="listItem">
+                            <h:panelGrid columns ="6" styleClass ="listItem" style="color:white;">
                                 <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.osWeight}" />
                                 <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.debugWeight}"   />
                                 <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.unknownSourcesWeight}"   />
@@ -103,7 +103,7 @@
                                 <h:inputText id="access" styleClass="input" maxlength="3" value="#{settings.accessScore}"  />
                             </h:panelGrid>
                             <div class="more3">
-                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}" title="Save the settings you have altered"> </h:commandLink>
+                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}" title="Save the settings you have altered" style="color:black;"> </h:commandLink>
                             </div>
                         </h:panelGroup>
                     </h:form>
