@@ -58,7 +58,24 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//       
+//        String userPath = request.getServletPath();
+        String userPath = request.getServletPath();
+        String url = "";
+        if (userPath.equals("/logout")) {
+            url = "/faces/index.xhtml";
+            request.logout();
+        }
+
+
+
+        //  System.out.println(url);
+
+        try {
+            System.out.println(url);
+            request.getRequestDispatcher(url).forward(request, response);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -226,9 +243,9 @@ public class ControllerServlet extends HttpServlet {
                     String deviceToken = bean.getToken(mac, androidID, serial);
                     String calculatedToken = "";
                     try {
-                         calculatedToken = gen.generateToken(mac, androidID, serial, password);
-                         Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(calculatedToken + " " + deviceToken);
-                       
+                        calculatedToken = gen.generateToken(mac, androidID, serial, password);
+                        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(calculatedToken + " " + deviceToken);
+
                     } catch (NoSuchAlgorithmException ex) {
                         Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -311,12 +328,11 @@ public class ControllerServlet extends HttpServlet {
                     response.getOutputStream().print("registered");
                 } else {
                     boolean waiting = bean.deviceWaiting(mac, serial, androidID);
-                    if (waiting)
-                    {
+                    if (waiting) {
                         response.getOutputStream().print("waiting");
-                    }
-                    else
+                    } else {
                         response.getOutputStream().print("not registered");
+                    }
                 }
 
                 response.getOutputStream().flush();

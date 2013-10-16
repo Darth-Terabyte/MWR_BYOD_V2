@@ -5,59 +5,82 @@
        xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
-        <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
-        <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="/faces/style.css" />
     </h:head>
     <h:body>
-        <div id="main">
-            <div id="header">
-                <div id="banner">
-                    <div id="welcome">
-                        <h1><a href = "/BYOD/faces/index.xhtml">BYOD</a></h1>
-                        <h2>Bring Your Own Device Asset Tracker</h2>
+        <div style="margin-left: auto; margin-right: auto; background: transparent;">
+            <div style="margin-left: auto; margin-right: auto; padding-top: 10px; height: 80px; padding-bottom: 10px;">
+                <div style ="margin-left: auto;margin-right: auto;width: 940px;position: relative;height: 50px;padding: 15px 0 0 0;background: transparent;">
+                    <div style ="width: 300px;float: left;height: 50px;margin: 0 auto;display: inline;padding-left: 20px;margin-top: -5px;background: transparent;">
+                        <h1 style ="font: normal 45px Arial, Helvetica, sans-serif;letter-spacing: 1px;text-shadow: 1px 1px #000;color: #098EFF;text-decoration: none;">
+                            </h1>
+                        <h2 style="font: normal 100% Arial, Helvetica, sans-serif;letter-spacing: 1px;color: #FFF;margin-top: -10px;padding-left: 20px;">
+                            </h2>
                     </div>
                 </div>
             </div>
 
-            <div id="site_content">
-                <div id="content">
-                    <div class="content_item">
-                        <div class="portal">
-                            <h1>BYOD Portal</h1>
-                            <h2>Log in</h2>
-                            <div class = "val">
-                                <h:form>
-                                    <table class = "val">
-                                        <tr>
-                                            <td>Username: </td> 
-                                            <td>
-                                                <h:inputText id="logintechusername"
-                                                             required="true"
-                                                             maxlength="25" />
-                                            </td>
+            <div style="margin-left: auto;margin-right: auto; width: 920px;overflow: hidden;padding-top: 20px;adding-left: 20px;margin-bottom: 30px;background: #FFF;-webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;-moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;">
+                <div style="width: 900px;margin: 0 0 20px 0;float: left;">
+                    <div style="width: 900px;margin-top: 20px;margin-bottom: 20px;">
+                        <div style="width: 540px;
+                             text-align: center;
+                             margin-left: auto;
+                             margin-right: auto;
+                             padding: 20px;
+                             background: #006699;
+                             color: #000033;
+                             -webkit-box-shadow: rgba(0, 0, 0, 4.5) 0px 0px 15px;
+                             -moz-box-shadow: rgba(0, 0, 0, 4.5) 0px 0px 10px;
+                             box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+                             border-radius: 10px 10px 10px 10px;">
+                            <h1 style="font: normal 45px Arial, Helvetica, sans-serif;
+                                letter-spacing: 1px;
+                                color: white; 
+                                text-decoration: none;">
+                                BYOD Portal</h1>
+                            <h2 style ="font: normal 30px Arial, Helvetica, sans-serif;
+                                letter-spacing: 1px;
+                                color: whitesmoke; 
+                                text-decoration: none;">
+                                Log in</h2>
+                            <div style="margin-left: auto;
+                                 margin-right: auto;">
+                                <form method="post" action="j_security_check">
+                                    <table role="presentation" style="padding-left: 5px;
+                                           font: 16px Arial, Helvetica, sans-serif;
+                                           color: white;">
+                                        <tr style="height: 30px;">
+                                            <td>Please type your user name: </td>
+                                            <td><input type="text" name="j_username" style="padding-top: -67px;"
+                                                       size="20"/></td>
                                         </tr>
-                                        <tr>
-                                            <td>Password: </td> 
-                                            <td>
-                                                <h:inputSecret id="logintechPass"
-                                                               required="true"
-                                                               maxlength="25" />
-                                            </td>
+                                        <tr style="height: 30px;">
+                                            <td>Please type your password: </td>
+                                            <td><input type="password" name="j_password" style="padding-top: -67px;"
+                                                       size="20"/></td>
                                         </tr>
                                     </table>
-                                    <div class="more">
-                                        <a href="/BYOD/faces/view/home.xhtml">Log in</a>
-                                    </div>
-                                </h:form>
+                                    <p></p>
+                                    <input type="submit" value="Submit" style="padding-top: -67px;"/>
+                                    &nbsp;
+                                    <input type="reset" value="Reset" style="padding-top: -67px;"/>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="content_grey">
-                <div class="content_grey_container_box">
-                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za">University of Pretoria</a>.
-                        Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
+            <div style="margin-top:-15px;
+                 width: 940px;
+                 height: 100px;
+                 text-align: center; 
+                 ">
+                <div style="width: 370px;  
+                     margin-top: 2%;
+                     margin-left: 30%; 
+                     text-align: center;
+                     float: left;">
                 </div>
             </div>
 

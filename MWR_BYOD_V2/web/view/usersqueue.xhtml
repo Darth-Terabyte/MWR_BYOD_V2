@@ -24,7 +24,7 @@
                             <li><a href="/BYOD/faces/view/devices.xhtml">Devices</a></li>
                             <li class="current"><a href="/BYOD/faces/view/users.xhtml">Users</a></li>
                             <li><a href="/BYOD/faces/view/scans.xhtml">Scans</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -60,16 +60,9 @@
 
                                 <h:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Name" class="listLH"/>
+                                        <h:outputText value="Fullname" class="listLH"/>
                                     </f:facet> 
-                                    <h:outputText style="" value="#{item.employee.name}" ></h:outputText>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Surname" class="listLH"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.employee.surname}"></h:outputText>
+                                    <h:outputText style="" value="#{item.employee.name} #{item.employee.surname}" ></h:outputText>
                                 </h:column>
 
                                 <h:column>
