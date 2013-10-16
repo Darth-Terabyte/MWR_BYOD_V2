@@ -95,19 +95,19 @@
                         <div class="usage">
                             <h3>Usage Statistics</h3>
                             <div class = "val">
-                                <h:panelGrid columns ="2">
+                                <h:panelGrid columns ="2" >
                                     <h:outputLabel value="Registered Devices:"></h:outputLabel>
                                     <h:outputText  id="numReg" value="#{bean.getDeviceSize()}" ></h:outputText>
                                 </h:panelGrid>
-                                <h:panelGrid columns ="2">
+                                <h:panelGrid columns ="2" style="margin-left: 11px;">
                                     <h:outputLabel value="Registered Queue:"></h:outputLabel>
                                     <h:outputText id="numQueue" value="#{bean.getQueueSize()}" ></h:outputText>
                                 </h:panelGrid>
-                                <h:panelGrid columns ="2">
+                                <h:panelGrid columns ="2" style="margin-left: 27px;">
                                     <h:outputLabel value="Access Allowed:"></h:outputLabel>
                                     <h:outputText id="numAllowed" value="#{bean.getAllowed()}"></h:outputText>
                                 </h:panelGrid>
-                                <h:panelGrid columns ="2">
+                                <h:panelGrid columns ="2" style="margin-left: 30px;">
                                     <h:outputLabel value="Access Denied:"></h:outputLabel>
                                     <h:outputText id="numDenied" value="#{bean.getDenied()}"> </h:outputText>
                                 </h:panelGrid>
@@ -127,43 +127,43 @@
                                         <f:facet name="header">
                                             <h:outputText value="Rooted" class ="normalW" />
                                         </f:facet> 
-                                        <h:outputText style="" value="#{result.rootedWeight}" ></h:outputText>
+                                        <h:outputText  value="#{result.rootedWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="USB Debug" class ="normalW"/>
                                         </f:facet> 
-                                        <h:outputText style="" value="#{result.debugWeight}" ></h:outputText>
+                                        <h:outputText  value="#{result.debugWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Unknown Sources" class ="normalW"/>
                                         </f:facet> 
-                                        <h:outputText style="" value="#{result.unknownSourcesWeight}" ></h:outputText>
+                                        <h:outputText  value="#{result.unknownSourcesWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App Low" class ="normalW"/>
                                         </f:facet> 
-                                        <h:outputText style="" value="#{result.lowRiskApp}" ></h:outputText>
+                                        <h:outputText  value="#{result.lowRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App Medium" class ="normalW"/>
                                         </f:facet> 
-                                        <h:outputText style="" value="#{result.mediumRiskApp}" ></h:outputText>
+                                        <h:outputText  value="#{result.mediumRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App High" class ="normalW"/>
                                         </f:facet> 
-                                        <h:outputText style="" value="#{result.highRiskApp}" ></h:outputText>
+                                        <h:outputText  value="#{result.highRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App Blocked" class ="normalW"/>
                                         </f:facet> 
-                                        <h:outputText style="" value="#{result.blockedApp}" ></h:outputText>
+                                        <h:outputText value="#{result.blockedApp}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
                                 <h:dataTable id="dt3" styleClass ="listLSettings" value="#{settings.latestSetting}" var="result" >
