@@ -83,7 +83,7 @@ public class Setting implements java.io.Serializable {
             minute = Integer.parseInt(time.split(":")[1]);
             second = Integer.parseInt(time.split(":")[2]);
         } finally {
-            d = day + "/" + month + "/" + year + " " + hour + "h" + minute + "m" + second + "s";
+            d = day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second;
             return d;
         }
     }
