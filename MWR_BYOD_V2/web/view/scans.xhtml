@@ -44,12 +44,12 @@
                 <div id="content">
 
                     <div class="content_item" id ='accessDenied'>
-                        <div class="blockH2" >
+                        <div class="blockH" >
                             <h5>Access Denied Scans</h5>
                             <a class ="upL" href="#main">...to top</a>
                         </div>
 
-                        <div class="blockH2">
+                        <div class="blockH">
                             <h:dataTable id="dt1" value="#{settings.deniedScans}" var="result" styleClass ="listL" >
                                 <h:column>
                                     <f:facet name="header">
@@ -103,12 +103,12 @@
                     </div>
 
                     <div class="content_item" id ='accessGranted'>
-                        <div class="blockH2">
+                        <div class="blockH">
                             <h5>Access Granted Scans</h5>
                             <a class ="upL" href="#main">...to top</a>
                         </div>
 
-                        <div class="blockH2">
+                        <div class="blockH">
                             <h:dataTable id="dt1" value="#{settings.allowedScans}" var="result" styleClass ="listL" >
                                 <h:column>
                                     <f:facet name="header">

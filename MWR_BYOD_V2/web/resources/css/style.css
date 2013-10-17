@@ -19,7 +19,7 @@ p
 img
 { border: 0;}
 
-h2, h3, h4, h5, h6 
+h2, h3, h4, h5, h6
 { font: normal 175% Arial, Helvetica, sans-serif;
   color: #098EFF;
   letter-spacing: -1px;
@@ -30,7 +30,7 @@ h1
     font: normal 45px Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
     text-shadow: 1px 1px #000;
-    color: #098EFF; 
+    color: #098EFF;
     text-decoration: none;
 }
 
@@ -55,14 +55,14 @@ h4
   letter-spacing: 1px;}
 
 h5
-{ 
+{
     margin: 2px 10px 10px 10px;
     font: bold 150% Arial, Helvetica, sans-serif;
     color: #000033;
     letter-spacing: 1px;}
 
 a, a:hover
-{ 
+{
     background: transparent;
     outline: none;
     text-decoration: none;}
@@ -83,7 +83,7 @@ ol li
 { margin: 0 0 11px 0;}
 
 #main, #header, #banner, #menubar, #site_content, #footer, #content_grey
-{ margin-left: auto; 
+{ margin-left: auto;
   margin-right: auto;}
 
 #main
@@ -100,29 +100,29 @@ ol li
   background: transparent;}
 
 #menu_container
-{ height: 50px;}  
+{ height: 50px;}
 
 #menubar
 { width: 580px;
   height: 50px;
   float: right;
-  margin: 0 auto;} 
+  margin: 0 auto;}
 
 #welcome
 { width: 300px;
   float: left;
   height: 50px;
   margin: 0 auto;
-  display: inline; 
+  display: inline;
   padding-left: 20px;
   margin-top: -5px;
-  background: transparent;}   
+  background: transparent;}
 
 #welcome H1, #welcome a, #welcome a:hover
 { font: normal 45px Arial, Helvetica, sans-serif;
   letter-spacing: 1px;
   text-shadow: 1px 1px #000;
-  color: #098EFF; 
+  color: #098EFF;
   text-decoration: none;
 }
 
@@ -151,13 +151,13 @@ ul#menu li a
   margin: 10px 0 0 20px;
   text-shadow: 0px -1px 0px #000;
   padding: 15px 10px 0 10px;
-  background: transparent; 
+  background: transparent;
   border-radius: 7px 7px 7px 7px;
   -moz-border-radius: 7px 7px 7px 7px;
   -webkit-border: 7px 7px 7px 7px;
   text-align: center;
   color: #FFF;
-  text-decoration: none;} 
+  text-decoration: none;}
 
 ul#menu li.current a
 { color: #098EFF;
@@ -176,7 +176,7 @@ ul#menu li:hover a
   background: #FFF;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;} 
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;}
 
 #content
 { width: 900px;
@@ -278,32 +278,6 @@ ul#menu li:hover a
   box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
   border-radius: 15px 15px 15px 15px;}
 
-.blockH1
-{
-  width: 80%;
-  float: left;
-  padding-left: 20px;
-  margin-right: 40px;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: inline-block;
-
-  background: #87e0fd; /* Old browsers */
-  background: -moz-linear-gradient(top,  #87e0fd 0%, #53cbf1 19%, #53cbf1 64%, #05abe0 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#87e0fd), color-stop(19%,#53cbf1), color-stop(64%,#53cbf1), color-stop(100%,#05abe0)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #87e0fd 0%,#53cbf1 19%,#53cbf1 64%,#05abe0 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #87e0fd 0%,#53cbf1 19%,#53cbf1 64%,#05abe0 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #87e0fd 0%,#53cbf1 19%,#53cbf1 64%,#05abe0 100%); /* IE10+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=0 ); /* IE6-9 */
-
-  -webkit-box-shadow: rgba(0, 0, 0, 1) 0px 0px 15px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
-  border-radius: 15px 15px 15px 15px;
-}
-
 .blockHS1
 { font: bold 120% Arial, Helvetica, sans-serif;
   color: white;
@@ -357,7 +331,7 @@ ul#menu li:hover a
     color: white;
     font: bold 16px Arial, Helvetica, sans-serif;
 }
-.blockH2
+.blockH
 { width: 93%;
   float: left;
   padding-left: 20px;
@@ -385,7 +359,7 @@ ul#menu li:hover a
     height: 25px;
 }
 
-.blockH2 h5,p
+.blockH h5,p
 {
     color: white;
 }
@@ -397,7 +371,7 @@ ul#menu li:hover a
     padding-bottom: 10px;
     margin-bottom: 20px;
     text-align: center;
-   
+
 }
 .listL value
 {
@@ -494,7 +468,7 @@ ul#menu li:hover a
 {
     font: bold 22px Arial, Helvetica, sans-serif;
     color: #000077;
-    height: 40px;	
+    height: 40px;
 }
 
 .listDH a
@@ -595,7 +569,7 @@ ul#menu li:hover a
 {
     font: normal 45px Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
-    color: white; 
+    color: white;
     text-decoration: none;
 }
 
@@ -603,7 +577,7 @@ ul#menu li:hover a
 {
     font: normal 30px Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
-    color: whitesmoke; 
+    color: whitesmoke;
     text-decoration: none;
 }
 .content_container
@@ -613,14 +587,14 @@ ul#menu li:hover a
 
 .content_container h3
 { color: #000;
-  text-shadow: none;}  
+  text-shadow: none;}
 
 .more
 {
     text-align: center;
     margin-top:5px;
-    margin-left:auto;	
-    margin-right:auto;	
+    margin-left:auto;
+    margin-right:auto;
     font: bold 110% Arial, Helvetica, sans-serif;
     height: 15px;
     width: 120px;
@@ -644,7 +618,7 @@ ul#menu li:hover a
 {
     text-align: center;
     margin-top:5px;
-    margin-left:65%;	
+    margin-left:65%;
     font: bold 110% Arial, Helvetica, sans-serif;
     height: 15px;
     width: 250px;
@@ -676,7 +650,7 @@ ul#menu li:hover a
 {
     margin-left:35%;
     text-align: center;
-    margin-top:2px;	
+    margin-top:2px;
     font: bold 15px Arial, Helvetica, sans-serif;
     color: black;
     height: 15px;
@@ -691,7 +665,7 @@ ul#menu li:hover a
 { margin-top:-15px;
   width: 940px;
   height: 100px;
-  text-align: center; 
+  text-align: center;
   background: #000;
   font:  110% Arial, Helvetica, sans-serif;
   background: -moz-linear-gradient(#676767, #1D1D1D);
@@ -699,7 +673,7 @@ ul#menu li:hover a
   background: -webkit-linear-gradient(#676767, #1D1D1D);
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;}  
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;}
 
 #content_grey p
 { color: #FFF;}
@@ -709,9 +683,9 @@ ul#menu li:hover a
 { text-shadow: 1px 1px #000;}
 
 .content_grey_container_box
-{width: 370px;  
+{width: 370px;
  margin-top: 2%;
- margin-left: 30%; 
+ margin-left: 30%;
  text-align: center;
  float: left;}
 
@@ -728,14 +702,14 @@ ul#menu li:hover a
   background: #BBB;
   background: -moz-linear-gradient(#FFF, #BBB);
   background: -o-linear-gradient(#FFF, #BBB);
-  background: -webkit-linear-gradient(#FFF, #BBB);} 
+  background: -webkit-linear-gradient(#FFF, #BBB);}
 
 #footer
 { width: 940px;
   height: 20px;
   font-weight: bold;
   padding-top: 20px;
-  text-align: center; 
+  text-align: center;
   background: transparent;
   text-shadow: 1px 1px #FFF;
   color: #1D1D1D;}
@@ -800,16 +774,16 @@ ul#menu li:hover a
 { padding: 0 0 4px 0;}
 
 .form_settings span
-{ float: left; 
-  width: 280px; 
+{ float: left;
+  width: 280px;
   text-align: left;}
 
 .form_settings input, .form_settings textarea
-{ padding: 2px; 
-  width: 299px; 
-  font: 100% arial; 
-  border: 1px solid #E5E5DB; 
-  background: #FFF; 
+{ padding: 2px;
+  width: 299px;
+  font: 100% arial;
+  border: 1px solid #E5E5DB;
+  background: #FFF;
   color: #47433F;
   border-radius: 15px 15px 15px 15px;}
 h:commandButton
@@ -817,22 +791,22 @@ h:commandButton
     margin: 10px 10px 10px 10px;
 }
 .form_settings input[type="checkbox"]
-{ padding: 2px 0; 
-  width: 15px; 
-  font: 100% arial; 
-  border: 0; 
-  background: #FFF; 
+{ padding: 2px 0;
+  width: 15px;
+  font: 100% arial;
+  border: 0;
+  background: #FFF;
   color: #47433F;
   margin: 28px 0;}
 
 .form_settings .submit
-{ font: 100% arial; 
-  border: 1px solid; 
-  width: 99px; 
-  margin: 0 0 0 206px; 
+{ font: 100% arial;
+  border: 1px solid;
+  width: 99px;
+  margin: 0 0 0 206px;
   height: 26px;
   padding: 2px 0 3px 0;
-  cursor: pointer; 
+  cursor: pointer;
   background: #098EFF;
   background: -moz-linear-gradient(#43A9FF, #0183F0);
   background: -o-linear-gradient(#43A9FF, #0183F0);
@@ -872,12 +846,12 @@ ul img {
     height: 38px;
     position: absolute;
     bottom: 0;
-    left: 0; 
+    left: 0;
     z-index: 500;}
 
 #slideshow-caption .slideshow-caption-container {
-    padding: 10px 25px 10px 25px; 
-    background: transparent url(../images/transparent.png) repeat;  
+    padding: 10px 25px 10px 25px;
+    background: transparent url(../images/transparent.png) repeat;
     z-index: 1000;}
 
 #slideshow-caption p {
