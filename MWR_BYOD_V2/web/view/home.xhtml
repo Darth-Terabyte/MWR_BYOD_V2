@@ -7,7 +7,7 @@
 
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
-        <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" /> 
+        <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
     </h:head>
     <h:body>
@@ -37,7 +37,7 @@
                 <div class="register">
                     <h:form>
                         <h3>Register Device</h3>
-                        <p>Register a device by entering the employee's ID and selecting the device:</p>                    
+                        <p>Register a device by entering the employee's ID and selecting the device:</p>
                         <h:outputText value="EmpID:"></h:outputText>
                         <h:inputText id="regEmpID"
                                      styleClass="input"
@@ -46,14 +46,14 @@
                         <h:inputText id="regDevID"
                                      styleClass="input"
                                      maxlength="25" value ="#{register.devID}" />
-                        
+
                         <h:commandButton id="regDevCheck" value="Check" styleClass="button" action="#{register.getEmployeeUnregDevices()}" />
                         <h:selectOneListbox id="regDevs" styleClass ="input" value="#{register.empDevs}"></h:selectOneListbox>
                         <h:commandButton id="getToken" value="Get Token" styleClass="button" action="#{register.getDevToken()}" />
 
                         <div class="more">
                             <h:commandLink action="#{register.regDevice()}" value="Register Device"></h:commandLink>
-                        </div> 
+                        </div>
                         <div class ="token">
                             <h:outputText id = "token" value="#{register.token}"></h:outputText>
                         </div>
@@ -72,7 +72,7 @@
                         <h:inputText id="fixDevID"
                                      styleClass="input"
                                      maxlength="25"
-                                     value ="#{fix.devID}"/>                        
+                                     value ="#{fix.devID}"/>
                         <div class="more">
                             <h:commandLink action="#{fix.fixDevice()}" value="Fix Device"></h:commandLink>
                         </div>
@@ -120,43 +120,43 @@
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Rooted" class ="normalW" />
-                                        </f:facet> 
+                                        </f:facet>
                                         <h:outputText  value="#{result.rootedWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="USB Debug" class ="normalW"/>
-                                        </f:facet> 
+                                        </f:facet>
                                         <h:outputText  value="#{result.debugWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Unknown Sources" class ="normalW"/>
-                                        </f:facet> 
+                                        </f:facet>
                                         <h:outputText  value="#{result.unknownSourcesWeight}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App Low" class ="normalW"/>
-                                        </f:facet> 
+                                        </f:facet>
                                         <h:outputText  value="#{result.lowRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App Medium" class ="normalW"/>
-                                        </f:facet> 
+                                        </f:facet>
                                         <h:outputText  value="#{result.mediumRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App High" class ="normalW"/>
-                                        </f:facet> 
+                                        </f:facet>
                                         <h:outputText  value="#{result.highRiskApp}" ></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="App Blocked" class ="normalW"/>
-                                        </f:facet> 
+                                        </f:facet>
                                         <h:outputText value="#{result.blockedApp}" ></h:outputText>
                                     </h:column>
                                 </h:dataTable>
