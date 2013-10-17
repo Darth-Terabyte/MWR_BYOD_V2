@@ -196,11 +196,20 @@ ul#menu li:hover a
 .input
 {
     padding: 2px 4px 2px 4px;
+    width: 45%;
     margin: 2px 0px 2px 0px;
 }
-.token, middle
+.inputDev
 {
-    margin: 13px 0px 12px 0px;
+    padding: 2px 4px 2px 4px;
+    width: 90%;
+    height: 25px;
+    margin: 2px 0px 2px 0px;
+}
+.spaced, token, middle
+{
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .score

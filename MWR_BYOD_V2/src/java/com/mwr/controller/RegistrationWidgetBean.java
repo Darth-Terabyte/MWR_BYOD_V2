@@ -6,7 +6,6 @@ import com.mwr.database.Devicenotregistered;
 import com.mwr.database.Employee;
 import com.mwr.database.HibernateUtil;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -25,15 +24,15 @@ public class RegistrationWidgetBean implements Serializable {
     private String devExists = "";
     private String empExists = "";
     private String token = " ";
-    private String empID;
-    private String devID;
-    private Employee emp;
-    private Devicenotregistered empDev;
-    private ArrayList<String> empDevs;
-    private List<Devicenotregistered> empDevList;
+    private String message = " ";
+    private String empMakeMod = "";
+    private String empID = null;
+    private String devID = null;
+    private Employee emp = null;
+    private Devicenotregistered empDev = null;
+    private List<Devicenotregistered> empDevList = null;
 
     public RegistrationWidgetBean() {
-        this.empDevs = new ArrayList<String>();
     }
 
     public void getEmployee() {
@@ -41,17 +40,18 @@ public class RegistrationWidgetBean implements Serializable {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Employee where empId = :id");
-            query.setParameter("id", empID);
+            query.setParameter("id", Integer.parseInt(empID));
             List<Employee> list = query.list();
             emp = list.get(0);
 
         } catch (Exception e) {
-            token = empID + " does not exist";
+            message = empID + " does not exist";
         }
     }
 
     public void getNonRegDevice() {
         try {
+
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Devicenotregistered where id = :id");
@@ -59,12 +59,12 @@ public class RegistrationWidgetBean implements Serializable {
             List<Devicenotregistered> list = query.list();
             Devicenotregistered d = list.get(0);
             if (d == null) {
-                token = empID + " does not exist";
+                message = empID + " does not exist";
                 return;
             }
             empDev = d;
         } catch (Exception e) {
-            token = empID + " does not exist";
+            message = empID + " does not exist";
         }
     }
 
@@ -85,38 +85,38 @@ public class RegistrationWidgetBean implements Serializable {
                 session.beginTransaction();
                 session.delete(empDev);
                 session.getTransaction().commit();
-                token = "";
+                message = "";
 
             } finally {
                 session.close();
             }
         } else {
-            token = "Not possible";
+            message = "Not possible";
         }
 
     }
 
     public void getEmployeeUnregDevices() {
+        emp = null;
+        getEmployee();
+
         if (emp == null) {
+            System.out.println("No employee");
         } else {
             try {
-
                 session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 Query query = session.createQuery("from Devicenotregistered where idnumber = :id");
                 query.setParameter("id", emp.getIdnumber());
                 List<Devicenotregistered> list = query.list();
-                if (!list.isEmpty()) {
-                    empDevList = list;
+                if (list.isEmpty()) {
+                    message = empID + " has no unregistered devices.";
                 } else {
-                    token = "Not possible";
+                    message = "";
+                    empDevList = list;
                 }
             } finally {
                 session.close();
-            }
-
-            for (int i = 0; i < empDevList.size(); i++) {
-                empDevs.add(empDevList.get(i).getManufacturer() + " " + empDevList.get(i).getModel());
             }
         }
     }
@@ -129,20 +129,33 @@ public class RegistrationWidgetBean implements Serializable {
 
         } else {
             empExist = true;
-            empExists = "Valid!";
+            empExists = "";
         }
     }
 
+    public void showDev() {
+        System.out.println("Device: " + empDev);
+    }
+
     public void devExist() {
-        getNonRegDevice();
+
+
         if (empDev == null) {
             devExist = false;
             devExists = devID + " does not exist!";
 
         } else {
             devExist = true;
-            devExists = "Valid!";
+            devExists = "";
         }
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Boolean getDevExist() {
@@ -161,8 +174,24 @@ public class RegistrationWidgetBean implements Serializable {
         this.empExist = empExist;
     }
 
+    public Boolean getTokenFlag() {
+        return tokenFlag;
+    }
+
+    public void setTokenFlag(Boolean tokenFlag) {
+        this.tokenFlag = tokenFlag;
+    }
+
     public String getDevExists() {
         return devExists;
+    }
+
+    public String getEmpMakeMod() {
+        return empMakeMod;
+    }
+
+    public void setEmpMakeMod(String empMakeMod) {
+        this.empMakeMod = empMakeMod;
     }
 
     public void setDevExists(String devExists) {
@@ -225,30 +254,24 @@ public class RegistrationWidgetBean implements Serializable {
         this.empDevList = empDevList;
     }
 
-    public ArrayList<String> getEmpDevs() {
-        return empDevs;
-    }
-
-    public void setEmpDevs(ArrayList<String> empDevs) {
-        this.empDevs = empDevs;
-    }
-
     public void getDevToken() {
         empExist();
         devExist();
 
+        tokenFlag = false;
         if (empExist == false) {
-            token = empExists;
+            message = empExists;
             tokenFlag = false;
             return;
         }
         if (devExist == false) {
-            token = devExists;
+            message = devExists;
             tokenFlag = false;
             return;
         }
-
-        token = empDev.getToken();
         tokenFlag = true;
+        token = empDev.getToken();
+        message = token;
+        System.out.println("Token: " + token);
     }
 }

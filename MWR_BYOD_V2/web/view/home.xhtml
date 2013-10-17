@@ -38,25 +38,41 @@
                     <h:form>
                         <h3>Register Device</h3>
                         <p>Register a device by entering the employee's ID and selecting the device:</p>
-                        <h:outputText value="EmpID:"></h:outputText>
-                        <h:inputText id="regEmpID"
-                                     styleClass="input"
-                                     maxlength="25" value ="#{register.empID}" />
-                        <h:outputText value="DevID:  "></h:outputText>
-                        <h:inputText id="regDevID"
-                                     styleClass="input"
-                                     maxlength="25" value ="#{register.devID}" />
+                        <div>
+                            <h:outputText value="EmpID:"></h:outputText>
+                            <h:inputText id="regEmpID"
+                                         styleClass="input"
+                                         maxlength="25" value ="#{register.empID}" />
 
-                        <h:commandButton id="regDevCheck" value="Check" styleClass="button" action="#{register.getEmployeeUnregDevices()}" />
-                        <h:selectOneListbox id="regDevs" styleClass ="input" value="#{register.empDevs}"></h:selectOneListbox>
-                        <h:commandButton id="getToken" value="Get Token" styleClass="button" action="#{register.getDevToken()}" />
+                            <!--h:inputText id="regDevID"
+                                         styleClass="input"
+                                         maxlength="25" value ="#{register.devID}" /-->
 
-                        <div class="more">
-                            <h:commandLink action="#{register.regDevice()}" value="Register Device"></h:commandLink>
+                            <h:commandButton id="regDevCheck" value="Check" styleClass="button"
+                                             action="#{register.getEmployeeUnregDevices()}" />
+                        </div>
+                        <div class ="spaced">
+                            <h:selectOneListbox rendered="#{register.empDevList != null}"
+                                                id="regDevs" styleClass ="inputDev"
+                                                value="#{register.empDev}" onclick="#{register.showDev()}">
+                                <f:selectItems value="#{register.empDevList}" var="regDevices"
+                                               itemLabel="#{regDevices.manufacturer} #{regDevices.model}">
+                                </f:selectItems>
+                            </h:selectOneListbox>
+                        </div>
+                        <div class ="spaced">
+                            <h:commandButton rendered="#{register.empDev != null}" id="getToken"
+                                             value="Get Token" styleClass="button"
+                                             action="#{register.getDevToken()}" />
                         </div>
                         <div class ="token">
-                            <h:outputText id = "token" value="#{register.token}"></h:outputText>
+                            <h:outputText rendered="#{register.token.length()!= 0}" id = "token" value="#{register.message}"></h:outputText>
                         </div>
+                        <div class="more">
+                            <h:commandLink action="#{register.regDevice()}"
+                                           value="Register Device"></h:commandLink>
+                        </div>
+
                     </h:form>
                 </div>
                 <div class="fix">
