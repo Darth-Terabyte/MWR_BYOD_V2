@@ -44,33 +44,30 @@
                                          styleClass="input"
                                          maxlength="25" value ="#{register.empID}" />
 
-                            <!--h:inputText id="regDevID"
-                                         styleClass="input"
-                                         maxlength="25" value ="#{register.devID}" /-->
-
                             <h:commandButton id="regDevCheck" value="Check" styleClass="button"
                                              action="#{register.getEmployeeUnregDevices()}" />
                         </div>
                         <div class ="spaced">
-                            <h:selectOneListbox rendered="#{register.empDevList != null}"
-                                                id="regDevs" styleClass ="inputDev"
-                                                value="#{register.empDev}" onclick="#{register.showDev()}">
+                            <h:selectOneMenu rendered="#{register.empDevList != null}"
+                                             id="regDevs" styleClass ="inputDev"
+                                             value="#{register.empDev}">
                                 <f:selectItems value="#{register.empDevList}" var="regDevices"
                                                itemLabel="#{regDevices.manufacturer} #{regDevices.model}">
                                 </f:selectItems>
-                            </h:selectOneListbox>
+                            </h:selectOneMenu>
                         </div>
                         <div class ="spaced">
-                            <h:commandButton rendered="#{register.empDev != null}" id="getToken"
+                            <h:commandButton rendered="#{register.empDevList != null}" id="getToken"
                                              value="Get Token" styleClass="button"
                                              action="#{register.getDevToken()}" />
                         </div>
-                        <div class ="token">
-                            <h:outputText rendered="#{register.token.length()!= 0}" id = "token" value="#{register.message}"></h:outputText>
-                        </div>
+
                         <div class="more">
                             <h:commandLink action="#{register.regDevice()}"
                                            value="Register Device"></h:commandLink>
+                        </div>
+                        <div class ="token">
+                            <h:outputText  id = "message" value="#{register.message}"></h:outputText>
                         </div>
 
                     </h:form>
@@ -79,21 +76,33 @@
                     <h3>Fix Device</h3>
                     <h:form>
                         <p>Fix a device by entering the employee's ID and selecting the device:</p>
-                        <h:outputText value="EmpID:"></h:outputText>
-                        <h:inputText id="fixDevUserID"
-                                     styleClass="input"
-                                     maxlength="25"
-                                     value ="#{fix.empID}"/>
-                        <h:outputText value="DevID: "></h:outputText>
-                        <h:inputText id="fixDevID"
-                                     styleClass="input"
-                                     maxlength="25"
-                                     value ="#{fix.devID}"/>
-                        <div class="more">
-                            <h:commandLink action="#{fix.fixDevice()}" value="Fix Device"></h:commandLink>
+                        <div>
+                            <h:outputText value="EmpID:"></h:outputText>
+                            <h:inputText id="fixEmpID"
+                                         styleClass="input"
+                                         maxlength="25" value ="#{fix.empID}" />
+
+                            <h:commandButton id="regDevCheck" value="Check" styleClass="button"
+                                             action="#{fix.getEmployeeRegisterdDevices()}" />
                         </div>
-                        <div class="middle">
-                            <h:outputText id = "valid" value="#{fix.display}"></h:outputText>
+                        <div class ="spaced">
+                            <h:selectOneMenu rendered="#{fix.empDevList != null}"
+                                             id="fixDevs" styleClass ="inputDev"
+                                             value="#{fix.empDev}">
+                                <f:selectItems value="#{fix.empDevList}" var="fixDevices"
+                                               itemLabel="#{fixDevices.manufacturer} #{fixDevices.model}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class ="spaced">
+                        </div>
+
+                        <div class="more">
+                            <h:commandLink action="#{fix.fixDevice()}"
+                                           value="Fix Device"></h:commandLink>
+                        </div>
+                        <div class ="token">
+                            <h:outputText  id = "message" value="#{fix.message}"></h:outputText>
                         </div>
                     </h:form>
                 </div>

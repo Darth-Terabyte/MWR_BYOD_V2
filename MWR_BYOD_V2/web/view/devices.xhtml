@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
@@ -40,45 +40,72 @@
                 <div class="register">
                     <h:form>
                         <h3>Register Device</h3>
-                        <p>Register a device by entering the employee's ID and selecting the device:</p>                    
-                        <h:outputText value="EmpID:"></h:outputText>
-                        <h:inputText id="regEmpID"
-                                     styleClass="input"
-                                     maxlength="25" value ="#{register.empID}" />
-                        <h:outputText value="DevID:  "></h:outputText>
-                        <h:inputText id="regDevID"
-                                     styleClass="input"
-                                     maxlength="25" value ="#{register.empID}" />
+                        <p>Register a device by entering the employee's ID and selecting the device:</p>
+                        <div>
+                            <h:outputText value="EmpID:"></h:outputText>
+                            <h:inputText id="regEmpID"
+                                         styleClass="input"
+                                         maxlength="25" value ="#{register.empID}" />
 
-                        <h:commandButton id="regDevCheck" value="Get Token" styleClass="button" action="#{register.getDevToken()}" />
-
-                        <div class ="token">
-                            <h:outputText id = "token" value="#{register.token}"></h:outputText>
+                            <h:commandButton id="regDevCheck" value="Check" styleClass="button"
+                                             action="#{register.getEmployeeUnregDevices()}" />
                         </div>
+                        <div class ="spaced">
+                            <h:selectOneMenu rendered="#{register.empDevList != null}"
+                                             id="regDevs" styleClass ="inputDev"
+                                             value="#{register.empDev}">
+                                <f:selectItems value="#{register.empDevList}" var="regDevices"
+                                               itemLabel="#{regDevices.manufacturer} #{regDevices.model}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class ="spaced">
+                            <h:commandButton rendered="#{register.empDevList != null}" id="getToken"
+                                             value="Get Token" styleClass="button"
+                                             action="#{register.getDevToken()}" />
+                        </div>
+
                         <div class="more">
-                            <h:commandLink action="#{register.regDevice()}" value="Register Device"></h:commandLink>
-                        </div> 
+                            <h:commandLink action="#{register.regDevice()}"
+                                           value="Register Device"></h:commandLink>
+                        </div>
+                        <div class ="token">
+                            <h:outputText  id = "message" value="#{register.message}"></h:outputText>
+                        </div>
+
                     </h:form>
                 </div>
                 <div class="fix">
                     <h3>Fix Device</h3>
                     <h:form>
                         <p>Fix a device by entering the employee's ID and selecting the device:</p>
-                        <h:outputText value="EmpID:"></h:outputText>
-                        <h:inputText id="fixDevUserID"
-                                     styleClass="input"
-                                     maxlength="25"
-                                     value ="#{fix.empID}"/>
-                        <h:outputText value="DevID: "></h:outputText>
-                        <h:inputText id="fixDevID"
-                                     styleClass="input"
-                                     maxlength="25"
-                                     value ="#{fix.devID}"/>
-                        <div class="middle">
-                            <h:outputText id = "valid" value="#{fix.display}"></h:outputText>
+                        <div>
+                            <h:outputText value="EmpID:"></h:outputText>
+                            <h:inputText id="fixEmpID"
+                                         styleClass="input"
+                                         maxlength="25" value ="#{fix.empID}" />
+
+                            <h:commandButton id="regDevCheck" value="Check" styleClass="button"
+                                             action="#{fix.getEmployeeRegisterdDevices()}" />
                         </div>
+                        <div class ="spaced">
+                            <h:selectOneMenu rendered="#{fix.empDevList != null}"
+                                             id="fixDevs" styleClass ="inputDev"
+                                             value="#{fix.empDev}">
+                                <f:selectItems value="#{fix.empDevList}" var="fixDevices"
+                                               itemLabel="#{fixDevices.manufacturer} #{fixDevices.model}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class ="spaced">
+                        </div>
+
                         <div class="more">
-                            <h:commandLink action="#{fix.fixDevice()}" value="Fix Device"></h:commandLink>
+                            <h:commandLink action="#{fix.fixDevice()}"
+                                           value="Fix Device"></h:commandLink>
+                        </div>
+                        <div class ="token">
+                            <h:outputText  id = "message" value="#{fix.message}"></h:outputText>
                         </div>
                     </h:form>
                 </div>
@@ -101,34 +128,34 @@
                                 <h:column>
                                     <f:facet name="header" class="listLH">
                                         <h:outputText value="Manufacturer" />
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText style="" value="#{item.manufacturer}" ></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Model"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.model}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Token"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.token}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Username"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.username}"></h:outputText>                    
+                                    </f:facet>
+                                    <h:outputText value="#{item.username}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Date"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.dateRegistered}"></h:outputText>
                                 </h:column>
                                 <h:column>
@@ -143,55 +170,55 @@
                     <div class="content_item">
                         <div class="blockH">
                             <h5>Registered Devices</h5>
-                        </div>                        
+                        </div>
                         <div class="blockH">
                             <h:dataTable id="dt2" styleClass ="listL" value="#{bean.deviceList}" var="item">
                                 <h:column>
                                     <f:facet name="header" class="listLH">
                                         <h:outputText value="Manufacturer" />
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText style="" value="#{item.manufacturer}" ></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Model"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.model}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="MAC Address"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.id.macaddress}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Serial Number"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.id.serialNumber}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="AndroidID"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.id.androidId}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Date registered"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.dateRegistered}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Owner"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.employee.name} #{item.employee.surname}"></h:outputText>
                                 </h:column>
 

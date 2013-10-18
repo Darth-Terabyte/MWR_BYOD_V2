@@ -6,78 +6,49 @@ import com.mwr.database.Devicenotregistered;
 import com.mwr.database.Employee;
 import com.mwr.database.HibernateUtil;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 @ManagedBean(name = "fix")
 @SessionScoped
-public class FixWidgetBean implements Serializable{
+public class FixWidgetBean implements Serializable {
 
-    private org.hibernate.Session session;
+    private Session session;
     private Boolean devExist = false;
     private Boolean empExist = false;
     private String devExists = "";
     private String empExists = "";
-    private String display = " ";
-    private String empID;
-    private String devID;
-    private Employee emp;
-    private Device empDev;
+    private String message = " ";
+    private String empID = null;
+    private String devID = null;
+    private Employee emp = null;
+    private DeviceId devices = null;
+    private Device empDev = null;
+    private List<Device> empDevList = null;
 
-    public Employee getEmployee() {
+    public FixWidgetBean() {
+    }
+
+    public void getEmployee() {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Employee where empId = :id");
-            query.setParameter("id", empID);
+            query.setParameter("id", Integer.parseInt(empID));
             List<Employee> list = query.list();
-            Employee e = list.get(0);
-            if (e == null) {
-                return null;
-            } else {
-                return e;
-            }
+            emp = list.get(0);
+
         } catch (Exception e) {
-            return null;
+            message = empID + " does not exist";
         }
     }
 
-    public String fixDevice() {
-        empExist();
-        devExist();
-        if (devExist && empExist) {
-            try {
-                display = "";
-                DatabaseJSFManagedBean b = new DatabaseJSFManagedBean();
-                b.setDevice(empDev);                
-                return "device.xhtml";
-            } finally {
-                session.close();
-            }
-        } else {
-            display = "Not possible";
-        }
-        return "home.xhtml";
-    }
-
-    public List<Devicenotregistered> getEmployeeUnregDevices() {
+    public void RegDevice() {
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query query = session.createQuery("from Devicenotregistered where id = :id");
-            query.setParameter("id", emp.getIdnumber());
-            List<Devicenotregistered> list = query.list();
-            return list;
-        } finally {
-            session.close();
-        }
-    }
 
-    public Device getDevice() {
-        try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Device where id = :id");
@@ -85,45 +56,91 @@ public class FixWidgetBean implements Serializable{
             List<Device> list = query.list();
             Device d = list.get(0);
             if (d == null) {
-                return null;
-            } else {
-                return d;
+                message = empID + " does not exist";
+                return;
             }
+            empDev = d;
         } catch (Exception e) {
-            return null;
+            message = empID + " does not exist";
         }
+    }
+
+    public void fixDevice() {
+        empExist();
+        devExist();
+
+        if (devExist && empExist) {
+            try {
+            } catch (Exception e) {
+                message = "Not possible";
+            }
+        } else {
+            message = "Not possible";
+        }
+    }
+
+    public String getEmployeeRegisterdDevices() {
+        emp = null;
+        getEmployee();
+
+        if (emp == null) {
+            System.out.println("No employee");
+        } else {
+            try {
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                Query query = session.createQuery("from Scanresult where device_MACAddress = :mac and device_UID = :androidid and device_SerialNumber = :serial order by Date desc");
+                query.setParameter("mac", devices.getMacaddress());
+                query.setParameter("androidid", devices.getAndroidId());
+                query.setParameter("serial", devices.getSerialNumber());
+                empDevList = query.list();
+                query = session.createQuery("from Device where MACAddress = :mac and AndroidID = :androidid and SerialNumber = :serial");
+                query.setParameter("mac", devices.getMacaddress());
+                query.setParameter("androidid", devices.getAndroidId());
+                query.setParameter("serial", devices.getSerialNumber());
+                empDev = (Device) query.list().get(0);
+            } finally {
+                return "device.xhtml";
+            }
+        }
+        return "device.xhtml";
     }
 
     public void empExist() {
-        emp = getEmployee();
+        getEmployee();
         if (emp == null) {
             empExist = false;
-            if (empID.isEmpty()) {
-                empExists = "Empty field!";
-            } else {
-                empExists = empID + " does not exist!";
-            }
+            empExists = empID + " does not exist!";
 
         } else {
             empExist = true;
-            empExists = "Valid!";
+            empExists = "";
         }
     }
 
+    public void showDev(Devicenotregistered v) {
+        System.out.println("Device: " + v);
+    }
+
     public void devExist() {
-        empDev = getDevice();
+
+
         if (empDev == null) {
             devExist = false;
-            if (devID.isEmpty()) {
-                devExists = "Empty field!";
-            } else {
-                devExists = devID + " does not exist!";
-            }
+            devExists = devID + " does not exist!";
 
         } else {
             devExist = true;
-            devExists = "Valid!";
+            devExists = "";
         }
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Boolean getDevExist() {
@@ -174,11 +191,27 @@ public class FixWidgetBean implements Serializable{
         this.devID = devID;
     }
 
-    public String getDisplay() {
-        return display;
+    public Employee getEmp() {
+        return emp;
     }
 
-    public void setDisplay(String display) {
-        this.display = display;
+    public void setEmp(Employee emp) {
+        this.emp = emp;
+    }
+
+    public Device getEmpDev() {
+        return empDev;
+    }
+
+    public void setEmpDev(Device empDev) {
+        this.empDev = empDev;
+    }
+
+    public List<Device> getEmpDevList() {
+        return empDevList;
+    }
+
+    public void setEmpDevList(List<Device> empDevList) {
+        this.empDevList = empDevList;
     }
 }

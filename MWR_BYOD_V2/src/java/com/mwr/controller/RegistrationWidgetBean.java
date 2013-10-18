@@ -85,7 +85,7 @@ public class RegistrationWidgetBean implements Serializable {
                 session.beginTransaction();
                 session.delete(empDev);
                 session.getTransaction().commit();
-                message = "";
+                message = "Registered!";
 
             } finally {
                 session.close();
@@ -133,8 +133,8 @@ public class RegistrationWidgetBean implements Serializable {
         }
     }
 
-    public void showDev() {
-        System.out.println("Device: " + empDev);
+    public void showDev(Devicenotregistered v) {
+        System.out.println("Device: " + v);
     }
 
     public void devExist() {
@@ -260,12 +260,12 @@ public class RegistrationWidgetBean implements Serializable {
 
         tokenFlag = false;
         if (empExist == false) {
-            message = empExists;
+            message = emp.getEmpId() + "That user does not exist!";
             tokenFlag = false;
             return;
         }
         if (devExist == false) {
-            message = devExists;
+            message = "That device does not exist!";
             tokenFlag = false;
             return;
         }
