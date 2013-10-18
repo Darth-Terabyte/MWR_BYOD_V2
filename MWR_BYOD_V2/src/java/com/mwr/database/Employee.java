@@ -65,23 +65,26 @@ public class Employee implements java.io.Serializable {
         this.password = password;
     }
 
-    public String getDateRegistered() {
-        String d = this.dateRegistered.toString();
-        d = d.substring(0, d.length() - 2);
-        int year = 0, month = 0, day = 0, hour = 0, minute = 0, second = 0;
-        String date = d.substring(0, d.indexOf(" "));
-        String time = d.substring(d.indexOf(" ") + 1);
-        try {
-            year = Integer.parseInt(date.split("-")[0]);
-            month = Integer.parseInt(date.split("-")[1]);
-            day = Integer.parseInt(date.split("-")[2]);
-            hour = Integer.parseInt(time.split(":")[0]);
-            minute = Integer.parseInt(time.split(":")[1]);
-            second = Integer.parseInt(time.split(":")[2]);
-        } finally {
-            d = day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second;
-            return d;
-        }
+    /* public String getDateRegistered() {
+     String d = this.dateRegistered.toString();
+     d = d.substring(0, d.length() - 2);
+     int year = 0, month = 0, day = 0, hour = 0, minute = 0, second = 0;
+     String date = d.substring(0, d.indexOf(" "));
+     String time = d.substring(d.indexOf(" ") + 1);
+     try {
+     year = Integer.parseInt(date.split("-")[0]);
+     month = Integer.parseInt(date.split("-")[1]);
+     day = Integer.parseInt(date.split("-")[2]);
+     hour = Integer.parseInt(time.split(":")[0]);
+     minute = Integer.parseInt(time.split(":")[1]);
+     second = Integer.parseInt(time.split(":")[2]);
+     } finally {
+     d = day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second;
+     return d;
+     }
+     }*/
+    public Date getDateRegistered() {
+        return this.dateRegistered;
     }
 
     public void setDateRegistered(Date dateRegistered) {
