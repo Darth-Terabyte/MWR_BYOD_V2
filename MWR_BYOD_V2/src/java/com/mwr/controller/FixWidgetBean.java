@@ -79,7 +79,7 @@ public class FixWidgetBean implements Serializable {
         }
     }
 
-    public String getEmployeeRegisterdDevices() {
+    public void getEmployeeRegisterdDevices() {
         emp = null;
         getEmployee();
 
@@ -98,12 +98,15 @@ public class FixWidgetBean implements Serializable {
                 query.setParameter("mac", devices.getMacaddress());
                 query.setParameter("androidid", devices.getAndroidId());
                 query.setParameter("serial", devices.getSerialNumber());
-                empDev = (Device) query.list().get(0);
+                if (!query.list().isEmpty()) {
+                    empDev = (Device) query.list().get(0);
+                } else {
+                    message = empID + " does not have any registered devices!";
+                }
             } finally {
-                return "device.xhtml";
+                session.close();
             }
         }
-        return "device.xhtml";
     }
 
     public void empExist() {
