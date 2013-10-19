@@ -7,7 +7,9 @@ import com.mwr.database.Employee;
 import com.mwr.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,12 +28,25 @@ public class FixWidgetBean implements Serializable {
     private String devID = null;
     private Employee emp = null;
     private DeviceId devices = null;
-    private Device empDev = null;
+    private Device empDevice = null;
     private List<Device> empDevList = null;
+    private String token;
+    @ManagedProperty(value="#{bean}") 
+    DatabaseJSFManagedBean bean1;
+
+    
 
     public FixWidgetBean() {
     }
 
+    public DatabaseJSFManagedBean getBean1() {
+        return bean1;
+    }
+
+    public void setBean1(DatabaseJSFManagedBean bean1) {
+        this.bean1 = bean1;
+    }
+    
     public void getEmployee() {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -59,24 +74,52 @@ public class FixWidgetBean implements Serializable {
                 message = empID + " does not exist";
                 return;
             }
-            empDev = d;
+            empDevice = d;
         } catch (Exception e) {
             message = empID + " does not exist";
         }
     }
 
-    public void fixDevice() {
-        empExist();
-        devExist();
-
-        if (devExist && empExist) {
-            try {
-            } catch (Exception e) {
-                message = "Not possible";
-            }
-        } else {
-            message = "Not possible";
+    public String fixDevice() {
+         message = "";
+        if (empDevice != null)
+        {
+            return bean1.setDevice(empDevice.getId());
         }
+       
+        else return "#";
+        
+//        empExist();
+//        devExist();
+//
+//        if (devExist && empExist) {
+//            try {
+//            } catch (Exception e) {
+//                message = "Not possible";
+//            }
+//        } else {
+//            message = "Not possible";
+//        }
+    }
+
+    public void getDevice() {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Device where token = :token");
+             //Logger.getLogger(FixWidgetBean.class.getName()).info("from Device where token = " + token);
+            query.setParameter("token", token);
+            if (query.list().isEmpty()) {
+                message = "No registered device with token " + token;
+            } else {
+                empDevice = (Device)query.list().get(0);
+                message = empDevice.getManufacturer() + " " + empDevice.getModel() + " found";
+            }
+
+        } finally {
+            session.close();
+        }
+
     }
 
     public void getEmployeeRegisterdDevices() {
@@ -99,7 +142,7 @@ public class FixWidgetBean implements Serializable {
                 query.setParameter("androidid", devices.getAndroidId());
                 query.setParameter("serial", devices.getSerialNumber());
                 if (!query.list().isEmpty()) {
-                    empDev = (Device) query.list().get(0);
+                    empDevice = (Device) query.list().get(0);
                 } else {
                     message = empID + " does not have any registered devices!";
                 }
@@ -128,7 +171,7 @@ public class FixWidgetBean implements Serializable {
     public void devExist() {
 
 
-        if (empDev == null) {
+        if (empDevice == null) {
             devExist = false;
             devExists = devID + " does not exist!";
 
@@ -203,11 +246,11 @@ public class FixWidgetBean implements Serializable {
     }
 
     public Device getEmpDev() {
-        return empDev;
+        return empDevice;
     }
 
     public void setEmpDev(Device empDev) {
-        this.empDev = empDev;
+        this.empDevice = empDev;
     }
 
     public List<Device> getEmpDevList() {
@@ -216,5 +259,13 @@ public class FixWidgetBean implements Serializable {
 
     public void setEmpDevList(List<Device> empDevList) {
         this.empDevList = empDevList;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

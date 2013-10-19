@@ -147,6 +147,8 @@ public class SettingsBean implements Serializable {
         session.save(app);
         session.getTransaction().commit();
         session.close();
+        appName = "";
+        appCategory = "";
         return "settings.xhtml";
     }
 

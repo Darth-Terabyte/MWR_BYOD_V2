@@ -8,7 +8,9 @@ import com.mwr.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -23,14 +25,17 @@ public class RegistrationWidgetBean implements Serializable {
     private Boolean tokenFlag = false;
     private String devExists = "";
     private String empExists = "";
-    private String token = " ";
-    private String message = " ";
+    private String token = "";
+    private String message = "";
     private String empMakeMod = "";
     private String empID = null;
     private String devID = null;
     private Employee emp = null;
     private Devicenotregistered empDev = null;
     private List<Devicenotregistered> empDevList = null;
+    private Devicenotregistered empDevice;
+    @ManagedProperty(value = "#{bean}")
+    DatabaseJSFManagedBean bean1;
 
     public RegistrationWidgetBean() {
     }
@@ -273,5 +278,61 @@ public class RegistrationWidgetBean implements Serializable {
         token = empDev.getToken();
         message = token;
         System.out.println("Token: " + token);
+    }
+
+    public Devicenotregistered getEmpDevice() {
+        return empDevice;
+    }
+
+    public void setEmpDevice(Devicenotregistered empDevice) {
+        this.empDevice = empDevice;
+    }
+
+    public void getDevice() {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Devicenotregistered where token = :token");
+            Logger.getLogger(RegistrationWidgetBean.class.getName()).info("from Device where token = " + token);
+            query.setParameter("token", token);
+            if (query.list().isEmpty()) {
+                message = "No device in waiting list with token " + token;
+            } else {
+                empDevice = (Devicenotregistered) query.list().get(0);
+                message = empDevice.getManufacturer() + " " + empDevice.getModel() + " found";
+            }
+
+        } finally {
+            session.close();
+        }
+
+    }
+
+    public String registerDevice() {
+        if (empDevice != null) {
+            bean1.addDevice(empDevice);
+        }
+        message = "";
+        return "#";
+
+//        empExist();
+//        devExist();
+//
+//        if (devExist && empExist) {
+//            try {
+//            } catch (Exception e) {
+//                message = "Not possible";
+//            }
+//        } else {
+//            message = "Not possible";
+//        }
+    }
+
+    public DatabaseJSFManagedBean getBean1() {
+        return bean1;
+    }
+
+    public void setBean1(DatabaseJSFManagedBean bean1) {
+        this.bean1 = bean1;
     }
 }

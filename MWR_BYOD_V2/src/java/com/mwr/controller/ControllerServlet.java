@@ -36,7 +36,7 @@ import org.json.simple.parser.JSONParser;
  */
 @WebServlet(name = "ControllerServlet",
         loadOnStartup = 1,
-        urlPatterns = {"/requestRegistration", "/scanResults", "/status"})
+        urlPatterns = {"/requestRegistration", "/scanResults", "/status","/restricted","/login","/mobileLogout","/logout"})
 public class ControllerServlet extends HttpServlet {
 
     @Override
@@ -60,15 +60,26 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
 //        String userPath = request.getServletPath();
         String userPath = request.getServletPath();
+        Logger.getLogger(ControllerServlet.class.getName()).info(userPath);
         String url = "";
         if (userPath.equals("/logout")) {
             url = "/faces/index.xhtml";
             request.logout();
+        } else if (userPath.equals("/restricted")) {
+            
+            DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
+            if (bean == null) {
+                bean = new DatabaseJSFManagedBean();
+            }
+            if (bean.isActiveUser(request.getRemoteAddr())) {
+                url = "/faces/view/restricted.html";
+            } else {
+                url = "/faces/view/denied.html";
+            }
+
+
         }
 
-
-
-        //  System.out.println(url);
 
         try {
             System.out.println(url);
@@ -170,7 +181,7 @@ public class ControllerServlet extends HttpServlet {
             }
 
 
-
+        //ScanResults
         } else if (userPath.equals("/scanResults")) {
 
             BufferedReader reader = request.getReader();
@@ -261,10 +272,10 @@ public class ControllerServlet extends HttpServlet {
                             Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info("allowed");
                             response.getOutputStream().print("allowed");
                         } else {
-                            response.getOutputStream().println("denied");
+                            response.getOutputStream().print("denied;");
                             ScanSummary summary = new ScanSummary();
                             Scanresult scan = bean.getLatestScan(mac, serial, androidID);
-                            response.getOutputStream().print(summary.getSummary(scan.getRootedScore(), scan.getDebuggingEnabledScore(), scan.getUnknownSourcesScore(), scan.getApiscore(), scan.getBlacklistedApps(), scan.getAppsScore(), scan.getTotalScore()));
+                            response.getOutputStream().print(summary.getSummary(scan.getRootedScore(), scan.getDebuggingEnabledScore(), scan.getUnknownSourcesScore(), scan.getApiscore(),Integer.parseInt(scan.getApilevel()), scan.getBlacklistedApps(), scan.getAppsScore(), scan.getTotalScore()));
                         }
                         response.getOutputStream().flush();
                     }
@@ -277,11 +288,143 @@ public class ControllerServlet extends HttpServlet {
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            //Device status
         } else if (userPath.equals("/status")) {
             BufferedReader reader = request.getReader();
             String jsonText = reader.readLine();
             JSONParser parser = new JSONParser();
 
+            ContainerFactory containerFactory = new ContainerFactory() {
+                public List creatArrayContainer() {
+                    return new LinkedList();
+                }
+
+                public Map createObjectContainer() {
+                    return new LinkedHashMap();
+                }
+            };
+
+            Logger.getLogger(ControllerServlet.class.getName()).info(jsonText);
+            String mac = "";
+            String serial = "";
+            String androidID = "";
+
+            try {
+                Map json = (Map) parser.parse(jsonText, containerFactory);
+                Iterator iter = json.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String key = entry.getKey().toString();
+                    String value = entry.getValue().toString();                    
+                    if (key.equals("mac")) {
+                        mac = value;
+                    } else if (key.equals("serial")) {
+                        serial = value;
+                    } else if (key.equals("android")) {
+                        androidID = value;
+                    }
+
+                }
+
+
+                DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
+                if (bean == null) {
+                    bean = new DatabaseJSFManagedBean();
+                }
+                boolean registered = bean.deviceRegistered(mac, serial, androidID);
+                Logger.getLogger(ControllerServlet.class.getName()).info(Boolean.toString(registered));
+
+                if (registered) {
+                      Logger.getLogger("Active=" + Boolean.toString(bean.isActiveUser(request.getRemoteAddr())));
+                    if (bean.isActiveUser(request.getRemoteAddr()))
+                        response.getOutputStream().print("loggedIn");
+                    else response.getOutputStream().print("registered");
+                } else {
+                    boolean waiting = bean.deviceWaiting(mac, serial, androidID);
+                    if (waiting) {
+                        response.getOutputStream().print("waiting");
+                    } else {
+                        response.getOutputStream().print("not registered");
+                    }
+                }
+
+                response.getOutputStream().flush();
+                response.getOutputStream().close();
+            } catch (org.json.simple.parser.ParseException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (userPath.equals("/login")) {
+            Logger.getLogger(ControllerServlet.class.getName()).info("login");
+           
+            BufferedReader reader = request.getReader();
+            String jsonText = reader.readLine();
+            JSONParser parser = new JSONParser();
+
+            ContainerFactory containerFactory = new ContainerFactory() {
+                public List creatArrayContainer() {
+                    return new LinkedList();
+                }
+
+                public Map createObjectContainer() {
+                    return new LinkedHashMap();
+                }
+            };
+
+            Logger.getLogger(ControllerServlet.class.getName()).info(jsonText);
+            String mac = "";
+            String serial = "";
+            String androidID = "";
+            String username = "";
+            String password = "";
+
+            try {
+                Map json = (Map) parser.parse(jsonText, containerFactory);
+                Iterator iter = json.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String key = entry.getKey().toString();
+                    String value = entry.getValue().toString();
+                    Logger.getLogger(ControllerServlet.class.getName()).info(key);
+                    Logger.getLogger(ControllerServlet.class.getName()).info(value);
+                    if (key.equals("mac")) {
+                        mac = value;
+                    } else if (key.equals("serial")) {
+                        serial = value;
+                    } else if (key.equals("android")) {
+                        androidID = value;
+                    }
+                    else if (key.equals("password")) {
+                        password = value;
+                    }
+                    else if (key.equals("username")) {
+                        username = value;
+                    }
+
+                }
+
+
+                DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
+                if (bean == null) {
+                    bean = new DatabaseJSFManagedBean();
+                }
+                boolean access = bean.login(username,password,mac, androidID, serial, request.getRemoteAddr());
+                if (access)
+                    response.getOutputStream().print("allowed");
+                else
+                    response.getOutputStream().print("denied");
+                response.getOutputStream().flush();
+                response.getOutputStream().close();
+            } catch (org.json.simple.parser.ParseException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (userPath.equals("/mobileLogout")) {
+            Logger.getLogger(ControllerServlet.class.getName()).info("logout");           
+            BufferedReader reader = request.getReader();
+            String jsonText = reader.readLine();
+            JSONParser parser = new JSONParser();
             ContainerFactory containerFactory = new ContainerFactory() {
                 public List creatArrayContainer() {
                     return new LinkedList();
@@ -314,6 +457,7 @@ public class ControllerServlet extends HttpServlet {
                         androidID = value;
                     }
 
+
                 }
 
 
@@ -321,50 +465,18 @@ public class ControllerServlet extends HttpServlet {
                 if (bean == null) {
                     bean = new DatabaseJSFManagedBean();
                 }
-                boolean registered = bean.deviceRegistered(mac, serial, androidID);
-                Logger.getLogger(ControllerServlet.class.getName()).info(Boolean.toString(registered));
-
-                if (registered) {
-                    response.getOutputStream().print("registered");
-                } else {
-                    boolean waiting = bean.deviceWaiting(mac, serial, androidID);
-                    if (waiting) {
-                        response.getOutputStream().print("waiting");
-                    } else {
-                        response.getOutputStream().print("not registered");
-                    }
-                }
-
+                bean.logout(mac, androidID, serial, request.getRemoteAddr());
+                response.getOutputStream().print("registered");
                 response.getOutputStream().flush();
                 response.getOutputStream().close();
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
 
 
-//        else if (userPath.equals(("/scanResults")))
-//        {
-//            boolean rooted = Boolean.parseBoolean(request.getParameter("rooted"));
-//            boolean debug = Boolean.parseBoolean(request.getParameter("debug"));
-//            boolean unknown = Boolean.parseBoolean(request.getParameter("unknown"));
-//            String apps = request.getParameter("apps");
-//            scanMan.addScan(rooted, debug, unknown, apps);
-//            
-//            
-//            userPath = "/devices";
-//            
-//        }
-//
-//
-//        // use RequestDispatcher to forward request internally
-//        String url = "/WEB-INF/view" + userPath + ".jsp";
-//
-//        try {
-//            request.getRequestDispatcher(url).forward(request, response);
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
+//       
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

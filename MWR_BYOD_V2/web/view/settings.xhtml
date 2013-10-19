@@ -11,6 +11,25 @@
             function updateTextInput(val, text) {
                 document.getElementById(text).innerHTML = val + "%";
             }
+            function validateField(text)
+            {
+                var x = document.forms["settings"][text].value;
+                if (x.isNaN())
+                {
+                    alert("The value you have entered is not a valid number");
+
+                }
+            }
+            function validate(evt) {
+                var theEvent = evt || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+                var regex = /[0-9]|\./;
+                if (!regex.test(key)) {
+                    theEvent.returnValue = false;
+                    alert("The value you have entered is not a valid number");
+                }
+            }
         </script>
     </h:head>
     <h:body>
@@ -83,7 +102,7 @@
                 </div>
 
                 <div class="blockH">
-                    <h:form>
+                    <h:form id="settings">
                         <h:panelGroup styleClass="listL">
                             <h:panelGrid columns ="6" styleClass ="listLH">
                                 <h:outputLabel value="Weight Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
@@ -96,25 +115,14 @@
                                 <h:outputLabel value="Access Score" title="The score a device should avoid getting to gain access to the network"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="6" styleClass ="listItem" style="color:white;">
-                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.osWeight}" />
-                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.debugWeight}"   />
-                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.unknownSourcesWeight}"   />
-                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.rootedWeight}"   />
-                                <h:inputText id="access" styleClass="input" maxlength="3" value="#{settings.accessScore}"  />
+                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.osWeight}" onkeypress="validate(event)"/>
+                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.debugWeight}" onkeypress="validate(event)"  />
+                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.unknownSourcesWeight}"  onkeypress="validate(event)" />
+                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.rootedWeight}"   onkeypress="validate(event)"/>
+                                <h:inputText id="access" styleClass="input" maxlength="3" value="#{settings.accessScore}"  onkeypress="validate(event)"/>
                             </h:panelGrid>
-                            <div class="more3">
-                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}" title="Save the settings you have altered" style="color:black;"> </h:commandLink>
-                            </div>
                         </h:panelGroup>
-                    </h:form>
-                </div>
 
-                <div class="blockH" id ="appCat">
-                    <h5>Application Categories</h5>
-                    <a class ="upL" href ="#main" value ="...to top"></a>
-                </div>
-                <div class="blockH">                    
-                    <h:form>
                         <h:panelGroup styleClass="listL">
                             <h:panelGrid columns ="5" styleClass ="listLH">
                                 <h:outputLabel value="Application Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
@@ -126,13 +134,14 @@
                                 <h:outputLabel value="Blocked" title="The weight a Blocked Application carries"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="5" styleClass ="listItem">
-                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.lowRiskApp}" />
-                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.mediumRiskApp}"   />
-                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.highRiskApp}"   />
-                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.blockedApp}"   />
+                                <h:inputText id="lowrisk" styleClass="input" maxlength="3" value="#{settings.lowRiskApp}"  onkeypress="validate(event)"/>
+                                <h:inputText id="medrisk" styleClass="input" maxlength="3" value="#{settings.mediumRiskApp}"   onkeypress="validate(event)"/>
+                                <h:inputText id="highrisk" styleClass="input" maxlength="3" value="#{settings.highRiskApp}"   onkeypress="validate(event)"/>
+                                <h:inputText id="blocked" styleClass="input" maxlength="3" value="#{settings.blockedApp}"   onkeypress="validate(event)" />
+
                             </h:panelGrid>
                             <div class="more2">
-                                <h:commandLink value="Save Settings"  action="#{settings.saveSettings()}" title="Save the settings you have altered"> </h:commandLink>
+                                <h:commandLink value="Save Settings"  action="#{settings.addSetting()}" title="Save the settings you have altered"> </h:commandLink>
                             </div>
                         </h:panelGroup>
                     </h:form>

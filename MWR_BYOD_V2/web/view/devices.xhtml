@@ -37,65 +37,43 @@
             </div>
 
             <div id="site_content">
-                <div class="register">
+                 <div class="register">
+                    <h3>Register Device</h3>
                     <h:form>
-                        <h3>Register Device</h3>
-                        <p>Register a device by entering the employee's ID and selecting the device:</p>
+                        <p>Register a device by entering the device's token</p>
                         <div>
-                            <h:outputText value="EmpID:"></h:outputText>
-                            <h:inputText id="regEmpID"
+                            <h:outputText value="Token:"></h:outputText>
+                            <h:inputText id="fixEmpID"
                                          styleClass="input"
-                                         maxlength="25" value ="#{register.empID}" />
+                                         maxlength="25" value ="#{register.token}" />
 
                             <h:commandButton id="regDevCheck" value="Check" styleClass="button"
-                                             action="#{register.getEmployeeUnregDevices()}" />
+                                             action="#{register.getDevice()}" />
                         </div>
                         <div class ="spaced">
-                            <h:selectOneMenu rendered="#{register.empDevList != null}"
-                                             id="regDevs" styleClass ="inputDev"
-                                             value="#{register.empDev}">
-                                <f:selectItems value="#{register.empDevList}" var="regDevices"
-                                               itemLabel="#{regDevices.manufacturer} #{regDevices.model}">
-                                </f:selectItems>
-                            </h:selectOneMenu>
-                        </div>
-                        <div class ="spaced">
-                            <h:commandButton rendered="#{register.empDevList != null}" id="getToken"
-                                             value="Get Token" styleClass="button"
-                                             action="#{register.getDevToken()}" />
                         </div>
 
                         <div class="more">
-                            <h:commandLink action="#{register.regDevice()}"
-                                           value="Register Device"></h:commandLink>
+                            <h:commandLink action="#{register.registerDevice()}"
+                                           value="Regsiter Device"></h:commandLink>
                         </div>
                         <div class ="token">
                             <h:outputText  id = "message" value="#{register.message}"></h:outputText>
                         </div>
-
                     </h:form>
                 </div>
                 <div class="fix">
                     <h3>Fix Device</h3>
                     <h:form>
-                        <p>Fix a device by entering the employee's ID and selecting the device:</p>
+                        <p>Fix a device by entering the device's token</p>
                         <div>
-                            <h:outputText value="EmpID:"></h:outputText>
+                            <h:outputText value="Token:"></h:outputText>
                             <h:inputText id="fixEmpID"
                                          styleClass="input"
-                                         maxlength="25" value ="#{fix.empID}" />
+                                         maxlength="25" value ="#{fix.token}" />
 
                             <h:commandButton id="regDevCheck" value="Check" styleClass="button"
-                                             action="#{fix.getEmployeeRegisterdDevices()}" />
-                        </div>
-                        <div class ="spaced">
-                            <h:selectOneMenu rendered="#{fix.empDevList != null}"
-                                             id="fixDevs" styleClass ="inputDev"
-                                             value="#{fix.empDev}">
-                                <f:selectItems value="#{fix.empDevList}" var="fixDevices"
-                                               itemLabel="#{fixDevices.manufacturer} #{fixDevices.model}">
-                                </f:selectItems>
-                            </h:selectOneMenu>
+                                             action="#{fix.getDevice()}" />
                         </div>
                         <div class ="spaced">
                         </div>
@@ -224,7 +202,7 @@
 
                                 <h:column>
                                     <h:form>
-                                        <h:commandButton styleClass="button" id="View" value="View" action="#{bean.setDev(item)}"/>
+                                        <h:commandButton styleClass="button" id="View" value="View" action="#{bean.setDevice(item.id)}"/>
                                     </h:form>
                                 </h:column>
 

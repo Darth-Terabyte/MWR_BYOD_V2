@@ -10,24 +10,24 @@ package com.mwr.businesslogic;
  */
 public class ScanSummary {
 
-    public String getSummary(int rooted, int debug, int unknown, int os, String apps, int appScore, int total) {
+    public String getSummary(int rooted, int debug, int unknown, int os, int api_level, String apps, int appScore, int total) {
         String summary = "";
         if (rooted != 0) {
-            summary += "Rooted device: " + rooted + "\r\n";
+            summary += "Rooted device:True;";
         }
         if (debug != 0) {
-            summary += "USB Debugging Enabled: " + debug + "\r\n";
+            summary += "USB Debugging:Enabled;";
         }
         if (unknown != 0) {
-            summary += "Applications from unknown sources allowed: " + unknown + "\r\n";
+            summary += "Applications from unknown sources:Allowed;";
         }
         if (os != 0)
         {
-            summary += "Operating System Version: " +  os + "\r\n";
+            summary += "Android API Level:" +  api_level + ";";
         }
         if (apps.length() != 0)
-            summary += "Blacklisted applications installed: " + appScore + "\r\n(" + apps + ")\r\n";
-        summary += "Total Score: " + total;
+            summary += "Blacklisted applications installed:" + apps + ";";
+        summary += "Total Score:" + total;
         return summary;
     }
 }

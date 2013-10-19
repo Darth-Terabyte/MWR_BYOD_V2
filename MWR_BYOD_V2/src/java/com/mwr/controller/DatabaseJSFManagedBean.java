@@ -414,9 +414,7 @@ public class DatabaseJSFManagedBean implements Serializable {
 
     }
 
-    public void setDevice(Device d) {
-        device = d;
-    }
+
 
     public String setDev(Device d) {
         device = d;
@@ -507,4 +505,67 @@ public class DatabaseJSFManagedBean implements Serializable {
         Device dev = (Device) query.list().get(0);
         return dev.getToken();
     }
+    
+    public boolean login(String username, String password, String mac, String androidID, String serial, String ip)
+    {       
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();      
+        Query query = session.createQuery("from Device where MACAddress = :mac and AndroidID = :uid and SerialNumber = :serial");
+        query.setParameter("mac", mac);
+        query.setParameter("uid", androidID);
+        query.setParameter("serial", serial);
+        Device dev = (Device) query.list().get(0);
+        Employee emp = dev.getEmployee();
+        if (emp.getUsername().equals(username) && emp.getPassword().equals(password))
+        {
+            Activeuser user = new Activeuser(ip,mac,androidID,serial);
+            session.save(user);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
+        else
+        {
+            session.close();
+            return false;
+        }
+    }
+    
+    public boolean isActiveUser(String ip)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();      
+        Query query = session.createQuery("from Activeuser where ip = :ip");
+        query.setParameter("ip", ip);
+        List<Activeuser> list = query.list();
+        if (list.isEmpty())
+        {
+            session.close();
+            return false;
+        }
+        else
+        {
+            session.close();
+            return true;
+        }
+            
+        
+        
+    }
+
+    public void logout(String mac, String androidID, String serial, String remoteAddr) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();      
+        Query query = session.createQuery("delete from Activeuser where deviceMacaddress = :mac and deviceAndroidId = :androidID and deviceSerialNumber = :serial and ip = :remoteAddr");
+        query.setParameter("mac", mac);
+        query.setParameter("androidID", androidID);
+        query.setParameter("serial", serial);
+        query.setParameter("remoteAddr", remoteAddr);
+        query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+        
+    }
+    
+
 }

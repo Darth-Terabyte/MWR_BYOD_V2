@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 Oct 2013 10:19:39 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.mwr.database.Activeuser" table="activeuser" catalog="byod">
+        <id name="ip" type="string">
+            <column name="IP" length="15" />
+            <generator class="assigned" />
+        </id>
+        <property name="deviceMacaddress" type="string">
+            <column name="device_MACAddress" length="45" not-null="true" />
+        </property>
+        <property name="deviceAndroidId" type="string">
+            <column name="device_AndroidID" length="45" not-null="true" />
+        </property>
+        <property name="deviceSerialNumber" type="string">
+            <column name="device_SerialNumber" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
