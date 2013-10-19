@@ -14,9 +14,19 @@ public class Activeuser  implements java.io.Serializable {
      private String deviceAndroidId;
      private String deviceSerialNumber;
 
+    /**
+     *
+     */
     public Activeuser() {
     }
 
+    /**
+     *
+     * @param ip
+     * @param deviceMacaddress
+     * @param deviceAndroidId
+     * @param deviceSerialNumber
+     */
     public Activeuser(String ip, String deviceMacaddress, String deviceAndroidId, String deviceSerialNumber) {
        this.ip = ip;
        this.deviceMacaddress = deviceMacaddress;
@@ -24,31 +34,63 @@ public class Activeuser  implements java.io.Serializable {
        this.deviceSerialNumber = deviceSerialNumber;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getIp() {
         return this.ip;
     }
     
+    /**
+     *
+     * @param ip
+     */
     public void setIp(String ip) {
         this.ip = ip;
     }
+    /**
+     *
+     * @return
+     */
     public String getDeviceMacaddress() {
         return this.deviceMacaddress;
     }
     
+    /**
+     *
+     * @param deviceMacaddress
+     */
     public void setDeviceMacaddress(String deviceMacaddress) {
         this.deviceMacaddress = deviceMacaddress;
     }
+    /**
+     *
+     * @return
+     */
     public String getDeviceAndroidId() {
         return this.deviceAndroidId;
     }
     
+    /**
+     *
+     * @param deviceAndroidId
+     */
     public void setDeviceAndroidId(String deviceAndroidId) {
         this.deviceAndroidId = deviceAndroidId;
     }
+    /**
+     *
+     * @return
+     */
     public String getDeviceSerialNumber() {
         return this.deviceSerialNumber;
     }
     
+    /**
+     *
+     * @param deviceSerialNumber
+     */
     public void setDeviceSerialNumber(String deviceSerialNumber) {
         this.deviceSerialNumber = deviceSerialNumber;
     }

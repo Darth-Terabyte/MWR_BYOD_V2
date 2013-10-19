@@ -21,10 +21,22 @@ public class Employee  implements java.io.Serializable {
      private String idnumber;
      private Set devices = new HashSet(0);
 
+    /**
+     *
+     */
     public Employee() {
     }
 
 	
+    /**
+     *
+     * @param username
+     * @param password
+     * @param dateRegistered
+     * @param name
+     * @param surname
+     * @param idnumber
+     */
     public Employee(String username, String password, Date dateRegistered, String name, String surname, String idnumber) {
         this.username = username;
         this.password = password;
@@ -33,6 +45,16 @@ public class Employee  implements java.io.Serializable {
         this.surname = surname;
         this.idnumber = idnumber;
     }
+    /**
+     *
+     * @param username
+     * @param password
+     * @param dateRegistered
+     * @param name
+     * @param surname
+     * @param idnumber
+     * @param devices
+     */
     public Employee(String username, String password, Date dateRegistered, String name, String surname, String idnumber, Set devices) {
        this.username = username;
        this.password = password;
@@ -43,59 +65,123 @@ public class Employee  implements java.io.Serializable {
        this.devices = devices;
     }
    
+    /**
+     *
+     * @return
+     */
     public Integer getEmpId() {
         return this.empId;
     }
     
+    /**
+     *
+     * @param empId
+     */
     public void setEmpId(Integer empId) {
         this.empId = empId;
     }
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return this.username;
     }
     
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return this.password;
     }
     
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
+    /**
+     *
+     * @return
+     */
     public Date getDateRegistered() {
         return this.dateRegistered;
     }
     
+    /**
+     *
+     * @param dateRegistered
+     */
     public void setDateRegistered(Date dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }
     
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     *
+     * @return
+     */
     public String getSurname() {
         return this.surname;
     }
     
+    /**
+     *
+     * @param surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
+    /**
+     *
+     * @return
+     */
     public String getIdnumber() {
         return this.idnumber;
     }
     
+    /**
+     *
+     * @param idnumber
+     */
     public void setIdnumber(String idnumber) {
         this.idnumber = idnumber;
     }
+    /**
+     *
+     * @return
+     */
     public Set getDevices() {
         return this.devices;
     }
     
+    /**
+     *
+     * @param devices
+     */
     public void setDevices(Set devices) {
         this.devices = devices;
     }

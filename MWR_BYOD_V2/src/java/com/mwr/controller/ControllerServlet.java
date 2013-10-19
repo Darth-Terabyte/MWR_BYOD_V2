@@ -39,6 +39,10 @@ import org.json.simple.parser.JSONParser;
         urlPatterns = {"/requestRegistration", "/scanResults", "/status","/restricted","/login","/mobileLogout","/logout"})
 public class ControllerServlet extends HttpServlet {
 
+    /**
+     *
+     * @throws ServletException
+     */
     @Override
     public void init() throws ServletException {
         // store category list in servlet context

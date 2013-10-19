@@ -13,32 +13,64 @@ public class Blacklistedapp  implements java.io.Serializable {
      private String appName;
      private String appCategory;
 
+    /**
+     *
+     */
     public Blacklistedapp() {
     }
 
+    /**
+     *
+     * @param appName
+     * @param appCategory
+     */
     public Blacklistedapp(String appName, String appCategory) {
        this.appName = appName;
        this.appCategory = appCategory;
     }
    
+    /**
+     *
+     * @return
+     */
     public Integer getAppId() {
         return this.appId;
     }
     
+    /**
+     *
+     * @param appId
+     */
     public void setAppId(Integer appId) {
         this.appId = appId;
     }
+    /**
+     *
+     * @return
+     */
     public String getAppName() {
         return this.appName;
     }
     
+    /**
+     *
+     * @param appName
+     */
     public void setAppName(String appName) {
         this.appName = appName;
     }
+    /**
+     *
+     * @return
+     */
     public String getAppCategory() {
         return this.appCategory;
     }
     
+    /**
+     *
+     * @param appCategory
+     */
     public void setAppCategory(String appCategory) {
         this.appCategory = appCategory;
     }

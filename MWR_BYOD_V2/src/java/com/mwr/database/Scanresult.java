@@ -27,9 +27,30 @@ public class Scanresult  implements java.io.Serializable {
      private int totalScore;
      private boolean accessAllowed;
 
+    /**
+     *
+     */
     public Scanresult() {
     }
 
+    /**
+     *
+     * @param device
+     * @param setting
+     * @param date
+     * @param rooted
+     * @param rootedScore
+     * @param debuggingEnabled
+     * @param debuggingEnabledScore
+     * @param unknownSourcesAllowed
+     * @param unknownSourcesScore
+     * @param blacklistedApps
+     * @param appsScore
+     * @param apilevel
+     * @param apiscore
+     * @param totalScore
+     * @param accessAllowed
+     */
     public Scanresult(Device device, Setting setting, Date date, boolean rooted, int rootedScore, boolean debuggingEnabled, int debuggingEnabledScore, boolean unknownSourcesAllowed, int unknownSourcesScore, String blacklistedApps, int appsScore, String apilevel, int apiscore, int totalScore, boolean accessAllowed) {
        this.device = device;
        this.setting = setting;
@@ -48,115 +69,243 @@ public class Scanresult  implements java.io.Serializable {
        this.accessAllowed = accessAllowed;
     }
    
+    /**
+     *
+     * @return
+     */
     public Integer getScanId() {
         return this.scanId;
     }
     
+    /**
+     *
+     * @param scanId
+     */
     public void setScanId(Integer scanId) {
         this.scanId = scanId;
     }
+    /**
+     *
+     * @return
+     */
     public Device getDevice() {
         return this.device;
     }
     
+    /**
+     *
+     * @param device
+     */
     public void setDevice(Device device) {
         this.device = device;
     }
+    /**
+     *
+     * @return
+     */
     public Setting getSetting() {
         return this.setting;
     }
     
+    /**
+     *
+     * @param setting
+     */
     public void setSetting(Setting setting) {
         this.setting = setting;
     }
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return this.date;
     }
     
+    /**
+     *
+     * @param date
+     */
     public void setDate(Date date) {
         this.date = date;
     }
+    /**
+     *
+     * @return
+     */
     public boolean isRooted() {
         return this.rooted;
     }
     
+    /**
+     *
+     * @param rooted
+     */
     public void setRooted(boolean rooted) {
         this.rooted = rooted;
     }
+    /**
+     *
+     * @return
+     */
     public int getRootedScore() {
         return this.rootedScore;
     }
     
+    /**
+     *
+     * @param rootedScore
+     */
     public void setRootedScore(int rootedScore) {
         this.rootedScore = rootedScore;
     }
+    /**
+     *
+     * @return
+     */
     public boolean isDebuggingEnabled() {
         return this.debuggingEnabled;
     }
     
+    /**
+     *
+     * @param debuggingEnabled
+     */
     public void setDebuggingEnabled(boolean debuggingEnabled) {
         this.debuggingEnabled = debuggingEnabled;
     }
+    /**
+     *
+     * @return
+     */
     public int getDebuggingEnabledScore() {
         return this.debuggingEnabledScore;
     }
     
+    /**
+     *
+     * @param debuggingEnabledScore
+     */
     public void setDebuggingEnabledScore(int debuggingEnabledScore) {
         this.debuggingEnabledScore = debuggingEnabledScore;
     }
+    /**
+     *
+     * @return
+     */
     public boolean isUnknownSourcesAllowed() {
         return this.unknownSourcesAllowed;
     }
     
+    /**
+     *
+     * @param unknownSourcesAllowed
+     */
     public void setUnknownSourcesAllowed(boolean unknownSourcesAllowed) {
         this.unknownSourcesAllowed = unknownSourcesAllowed;
     }
+    /**
+     *
+     * @return
+     */
     public int getUnknownSourcesScore() {
         return this.unknownSourcesScore;
     }
     
+    /**
+     *
+     * @param unknownSourcesScore
+     */
     public void setUnknownSourcesScore(int unknownSourcesScore) {
         this.unknownSourcesScore = unknownSourcesScore;
     }
+    /**
+     *
+     * @return
+     */
     public String getBlacklistedApps() {
         return this.blacklistedApps;
     }
     
+    /**
+     *
+     * @param blacklistedApps
+     */
     public void setBlacklistedApps(String blacklistedApps) {
         this.blacklistedApps = blacklistedApps;
     }
+    /**
+     *
+     * @return
+     */
     public int getAppsScore() {
         return this.appsScore;
     }
     
+    /**
+     *
+     * @param appsScore
+     */
     public void setAppsScore(int appsScore) {
         this.appsScore = appsScore;
     }
+    /**
+     *
+     * @return
+     */
     public String getApilevel() {
         return this.apilevel;
     }
     
+    /**
+     *
+     * @param apilevel
+     */
     public void setApilevel(String apilevel) {
         this.apilevel = apilevel;
     }
+    /**
+     *
+     * @return
+     */
     public int getApiscore() {
         return this.apiscore;
     }
     
+    /**
+     *
+     * @param apiscore
+     */
     public void setApiscore(int apiscore) {
         this.apiscore = apiscore;
     }
+    /**
+     *
+     * @return
+     */
     public int getTotalScore() {
         return this.totalScore;
     }
     
+    /**
+     *
+     * @param totalScore
+     */
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
+    /**
+     *
+     * @return
+     */
     public boolean isAccessAllowed() {
         return this.accessAllowed;
     }
     
+    /**
+     *
+     * @param accessAllowed
+     */
     public void setAccessAllowed(boolean accessAllowed) {
         this.accessAllowed = accessAllowed;
     }

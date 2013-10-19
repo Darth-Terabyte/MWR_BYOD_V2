@@ -39,7 +39,7 @@
             <div id="site_content">
                 <h:form>
                     <h4>#{bean.device.manufacturer} #{bean.device.model}</h4>
-                    <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee.empId)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
+                    <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
 
                     <h5>Registered on: #{bean.device.dateRegistered}</h5>
 

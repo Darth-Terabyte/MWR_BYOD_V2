@@ -11,8 +11,21 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 
+/**
+ *
+ * @author madenem
+ */
 public class TokenGenerator {
     
+    /**
+     *
+     * @param mac
+     * @param uid
+     * @param serial
+     * @param password
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
     public String generateToken(String mac,String uid, String serial,String password) throws NoSuchAlgorithmException
     {
         String composite =mac+uid+serial;

@@ -10,6 +10,18 @@ package com.mwr.businesslogic;
  */
 public class ScanSummary {
 
+    /**
+     *
+     * @param rooted
+     * @param debug
+     * @param unknown
+     * @param os
+     * @param api_level
+     * @param apps
+     * @param appScore
+     * @param total
+     * @return
+     */
     public String getSummary(int rooted, int debug, int unknown, int os, int api_level, String apps, int appScore, int total) {
         String summary = "";
         if (rooted != 0) {

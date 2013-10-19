@@ -21,9 +21,25 @@ public class Devicenotregistered  implements java.io.Serializable {
      private String name;
      private String surname;
 
+    /**
+     *
+     */
     public Devicenotregistered() {
     }
 
+    /**
+     *
+     * @param id
+     * @param manufacturer
+     * @param model
+     * @param dateRegistered
+     * @param token
+     * @param username
+     * @param password
+     * @param idnumber
+     * @param name
+     * @param surname
+     */
     public Devicenotregistered(DevicenotregisteredId id, String manufacturer, String model, Date dateRegistered, String token, String username, String password, String idnumber, String name, String surname) {
        this.id = id;
        this.manufacturer = manufacturer;
@@ -37,73 +53,153 @@ public class Devicenotregistered  implements java.io.Serializable {
        this.surname = surname;
     }
    
+    /**
+     *
+     * @return
+     */
     public DevicenotregisteredId getId() {
         return this.id;
     }
     
+    /**
+     *
+     * @param id
+     */
     public void setId(DevicenotregisteredId id) {
         this.id = id;
     }
+    /**
+     *
+     * @return
+     */
     public String getManufacturer() {
         return this.manufacturer;
     }
     
+    /**
+     *
+     * @param manufacturer
+     */
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
+    /**
+     *
+     * @return
+     */
     public String getModel() {
         return this.model;
     }
     
+    /**
+     *
+     * @param model
+     */
     public void setModel(String model) {
         this.model = model;
     }
+    /**
+     *
+     * @return
+     */
     public Date getDateRegistered() {
         return this.dateRegistered;
     }
     
+    /**
+     *
+     * @param dateRegistered
+     */
     public void setDateRegistered(Date dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
+    /**
+     *
+     * @return
+     */
     public String getToken() {
         return this.token;
     }
     
+    /**
+     *
+     * @param token
+     */
     public void setToken(String token) {
         this.token = token;
     }
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return this.username;
     }
     
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return this.password;
     }
     
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
+    /**
+     *
+     * @return
+     */
     public String getIdnumber() {
         return this.idnumber;
     }
     
+    /**
+     *
+     * @param idnumber
+     */
     public void setIdnumber(String idnumber) {
         this.idnumber = idnumber;
     }
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }
     
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     *
+     * @return
+     */
     public String getSurname() {
         return this.surname;
     }
     
+    /**
+     *
+     * @param surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }

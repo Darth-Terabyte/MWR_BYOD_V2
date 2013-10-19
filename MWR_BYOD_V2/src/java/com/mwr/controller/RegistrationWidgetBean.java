@@ -15,6 +15,10 @@ import javax.faces.bean.SessionScoped;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+/**
+ *
+ * @author madenem
+ */
 @ManagedBean(name = "register")
 @SessionScoped
 public class RegistrationWidgetBean implements Serializable {
@@ -37,9 +41,15 @@ public class RegistrationWidgetBean implements Serializable {
     @ManagedProperty(value = "#{bean}")
     DatabaseJSFManagedBean bean1;
 
+    /**
+     *
+     */
     public RegistrationWidgetBean() {
     }
 
+    /**
+     *
+     */
     public void getEmployee() {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -54,6 +64,9 @@ public class RegistrationWidgetBean implements Serializable {
         }
     }
 
+    /**
+     *
+     */
     public void getNonRegDevice() {
         try {
 
@@ -73,6 +86,9 @@ public class RegistrationWidgetBean implements Serializable {
         }
     }
 
+    /**
+     *
+     */
     public void regDevice() {
         empExist();
         devExist();
@@ -101,6 +117,9 @@ public class RegistrationWidgetBean implements Serializable {
 
     }
 
+    /**
+     *
+     */
     public void getEmployeeUnregDevices() {
         emp = null;
         getEmployee();
@@ -126,6 +145,9 @@ public class RegistrationWidgetBean implements Serializable {
         }
     }
 
+    /**
+     *
+     */
     public void empExist() {
         getEmployee();
         if (emp == null) {
@@ -138,10 +160,17 @@ public class RegistrationWidgetBean implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param v
+     */
     public void showDev(Devicenotregistered v) {
         System.out.println("Device: " + v);
     }
 
+    /**
+     *
+     */
     public void devExist() {
 
 
@@ -155,110 +184,217 @@ public class RegistrationWidgetBean implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     *
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getDevExist() {
         return devExist;
     }
 
+    /**
+     *
+     * @param devExist
+     */
     public void setDevExist(Boolean devExist) {
         this.devExist = devExist;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getEmpExist() {
         return empExist;
     }
 
+    /**
+     *
+     * @param empExist
+     */
     public void setEmpExist(Boolean empExist) {
         this.empExist = empExist;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getTokenFlag() {
         return tokenFlag;
     }
 
+    /**
+     *
+     * @param tokenFlag
+     */
     public void setTokenFlag(Boolean tokenFlag) {
         this.tokenFlag = tokenFlag;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDevExists() {
         return devExists;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpMakeMod() {
         return empMakeMod;
     }
 
+    /**
+     *
+     * @param empMakeMod
+     */
     public void setEmpMakeMod(String empMakeMod) {
         this.empMakeMod = empMakeMod;
     }
 
+    /**
+     *
+     * @param devExists
+     */
     public void setDevExists(String devExists) {
         this.devExists = devExists;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpExists() {
         return empExists;
     }
 
+    /**
+     *
+     * @param empExists
+     */
     public void setEmpExists(String empExists) {
         this.empExists = empExists;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpID() {
         return empID;
     }
 
+    /**
+     *
+     * @param empID
+     */
     public void setEmpID(String empID) {
         this.empID = empID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDevID() {
         return devID;
     }
 
+    /**
+     *
+     * @param devID
+     */
     public void setDevID(String devID) {
         this.devID = devID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getToken() {
         return token;
     }
 
+    /**
+     *
+     * @param token
+     */
     public void setToken(String token) {
         this.token = token;
     }
 
+    /**
+     *
+     * @return
+     */
     public Employee getEmp() {
         return emp;
     }
 
+    /**
+     *
+     * @param emp
+     */
     public void setEmp(Employee emp) {
         this.emp = emp;
     }
 
+    /**
+     *
+     * @return
+     */
     public Devicenotregistered getEmpDev() {
         return empDev;
     }
 
+    /**
+     *
+     * @param empDev
+     */
     public void setEmpDev(Devicenotregistered empDev) {
         this.empDev = empDev;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Devicenotregistered> getEmpDevList() {
         return empDevList;
     }
 
+    /**
+     *
+     * @param empDevList
+     */
     public void setEmpDevList(List<Devicenotregistered> empDevList) {
         this.empDevList = empDevList;
     }
 
+    /**
+     *
+     */
     public void getDevToken() {
         empExist();
         devExist();
@@ -280,14 +416,25 @@ public class RegistrationWidgetBean implements Serializable {
         System.out.println("Token: " + token);
     }
 
+    /**
+     *
+     * @return
+     */
     public Devicenotregistered getEmpDevice() {
         return empDevice;
     }
 
+    /**
+     *
+     * @param empDevice
+     */
     public void setEmpDevice(Devicenotregistered empDevice) {
         this.empDevice = empDevice;
     }
 
+    /**
+     *
+     */
     public void getDevice() {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -308,6 +455,10 @@ public class RegistrationWidgetBean implements Serializable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String registerDevice() {
         if (empDevice != null) {
             bean1.addDevice(empDevice);
@@ -328,10 +479,18 @@ public class RegistrationWidgetBean implements Serializable {
 //        }
     }
 
+    /**
+     *
+     * @return
+     */
     public DatabaseJSFManagedBean getBean1() {
         return bean1;
     }
 
+    /**
+     *
+     * @param bean1
+     */
     public void setBean1(DatabaseJSFManagedBean bean1) {
         this.bean1 = bean1;
     }

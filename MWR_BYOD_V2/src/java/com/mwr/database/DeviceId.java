@@ -13,39 +13,76 @@ public class DeviceId  implements java.io.Serializable {
      private String androidId;
      private String serialNumber;
 
+    /**
+     *
+     */
     public DeviceId() {
     }
 
+    /**
+     *
+     * @param macaddress
+     * @param androidId
+     * @param serialNumber
+     */
     public DeviceId(String macaddress, String androidId, String serialNumber) {
        this.macaddress = macaddress;
        this.androidId = androidId;
        this.serialNumber = serialNumber;
     }
     
-     public DeviceId(DevicenotregisteredId id) {
+     /**
+     *
+     * @param id
+     */
+    public DeviceId(DevicenotregisteredId id) {
        this.macaddress = id.getMacaddress();
        this.androidId = id.getAndroidId();
        this.serialNumber = id.getSerialNumber();
     }
    
+    /**
+     *
+     * @return
+     */
     public String getMacaddress() {
         return this.macaddress;
     }
     
+    /**
+     *
+     * @param macaddress
+     */
     public void setMacaddress(String macaddress) {
         this.macaddress = macaddress;
     }
+    /**
+     *
+     * @return
+     */
     public String getAndroidId() {
         return this.androidId;
     }
     
+    /**
+     *
+     * @param androidId
+     */
     public void setAndroidId(String androidId) {
         this.androidId = androidId;
     }
+    /**
+     *
+     * @return
+     */
     public String getSerialNumber() {
         return this.serialNumber;
     }
     
+    /**
+     *
+     * @param serialNumber
+     */
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
