@@ -19,8 +19,6 @@ public class FixWidgetBean implements Serializable {
 
     private Session session;
     private String message = "";
-
-    
 //    private Boolean devExist = false;
 //    private Boolean empExist = false;
 //    private String devExists = "";
@@ -220,7 +218,8 @@ public class FixWidgetBean implements Serializable {
      * @param message
      */
     public void setMessage(String message) {
-        this.message = message;    }
+        this.message = message;
+    }
 
     /**
      *
@@ -364,13 +363,5 @@ public class FixWidgetBean implements Serializable {
      */
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

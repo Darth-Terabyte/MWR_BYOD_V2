@@ -222,7 +222,7 @@ public class DatabaseJSFManagedBean implements Serializable {
 
     }
 
-//   
+//
     /**
      *
      * @return Return this bean's instance of employee
@@ -330,7 +330,9 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
-     * Saves a device's scan, calculates device score and determines if test was passed
+     * Saves a device's scan, calculates device score and determines if test was
+     * passed
+     *
      * @param mac Device's MAC Address
      * @param serial Device's serial number
      * @param androidID Device's Android ID
@@ -444,6 +446,13 @@ public class DatabaseJSFManagedBean implements Serializable {
 
     }
 
+    public void setDev(Device dev) {
+        try {
+            device = dev;
+        } catch (Exception e) {
+        }
+
+    }
 
     /**
      *
@@ -507,6 +516,7 @@ public class DatabaseJSFManagedBean implements Serializable {
 
     /**
      * Remove a device
+     *
      * @param device Device
      * @return Returns a link back to the devices page
      */
