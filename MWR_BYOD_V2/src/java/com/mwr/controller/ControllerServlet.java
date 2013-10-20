@@ -66,7 +66,7 @@ public class ControllerServlet extends HttpServlet {
         String userPath = request.getServletPath();
         Logger.getLogger(ControllerServlet.class.getName()).info(userPath);
         String url = "";
-        if (userPath.equals("/logout")) {
+        if (userPath.contains("/logout")) {
             url = "/faces/index.xhtml";
             request.logout();
         } else if (userPath.equals("/restricted")) {
