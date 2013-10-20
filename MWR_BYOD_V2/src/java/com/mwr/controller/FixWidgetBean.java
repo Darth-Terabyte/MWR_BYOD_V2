@@ -1,12 +1,8 @@
 package com.mwr.controller;
 
 import com.mwr.database.Device;
-import com.mwr.database.DeviceId;
-import com.mwr.database.Devicenotregistered;
-import com.mwr.database.Employee;
 import com.mwr.database.HibernateUtil;
 import java.io.Serializable;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +18,7 @@ import org.hibernate.Session;
 public class FixWidgetBean implements Serializable {
 
     private Session session;
-     private String message = "";
+    private String message = "";
 //    private Boolean devExist = false;
 //    private Boolean empExist = false;
 //    private String devExists = "";
@@ -35,12 +31,8 @@ public class FixWidgetBean implements Serializable {
     private Device empDevice = null;
     //private List<Device> empDevList = null;
     private String token;
-    @ManagedProperty(value="#{bean}") 
+    @ManagedProperty(value = "#{bean}")
     DatabaseJSFManagedBean managedBean;
-
-    
-
-    
 
     /**
      *
@@ -59,7 +51,7 @@ public class FixWidgetBean implements Serializable {
     public void setManagedBean(DatabaseJSFManagedBean managedBean) {
         this.managedBean = managedBean;
     }
-    
+
     /**
      *
      */
@@ -76,7 +68,6 @@ public class FixWidgetBean implements Serializable {
 //            message = empID + " does not exist";
 //        }
 //    }
-
     /**
      *
      */
@@ -98,7 +89,6 @@ public class FixWidgetBean implements Serializable {
 //            message = empID + " does not exist";
 //        }
 //    }
-
     /**
      *
      * @return
@@ -109,26 +99,36 @@ public class FixWidgetBean implements Serializable {
 //        {
 //            return managedBean.setDevice(empDevice.getId());
 //        }
-//       
+//
 //        else return "#";
 //
 //    }
-
     /**
      *
      */
+    public String fixDevice() {
+        try {
+            if (empDevice != null) {
+                managedBean.setDev(empDevice);
+                return "device.xhtml";
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public void getDevice() {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Device where token = :token");
-             //Logger.getLogger(FixWidgetBean.class.getName()).info("from Device where token = " + token);
+            //Logger.getLogger(FixWidgetBean.class.getName()).info("from Device where token = " + token);
             query.setParameter("token", token);
             if (query.list().isEmpty()) {
                 message = "No registered device with token " + token;
             } else {
-                empDevice = (Device)query.list().get(0);
-                message = empDevice.getManufacturer() + " " + empDevice.getModel() + " found";
+                empDevice = (Device) query.list().get(0);
+                message = empDevice.getEmployee().getName() + " " + empDevice.getEmployee().getSurname() + ":\n" + empDevice.getManufacturer() + " " + empDevice.getModel();
             }
 
         } finally {
@@ -169,7 +169,6 @@ public class FixWidgetBean implements Serializable {
 //            }
 //        }
 //    }
-
     /**
      *
      */
@@ -184,7 +183,6 @@ public class FixWidgetBean implements Serializable {
 //            empExists = "";
 //        }
 //    }
-
     /**
      *
      * @param v
@@ -192,7 +190,6 @@ public class FixWidgetBean implements Serializable {
 //    public void showDev(Devicenotregistered v) {
 //        System.out.println("Device: " + v);
 //    }
-
     /**
      *
      */
@@ -208,7 +205,6 @@ public class FixWidgetBean implements Serializable {
 //            devExists = "";
 //        }
 //    }
-
     /**
      *
      * @return
@@ -216,7 +212,6 @@ public class FixWidgetBean implements Serializable {
 //    public String getMessage() {
 //        return message;
 //    }
-
     /**
      *
      * @param message
@@ -224,7 +219,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setMessage(String message) {
 //        this.message = message;
 //    }
-
     /**
      *
      * @return
@@ -232,7 +226,6 @@ public class FixWidgetBean implements Serializable {
 //    public Boolean getDevExist() {
 //        return devExist;
 //    }
-
     /**
      *
      * @param devExist
@@ -240,7 +233,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setDevExist(Boolean devExist) {
 //        this.devExist = devExist;
 //    }
-
     /**
      *
      * @return
@@ -248,7 +240,6 @@ public class FixWidgetBean implements Serializable {
 //    public Boolean getEmpExist() {
 //        return empExist;
 //    }
-
     /**
      *
      * @param empExist
@@ -256,7 +247,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setEmpExist(Boolean empExist) {
 //        this.empExist = empExist;
 //    }
-
     /**
      *
      * @return
@@ -264,7 +254,6 @@ public class FixWidgetBean implements Serializable {
 //    public String getDevExists() {
 //        return devExists;
 //    }
-
     /**
      *
      * @param devExists
@@ -272,7 +261,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setDevExists(String devExists) {
 //        this.devExists = devExists;
 //    }
-
     /**
      *
      * @return
@@ -280,7 +268,6 @@ public class FixWidgetBean implements Serializable {
 //    public String getEmpExists() {
 //        return empExists;
 //    }
-
     /**
      *
      * @param empExists
@@ -288,7 +275,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setEmpExists(String empExists) {
 //        this.empExists = empExists;
 //    }
-
     /**
      *
      * @return
@@ -296,7 +282,6 @@ public class FixWidgetBean implements Serializable {
 //    public String getEmpID() {
 //        return empID;
 //    }
-
     /**
      *
      * @param empID
@@ -304,7 +289,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setEmpID(String empID) {
 //        this.empID = empID;
 //    }
-
     /**
      *
      * @return
@@ -312,7 +296,6 @@ public class FixWidgetBean implements Serializable {
 //    public String getDevID() {
 //        return devID;
 //    }
-
     /**
      *
      * @param devID
@@ -320,7 +303,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setDevID(String devID) {
 //        this.devID = devID;
 //    }
-
     /**
      *
      * @return
@@ -328,7 +310,6 @@ public class FixWidgetBean implements Serializable {
 //    public Employee getEmp() {
 //        return emp;
 //    }
-
     /**
      *
      * @param emp
@@ -336,7 +317,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setEmp(Employee emp) {
 //        this.emp = emp;
 //    }
-
     /**
      *
      * @return
@@ -360,7 +340,6 @@ public class FixWidgetBean implements Serializable {
 //    public List<Device> getEmpDevList() {
 //        return empDevList;
 //    }
-
     /**
      *
      * @param empDevList
@@ -368,7 +347,6 @@ public class FixWidgetBean implements Serializable {
 //    public void setEmpDevList(List<Device> empDevList) {
 //        this.empDevList = empDevList;
 //    }
-
     /**
      *
      * @return
@@ -383,5 +361,13 @@ public class FixWidgetBean implements Serializable {
      */
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
