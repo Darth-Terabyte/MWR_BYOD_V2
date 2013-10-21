@@ -173,7 +173,6 @@ public class RegistrationWidgetBean implements Serializable {
      */
     public void devExist() {
 
-
         if (empDev == null) {
             devExist = false;
             devExists = devID + " does not exist!";

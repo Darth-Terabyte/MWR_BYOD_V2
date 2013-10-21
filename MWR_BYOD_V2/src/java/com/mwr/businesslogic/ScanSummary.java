@@ -33,12 +33,12 @@ public class ScanSummary {
         if (unknown != 0) {
             summary += "Applications from unknown sources are allowed;";
         }
-        if (os != 0)
-        {
-            summary += "Android API Level: " +  api_level + ";";
+        if (os != 0) {
+            summary += "Android API Level: " + api_level + ";";
         }
-        if (apps.length() != 0)
+        if (apps.length() != 0) {
             summary += "Blacklisted applications installed: " + apps + ";";
+        }
         summary += "Total Score: " + total;
         return summary;
     }

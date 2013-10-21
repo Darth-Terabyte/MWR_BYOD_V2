@@ -626,8 +626,6 @@ public class DatabaseJSFManagedBean implements Serializable {
             return true;
         }
 
-
-
     }
 
     /**

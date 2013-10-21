@@ -36,7 +36,7 @@ import org.json.simple.parser.JSONParser;
  */
 @WebServlet(name = "ControllerServlet",
         loadOnStartup = 1,
-        urlPatterns = {"/requestRegistration", "/scanResults", "/status","/restricted","/login","/mobileLogout","/logout"})
+        urlPatterns = {"/requestRegistration", "/scanResults", "/status", "/restricted", "/login", "/mobileLogout", "/logout"})
 public class ControllerServlet extends HttpServlet {
 
     /**
@@ -50,9 +50,8 @@ public class ControllerServlet extends HttpServlet {
     }
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -70,7 +69,7 @@ public class ControllerServlet extends HttpServlet {
             url = "/faces/index.xhtml";
             request.logout();
         } else if (userPath.equals("/restricted")) {
-            
+
             DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
             if (bean == null) {
                 bean = new DatabaseJSFManagedBean();
@@ -81,9 +80,7 @@ public class ControllerServlet extends HttpServlet {
                 url = "/faces/view/denied.html";
             }
 
-
         }
-
 
         try {
             System.out.println(url);
@@ -94,8 +91,7 @@ public class ControllerServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -134,7 +130,6 @@ public class ControllerServlet extends HttpServlet {
             String name = "";
             String surname = "";
             String id = "";
-
 
             try {
                 Map json = (Map) parser.parse(jsonText, containerFactory);
@@ -184,8 +179,7 @@ public class ControllerServlet extends HttpServlet {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.INFO, null, e);
             }
 
-
-        //ScanResults
+            //ScanResults
         } else if (userPath.equals("/scanResults")) {
 
             BufferedReader reader = request.getReader();
@@ -244,7 +238,6 @@ public class ControllerServlet extends HttpServlet {
 
                 }
 
-
                 DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
                 if (bean == null) {
                     bean = new DatabaseJSFManagedBean();
@@ -279,20 +272,17 @@ public class ControllerServlet extends HttpServlet {
                             response.getOutputStream().print("denied;");
                             ScanSummary summary = new ScanSummary();
                             Scanresult scan = bean.getLatestScan(mac, serial, androidID);
-                            response.getOutputStream().print(summary.getSummary(scan.getRootedScore(), scan.getDebuggingEnabledScore(), scan.getUnknownSourcesScore(), scan.getApiscore(),Integer.parseInt(scan.getApilevel()), scan.getBlacklistedApps(), scan.getAppsScore(), scan.getTotalScore()));
+                            response.getOutputStream().print(summary.getSummary(scan.getRootedScore(), scan.getDebuggingEnabledScore(), scan.getUnknownSourcesScore(), scan.getApiscore(), Integer.parseInt(scan.getApilevel()), scan.getBlacklistedApps(), scan.getAppsScore(), scan.getTotalScore()));
                         }
                         response.getOutputStream().flush();
                     }
 
-
                 }
-
-
 
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             //Device status
         } else if (userPath.equals("/status")) {
             BufferedReader reader = request.getReader();
@@ -320,7 +310,7 @@ public class ControllerServlet extends HttpServlet {
                 while (iter.hasNext()) {
                     Map.Entry entry = (Map.Entry) iter.next();
                     String key = entry.getKey().toString();
-                    String value = entry.getValue().toString();                    
+                    String value = entry.getValue().toString();
                     if (key.equals("mac")) {
                         mac = value;
                     } else if (key.equals("serial")) {
@@ -331,7 +321,6 @@ public class ControllerServlet extends HttpServlet {
 
                 }
 
-
                 DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
                 if (bean == null) {
                     bean = new DatabaseJSFManagedBean();
@@ -340,10 +329,12 @@ public class ControllerServlet extends HttpServlet {
                 Logger.getLogger(ControllerServlet.class.getName()).info(Boolean.toString(registered));
 
                 if (registered) {
-                      Logger.getLogger("Active=" + Boolean.toString(bean.isActiveUser(request.getRemoteAddr())));
-                    if (bean.isActiveUser(request.getRemoteAddr()))
+                    Logger.getLogger("Active=" + Boolean.toString(bean.isActiveUser(request.getRemoteAddr())));
+                    if (bean.isActiveUser(request.getRemoteAddr())) {
                         response.getOutputStream().print("loggedIn");
-                    else response.getOutputStream().print("registered");
+                    } else {
+                        response.getOutputStream().print("registered");
+                    }
                 } else {
                     boolean waiting = bean.deviceWaiting(mac, serial, androidID);
                     if (waiting) {
@@ -358,10 +349,9 @@ public class ControllerServlet extends HttpServlet {
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else if (userPath.equals("/login")) {
+        } else if (userPath.equals("/login")) {
             Logger.getLogger(ControllerServlet.class.getName()).info("login");
-           
+
             BufferedReader reader = request.getReader();
             String jsonText = reader.readLine();
             JSONParser parser = new JSONParser();
@@ -398,34 +388,31 @@ public class ControllerServlet extends HttpServlet {
                         serial = value;
                     } else if (key.equals("android")) {
                         androidID = value;
-                    }
-                    else if (key.equals("password")) {
+                    } else if (key.equals("password")) {
                         password = value;
-                    }
-                    else if (key.equals("username")) {
+                    } else if (key.equals("username")) {
                         username = value;
                     }
 
                 }
 
-
                 DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
                 if (bean == null) {
                     bean = new DatabaseJSFManagedBean();
                 }
-                boolean access = bean.login(username,password,mac, androidID, serial, request.getRemoteAddr());
-                if (access)
+                boolean access = bean.login(username, password, mac, androidID, serial, request.getRemoteAddr());
+                if (access) {
                     response.getOutputStream().print("allowed");
-                else
+                } else {
                     response.getOutputStream().print("denied");
+                }
                 response.getOutputStream().flush();
                 response.getOutputStream().close();
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else if (userPath.equals("/mobileLogout")) {
-            Logger.getLogger(ControllerServlet.class.getName()).info("logout");           
+        } else if (userPath.equals("/mobileLogout")) {
+            Logger.getLogger(ControllerServlet.class.getName()).info("logout");
             BufferedReader reader = request.getReader();
             String jsonText = reader.readLine();
             JSONParser parser = new JSONParser();
@@ -461,9 +448,7 @@ public class ControllerServlet extends HttpServlet {
                         androidID = value;
                     }
 
-
                 }
-
 
                 DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
                 if (bean == null) {
@@ -477,15 +462,12 @@ public class ControllerServlet extends HttpServlet {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
 
-
-//       
+//
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
