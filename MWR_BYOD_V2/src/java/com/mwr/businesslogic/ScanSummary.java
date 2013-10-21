@@ -5,41 +5,41 @@
 package com.mwr.businesslogic;
 
 /**
- *
- * @author madenem
+ * @version 2.0
+ * @author LuxInTenebris
  */
 public class ScanSummary {
 
     /**
      *
      * @param rooted
-     * @param debug
-     * @param unknown
+     * @param usbDebuggingEnabled
+     * @param unknownSources
      * @param os
-     * @param api_level
-     * @param apps
+     * @param apiLevel
+     * @param listOfApps
      * @param appScore
-     * @param total
-     * @return
+     * @param totalScore
+     * @return Returns a string to the device of the scan results.
      */
-    public String getSummary(int rooted, int debug, int unknown, int os, int api_level, String apps, int appScore, int total) {
+    public String getSummary(int rooted, int usbDebuggingEnabled, int unknownSources, int os, int apiLevel, String listOfApps, int appScore, int totalScore) {
         String summary = "";
         if (rooted != 0) {
             summary += "Device is rooted";
         }
-        if (debug != 0) {
+        if (usbDebuggingEnabled != 0) {
             summary += "USB Debugging is enabled;";
         }
-        if (unknown != 0) {
+        if (unknownSources != 0) {
             summary += "Applications from unknown sources are allowed;";
         }
         if (os != 0) {
-            summary += "Android API Level: " + api_level + ";";
+            summary += "Android API Level: " + apiLevel + ";";
         }
-        if (apps.length() != 0) {
-            summary += "Blacklisted applications installed: " + apps + ";";
+        if (listOfApps.length() != 0) {
+            summary += "Blacklisted applications installed: " + listOfApps + ";";
         }
-        summary += "Total Score: " + total;
+        summary += "Total Score: " + totalScore;
         return summary;
     }
 }

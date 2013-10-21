@@ -8,16 +8,18 @@ import com.mwr.database.HibernateUtil;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
- *
- * @author madenem
+ * @version 2.0
+ * @author LuxInTenebris
  */
 @ManagedBean(name = "register")
 @SessionScoped
@@ -59,7 +61,9 @@ public class RegistrationWidgetBean implements Serializable {
             List<Employee> list = query.list();
             emp = list.get(0);
 
-        } catch (Exception e) {
+        } catch (HibernateException e) {
+            message = empID + " does not exist";
+        } catch (NumberFormatException e) {
             message = empID + " does not exist";
         }
     }
@@ -81,7 +85,7 @@ public class RegistrationWidgetBean implements Serializable {
                 return;
             }
             empDev = d;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             message = empID + " does not exist";
         }
     }
@@ -439,7 +443,7 @@ public class RegistrationWidgetBean implements Serializable {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Devicenotregistered where token = :token");
-            Logger.getLogger(RegistrationWidgetBean.class.getName()).info("from Device where token = " + token);
+            Logger.getLogger(RegistrationWidgetBean.class.getName()).log(Level.INFO, "from Device where token = {0}", token);
             query.setParameter("token", token);
             if (query.list().isEmpty()) {
                 message = "No device in waiting list with token " + token;

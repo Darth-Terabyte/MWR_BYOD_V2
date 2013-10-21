@@ -10,8 +10,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
- *
- * @author madenem
+ * @version 2.0
+ * @author LuxInTenebris
  */
 @ManagedBean(name = "fix")
 @SessionScoped
@@ -105,6 +105,7 @@ public class FixWidgetBean implements Serializable {
 //    }
     /**
      *
+     * @return
      */
     public String fixDevice() {
         try {

@@ -6,12 +6,9 @@ package com.mwr.controller;
 
 import com.mwr.businesslogic.ScanSummary;
 import com.mwr.businesslogic.TokenGenerator;
-import com.mwr.database.DeviceId;
 import com.mwr.database.Scanresult;
-import com.mwr.database.Setting;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -21,8 +18,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HttpConstraint;
-import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +26,8 @@ import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 
 /**
- *
- * @author madenem
+ * @version 2.0
+ * @author LuxInTenebris
  */
 @WebServlet(name = "ControllerServlet",
         loadOnStartup = 1,
@@ -85,8 +80,8 @@ public class ControllerServlet extends HttpServlet {
         try {
             System.out.println(url);
             request.getRequestDispatcher(url).forward(request, response);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ex) {
+        } catch (ServletException ex) {
         }
     }
 
@@ -110,10 +105,12 @@ public class ControllerServlet extends HttpServlet {
             JSONParser parser = new JSONParser();
 
             ContainerFactory containerFactory = new ContainerFactory() {
+                @Override
                 public List creatArrayContainer() {
                     return new LinkedList();
                 }
 
+                @Override
                 public Map createObjectContainer() {
                     return new LinkedHashMap();
                 }
@@ -187,10 +184,12 @@ public class ControllerServlet extends HttpServlet {
             JSONParser parser = new JSONParser();
 
             ContainerFactory containerFactory = new ContainerFactory() {
+                @Override
                 public List creatArrayContainer() {
                     return new LinkedList();
                 }
 
+                @Override
                 public Map createObjectContainer() {
                     return new LinkedHashMap();
                 }
@@ -252,15 +251,15 @@ public class ControllerServlet extends HttpServlet {
                     String calculatedToken = "";
                     try {
                         calculatedToken = gen.generateToken(mac, androidID, serial, password);
-                        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(calculatedToken + " " + deviceToken);
+                        Logger.getLogger(DatabaseJSFManagedBean.class.getName()).log(Level.INFO, "{0} {1}", new Object[]{calculatedToken, deviceToken});
 
                     } catch (NoSuchAlgorithmException ex) {
                         Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                     boolean match = calculatedToken.equals(deviceToken);
-                    Logger.getLogger(ControllerServlet.class.getName()).info("Password: " + password);
-                    Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(calculatedToken + " " + deviceToken);
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.INFO, "Password: {0}", password);
+                    Logger.getLogger(DatabaseJSFManagedBean.class.getName()).log(Level.INFO, "{0} {1}", new Object[]{calculatedToken, deviceToken});
                     if (match) {
                         Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info("match");
                         boolean allowed = bean.addScanResults(mac, serial, androidID, root, debug, unknown, apps, api);
@@ -290,10 +289,12 @@ public class ControllerServlet extends HttpServlet {
             JSONParser parser = new JSONParser();
 
             ContainerFactory containerFactory = new ContainerFactory() {
+                @Override
                 public List creatArrayContainer() {
                     return new LinkedList();
                 }
 
+                @Override
                 public Map createObjectContainer() {
                     return new LinkedHashMap();
                 }
@@ -357,10 +358,12 @@ public class ControllerServlet extends HttpServlet {
             JSONParser parser = new JSONParser();
 
             ContainerFactory containerFactory = new ContainerFactory() {
+                @Override
                 public List creatArrayContainer() {
                     return new LinkedList();
                 }
 
+                @Override
                 public Map createObjectContainer() {
                     return new LinkedHashMap();
                 }
@@ -417,10 +420,12 @@ public class ControllerServlet extends HttpServlet {
             String jsonText = reader.readLine();
             JSONParser parser = new JSONParser();
             ContainerFactory containerFactory = new ContainerFactory() {
+                @Override
                 public List creatArrayContainer() {
                     return new LinkedList();
                 }
 
+                @Override
                 public Map createObjectContainer() {
                     return new LinkedHashMap();
                 }

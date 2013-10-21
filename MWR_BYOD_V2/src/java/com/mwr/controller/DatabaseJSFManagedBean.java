@@ -12,13 +12,13 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
- *
- * @author madenem
+ * @version 2.0
+ * @author LuxInTenebris
  */
 @ManagedBean(name = "bean")
 @SessionScoped
@@ -70,11 +70,7 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("serial", serial);
         query.setParameter("androidid", androidID);
         List<Device> devices = query.list();
-        if (devices.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !devices.isEmpty();
     }
 
     /**
@@ -92,11 +88,7 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("serial", serial);
         query.setParameter("androidid", androidID);
         List<Device> devices = query.list();
-        if (devices.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !devices.isEmpty();
     }
 
     /**
@@ -262,7 +254,7 @@ public class DatabaseJSFManagedBean implements Serializable {
             Query query = session.createQuery("from Devicenotregistered where idnumber = :id");
             query.setParameter("id", id);
             waitingListUnique = query.list();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
         }
         return waitingListUnique;
     }
