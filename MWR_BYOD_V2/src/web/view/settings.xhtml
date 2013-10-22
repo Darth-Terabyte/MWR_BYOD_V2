@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<xhtml xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>BYOD Bring Your Own Device Asset Tracker</title>
+        <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
+        <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
+        <script type="text/javascript">
+            function updateTextInput(val, text) {
+                document.getElementById(text).innerHTML = val + "%";
+            }
+            function validateField(text)
+            {
+                var x = document.forms["settings"][text].value;
+                if (x.isNaN())
+                {
+                    alert("The value you have entered is not a valid number");
+
+                }
+            }
+            function validate(evt) {
+                var theEvent = evt || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+                var regex = /[0-9]|\./;
+                if (!regex.test(key)) {
+                    theEvent.returnValue = false;
+                    alert("The value you have entered is not a valid number");
+                }
+            }
+        </script>
+    </h:head>
+    <h:body>
+
+
+        <div id="main">
+            <div id="header">
+                <div id="banner">
+                    <div id="welcome">
+                        <h1><a href = "/BYOD/faces/view/home.xhtml">BYOD</a></h1>
+                        <h2>Bring Your Own Device Asset Tracker</h2>
+                    </div>
+                    <div id="menubar">
+                        <ul id="menu">
+                            <li><a href="/BYOD/faces/view/home.xhtml">Home</a></li>
+                            <li class="current"><a href="/BYOD/faces/view/settings.xhtml">Settings</a></li>
+                            <li><a href="/BYOD/faces/view/devices.xhtml">Devices</a></li>
+                            <li><a href="/BYOD/faces/view/users.xhtml">Users</a></li>
+                            <li><a href="/BYOD/faces/view/scans.xhtml">Scans</a></li>
+                            <li><a href="logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="site_content">
+                <h4>Settings</h4>
+                <div class="blockHS1">
+                    <table id = "shortcut">
+                        <tr>
+                            <td><a href ="#blackListed">Blacklisted Applications</a></td>
+                            <td><a href ="#weighted">Weighted System</a></td>
+                            <td><a href ="#appCat">Application Categories</a></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id ="blackListed" class="blockH">
+                    <h5>Blacklisted Applications</h5>
+                    <a class ="upD" href="#main" value ="...to top"></a>                    
+                </div>
+                <div class="blockH">
+                    <h:dataTable id="settingsBA" styleClass ="listD1" value="#{bean.apps}" var="app" style="color:white;">
+                        <h:column>
+                            <f:facet name="header" class="listLH" >
+                                <h:outputText value="Name" class="listLH" title="The name of the Android Mobile Application"/>
+                            </f:facet> 
+                            <h:outputText style="" value="#{app.appName}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" class="listLH">
+                                <h:outputText value="Category" class="listLH" title="The category which the Application belongs to (Low,Medium,High Risk)"/>
+                            </f:facet> 
+                            <h:outputText style="" value="#{app.appCategory}" ></h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:commandButton id="register" styleClass="button" value="Remove" action="#{settings.removeApp(app)}"  title="Remove the Application from th Blacklisted Apps list"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                    <div class="more2">
+                        <a href="blacklistedAdd.xhtml"  title="Add a Android Mobile Application to the Blacklist">Add Blacklisted Application</a>
+                    </div>
+                </div>
+
+                <div class="blockH" id ="weighted">
+                    <h5>Weighted System</h5>
+                    <a class ="upD" href="#main" value ="...to top"></a>
+                </div>
+
+                <div class="blockH">
+                    <h:form id="settings">
+                        <h:panelGroup styleClass="listL">
+                            <h:panelGrid columns ="6" styleClass ="listLH">
+                                <h:outputLabel value="Weight Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
+                            </h:panelGrid>
+                            <h:panelGrid columns ="6" styleClass ="listItem" style="color:white;">
+                                <h:outputLabel value="API Level" title="The weight the Android Version carries according to its API"></h:outputLabel>
+                                <h:outputLabel value="USB Debugging" title="The weight carried if a device has USB Debugging Enabled"></h:outputLabel>
+                                <h:outputLabel value="Unknown Sources" title="The weight carried if a device has Unknown Sources Enabled"></h:outputLabel>
+                                <h:outputLabel value="Rooted" title="The weight carried if a device is rooted"></h:outputLabel>
+                                <h:outputLabel value="Access Score" title="The score a device should avoid getting to gain access to the network"></h:outputLabel>
+                            </h:panelGrid>
+                            <h:panelGrid columns ="6" styleClass ="listItem" style="color:white;">
+                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.osWeight}" onkeypress="validate(event)"/>
+                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.debugWeight}" onkeypress="validate(event)"  />
+                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.unknownSourcesWeight}"  onkeypress="validate(event)" />
+                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.rootedWeight}"   onkeypress="validate(event)"/>
+                                <h:inputText id="access" styleClass="input" maxlength="3" value="#{settings.accessScore}"  onkeypress="validate(event)"/>
+                            </h:panelGrid>
+                        </h:panelGroup>
+
+                        <h:panelGroup styleClass="listL">
+                            <h:panelGrid columns ="5" styleClass ="listLH">
+                                <h:outputLabel value="Application Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
+                            </h:panelGrid>
+                            <h:panelGrid columns ="5" styleClass ="listItem"  style="color:white;">
+                                <h:outputLabel value="Low Risk" title="The weight an Application of Low Risk carries"></h:outputLabel>
+                                <h:outputLabel value="Medium Risk" title="The weight an Application of Medium Risk carries"></h:outputLabel>
+                                <h:outputLabel value="High Risk" title="The weight an Application of High Risk carries"></h:outputLabel>
+                                <h:outputLabel value="Blocked" title="The weight a Blocked Application carries"></h:outputLabel>
+                            </h:panelGrid>
+                            <h:panelGrid columns ="5" styleClass ="listItem">
+                                <h:inputText id="lowrisk" styleClass="input" maxlength="3" value="#{settings.lowRiskApp}"  onkeypress="validate(event)"/>
+                                <h:inputText id="medrisk" styleClass="input" maxlength="3" value="#{settings.mediumRiskApp}"   onkeypress="validate(event)"/>
+                                <h:inputText id="highrisk" styleClass="input" maxlength="3" value="#{settings.highRiskApp}"   onkeypress="validate(event)"/>
+                                <h:inputText id="blocked" styleClass="input" maxlength="3" value="#{settings.blockedApp}"   onkeypress="validate(event)" />
+
+                            </h:panelGrid>
+                            <div class="more2">
+                                <h:commandLink value="Save Settings"  action="#{settings.addSetting()}" title="Save the settings you have altered"> </h:commandLink>
+                            </div>
+                        </h:panelGroup>
+                    </h:form>
+                </div>
+            </div>
+            <div id="content_grey">
+                <div class="content_grey_container_box">
+                    <p> Website by Lux in Tenebris student group from the <a href = "https://www.up.ac.za" target = "_blank">University of Pretoria</a>.
+                        Supported by <a href = "https://www.mwrinfosecurity.com">MWR InfoSecurity</a>.</p>
+                </div>
+            </div>
+
+        </div>
+    </h:body>
+</xhtml>
+

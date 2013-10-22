@@ -362,7 +362,10 @@ public class DatabaseJSFManagedBean implements Serializable {
             while (k < apps.size()) {
                 if (appArray[i].contains(apps.get(k).getAppName())) {
                     String cat = apps.get(k).getAppCategory();
+                    if (!blacklistedApps.equals(""))
+                        blacklistedApps += ", ";
                     blacklistedApps += appArray[i];
+                    
                     if (cat.equals("Low")) {
                         appScore += latestSetting.getLowRiskApp();
                     } else if (cat.equals("Medium")) {
@@ -376,7 +379,9 @@ public class DatabaseJSFManagedBean implements Serializable {
                 k++;
             }
         }
-
+        
+        if (blacklistedApps.equals(""))
+            blacklistedApps = "None";
         apiScore = (17 - api) * latestSetting.getApiweight();
         totalScore = rootScore + debugScore + unknownScore + appScore + apiScore;
         boolean allow = false;
