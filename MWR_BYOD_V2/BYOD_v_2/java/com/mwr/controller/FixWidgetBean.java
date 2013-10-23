@@ -19,17 +19,7 @@ public class FixWidgetBean implements Serializable {
 
     private Session session;
     private String message = "";
-//    private Boolean devExist = false;
-//    private Boolean empExist = false;
-//    private String devExists = "";
-//    private String empExists = "";
-//    private String message = " ";
-//    private String empID = null;
-//    private String devID = null;
-//    private Employee emp = null;
-//    private DeviceId devices = null;
     private Device empDevice = null;
-    //private List<Device> empDevList = null;
     private String token;
     @ManagedProperty(value = "#{bean}")
     DatabaseJSFManagedBean managedBean;
@@ -52,6 +42,7 @@ public class FixWidgetBean implements Serializable {
         this.managedBean = managedBean;
     }
 
+    
     /**
      *
      * @return
@@ -118,6 +109,7 @@ public class FixWidgetBean implements Serializable {
     public void setEmpDevice(Device empDev) {
         this.empDevice = empDev;
     }
+
 
     /**
      *

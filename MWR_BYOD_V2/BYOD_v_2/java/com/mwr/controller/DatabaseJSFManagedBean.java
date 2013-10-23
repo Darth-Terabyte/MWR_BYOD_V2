@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -46,13 +47,14 @@ public class DatabaseJSFManagedBean implements Serializable {
     private int highRiskApp;
     private int blockedApp;
     private int accessScore;
-    private List<Employee> employeeDevices;
+    private List<Device> employeeDevices;
 
     /**
      *
      */
     public DatabaseJSFManagedBean() {
         session = HibernateUtil.getSessionFactory().openSession();
+
     }
 
     /**
@@ -70,7 +72,9 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("serial", serial);
         query.setParameter("androidid", androidID);
         List<Device> devices = query.list();
-        return !devices.isEmpty();
+        boolean empty = devices.isEmpty();
+        session.close();
+        return !empty;
     }
 
     /**
@@ -89,7 +93,9 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("serial", serial);
         query.setParameter("androidid", androidID);
         List<Device> devices = query.list();
-        return !devices.isEmpty();
+        boolean empty = devices.isEmpty();
+        session.close();
+        return !empty;
     }
 
     /**
@@ -138,23 +144,28 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return Return registered employee
      */
     public Employee addEmployee(String username, String password, String name, String surname, String idnumber) {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Employee where (username = :username and password = :password) and ((name = :name and surname = :surname) or idnumber = :id)");
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        query.setParameter("name", name);
-        query.setParameter("surname", surname);
-        query.setParameter("id", idnumber);
-        if (query.list().isEmpty()) {
-            employee = new Employee(username, password, new Date(), name, surname, idnumber);
-            session.save(employee);
-            session.getTransaction().commit();
-        } else {
-            employee = (Employee) query.list().get(0);
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Employee where (username = :username and password = :password) and ((name = :name and surname = :surname) or idnumber = :id)");
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            query.setParameter("name", name);
+            query.setParameter("surname", surname);
+            query.setParameter("id", idnumber);
+            if (query.list().isEmpty()) {
+                employee = new Employee(username, password, new Date(), name, surname, idnumber);
+                session.save(employee);
+                session.getTransaction().commit();
+            } else {
+                employee = (Employee) query.list().get(0);
+            }
+        } finally {
+            session.close();
+            // System.out.println("Employee " + employee.getIdnumber() + " " + employee.getSurname() + " added");
+            return employee;
         }
-        session.close();
-        return employee;
+
     }
 
     /**
@@ -215,11 +226,30 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return Returns a list of all the non registered devices.
      */
     public List getWaitingList() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Devicenotregistered");
-        waitingList = query.list();
-        return waitingList;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Devicenotregistered");
+            waitingList = query.list();
+            for (int i = 0; i < waitingList.size(); i++) {
+                Hibernate.initialize(waitingList.get(i));
+                Hibernate.initialize(waitingList.get(i).getDateRegistered());
+                Hibernate.initialize(waitingList.get(i).getIdnumber());
+                Hibernate.initialize(waitingList.get(i).getId());
+                Hibernate.initialize(waitingList.get(i).getManufacturer());
+                Hibernate.initialize(waitingList.get(i).getModel());
+                Hibernate.initialize(waitingList.get(i).getName());
+                Hibernate.initialize(waitingList.get(i).getSurname());
+                Hibernate.initialize(waitingList.get(i).getToken());
+                Hibernate.initialize(waitingList.get(i).getUsername());
+                Hibernate.initialize(waitingList.get(i).getPassword());
+
+            }
+        } finally {
+            session.close();
+            return waitingList;
+        }
+
     }
 
     /**
@@ -240,6 +270,7 @@ public class DatabaseJSFManagedBean implements Serializable {
             waitingListUnique = query.list();
         } catch (HibernateException e) {
         }
+        session.close();
         return waitingListUnique;
     }
 
@@ -249,11 +280,26 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return a list of all registered devices
      */
     public List getDeviceList() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Device");
-        deviceList = query.list();
-        return deviceList;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Device");
+            deviceList = query.list();
+            for (int i = 0; i < deviceList.size(); i++) {
+                Hibernate.initialize(deviceList.get(i));
+                Hibernate.initialize(deviceList.get(i).getDateRegistered());
+                Hibernate.initialize(deviceList.get(i).getEmployee());
+                Hibernate.initialize(deviceList.get(i).getId());
+                Hibernate.initialize(deviceList.get(i).getManufacturer());
+                Hibernate.initialize(deviceList.get(i).getModel());
+                Hibernate.initialize(deviceList.get(i).getScanresults());
+                Hibernate.initialize(deviceList.get(i).getToken());
+
+            }
+        } finally {
+            session.close();
+            return deviceList;
+        }
     }
 
     /**
@@ -262,11 +308,27 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return a lost of all registered employees
      */
     public List getEmployeeList() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Employee order by Surname asc");
-        employeeList = query.list();
-        return employeeList;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Employee order by Surname asc");
+            employeeList = query.list();
+            for (int i = 0; i < employeeList.size(); i++) {
+                Hibernate.initialize(employeeList.get(i));
+                Hibernate.initialize(employeeList.get(i).getDateRegistered());
+                Hibernate.initialize(employeeList.get(i).getIdnumber());
+                Hibernate.initialize(employeeList.get(i).getName());
+                Hibernate.initialize(employeeList.get(i).getSurname());
+                Hibernate.initialize(employeeList.get(i).getUsername());
+                Hibernate.initialize(employeeList.get(i).getPassword());
+                Hibernate.initialize(employeeList.get(i).getDevices());
+                Hibernate.initialize(employeeList.get(i).getEmpId());
+
+            }
+        } finally {
+            session.close();
+            return employeeList;
+        }
 
     }
 
@@ -276,12 +338,22 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return a list of all blacklisted applications
      */
     public List<Blacklistedapp> getApps() {
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Blacklistedapp");
+            apps = query.list();
+            for (int i = 0; i < apps.size(); i++) {
+                Hibernate.initialize(apps.get(i));
+                Hibernate.initialize(apps.get(i).getAppCategory());
+                Hibernate.initialize(apps.get(i).getAppId());
+                Hibernate.initialize(apps.get(i).getAppName());
+            }
+        } finally {
+            session.close();
+            return apps;
+        }
 
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Blacklistedapp");
-        apps = query.list();
-        return apps;
 
     }
 
@@ -291,22 +363,26 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return the latest setting
      */
     public Setting getLatestSetting() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Setting order by SettingDate desc");
-        List setting = query.list();
-        latestSetting = (Setting) setting.get(0);
-        rootedWeight = latestSetting.getRootedWeight();
-        debugWeight = latestSetting.getDebugWeight();
-        unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
-        osWeight = latestSetting.getApiweight();
-        lowRiskApp = latestSetting.getLowRiskApp();
-        mediumRiskApp = latestSetting.getMediumRiskApp();
-        highRiskApp = latestSetting.getHighRiskApp();
-        blockedApp = latestSetting.getBlockedApp();
-        accessScore = latestSetting.getAccessScore();
-        session.close();
-        return latestSetting;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Setting order by SettingDate desc");
+            List setting = query.list();
+            latestSetting = (Setting) setting.get(0);
+            rootedWeight = latestSetting.getRootedWeight();
+            debugWeight = latestSetting.getDebugWeight();
+            unknownSourcesWeight = latestSetting.getUnknownSourcesWeight();
+            osWeight = latestSetting.getApiweight();
+            lowRiskApp = latestSetting.getLowRiskApp();
+            mediumRiskApp = latestSetting.getMediumRiskApp();
+            highRiskApp = latestSetting.getHighRiskApp();
+            blockedApp = latestSetting.getBlockedApp();
+            accessScore = latestSetting.getAccessScore();
+        } finally {
+            session.close();
+            return latestSetting;
+        }
+
     }
 
     /**
@@ -390,6 +466,7 @@ public class DatabaseJSFManagedBean implements Serializable {
         results = new Scanresult(dev, latestSetting, new Date(), rooted, rootScore, debug, debugScore, unknown, unknownScore, blacklistedApps, appScore, Integer.toString(api), apiScore, totalScore, allow);
         session.save(results);
         session.getTransaction().commit();
+        session.close();
         return allow;
 
     }
@@ -401,12 +478,27 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return Returns a list of devices registered to an employee
      */
     public List getEmployeeDevices(int id) {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Device where employee_empID = :id");
-        query.setParameter("id", id);
-        employeeDevices = query.list();
-        return employeeDevices;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Device where employee_empID = :id");
+            query.setParameter("id", id);
+            employeeDevices = query.list();
+            for (int i = 0; i < employeeDevices.size(); i++) {
+                Hibernate.initialize(employeeDevices.get(i));
+                Hibernate.initialize(employeeDevices.get(i).getDateRegistered());
+                Hibernate.initialize(employeeDevices.get(i).getEmployee());
+                Hibernate.initialize(employeeDevices.get(i).getId());
+                Hibernate.initialize(employeeDevices.get(i).getManufacturer());
+                Hibernate.initialize(employeeDevices.get(i).getModel());
+                Hibernate.initialize(employeeDevices.get(i).getScanresults());
+                Hibernate.initialize(employeeDevices.get(i).getToken());
+            }
+        } finally {
+            session.close();
+            return employeeDevices;
+        }
+
     }
 
     /**
@@ -429,7 +521,15 @@ public class DatabaseJSFManagedBean implements Serializable {
             query.setParameter("androidid", id.getAndroidId());
             query.setParameter("serial", id.getSerialNumber());
             device = (Device) query.list().get(0);
+            Hibernate.initialize(device.getDateRegistered());
+            Hibernate.initialize(device.getEmployee());
+            Hibernate.initialize(device.getId());
+            Hibernate.initialize(device.getManufacturer());
+            Hibernate.initialize(device.getModel());
+            Hibernate.initialize(device.getScanresults());
+            Hibernate.initialize(device.getToken());
         } finally {
+            session.close();
             return "device.xhtml";
         }
 
@@ -533,7 +633,6 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("androidid", device.getId().getAndroidId());
         query.setParameter("serial", device.getId().getSerialNumber());
         query.executeUpdate();
-
         session.getTransaction().commit();
         session.close();
         return "devices.xhtml";
@@ -580,6 +679,7 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
         Scanresult scan = (Scanresult) query.list().get(0);
+        session.close();
         return scan;
 
     }
@@ -600,7 +700,9 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
         Device dev = (Device) query.list().get(0);
-        return dev.getToken();
+        String token = dev.getToken();
+        session.close();
+        return token;
     }
 
     /**

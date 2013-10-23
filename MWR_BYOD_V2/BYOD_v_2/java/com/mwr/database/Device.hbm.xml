@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 24 Sep 2013 1:24:20 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.mwr.database.Device" table="device" catalog="byod">
+    <class name="com.mwr.database.Device" table="device" catalog="byod" lazy="false">
         <composite-id name="id" class="com.mwr.database.DeviceId">
             <key-property name="macaddress" type="string">
                 <column name="MACAddress" length="45" />
