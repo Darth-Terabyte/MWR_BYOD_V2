@@ -1,19 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
-
-        <script type="text/javascript">
-            function updateTextInput(val, text) {
-                document.getElementById(text).innerHTML = val + "%";
-            }
-        </script>
     </h:head>
     <h:body>
         <div id="main">
@@ -41,76 +35,75 @@
                     <div class="content_item">
                         <div class="blockH">
                             <h5>Scan Setting</h5>
-                        </div>                        
+                        </div>
                         <div class="blockH">
                             <h:dataTable id="dt2" styleClass ="listL" value="#{settings.specificSetting}" var="item">
                                 <h:column>
                                     <f:facet name="header" class="listLH">
                                         <h:outputText value="SettingID" />
-                                    </f:facet> 
-                                    <h:outputText style="" value="#{item.settingId}" ></h:outputText>
+                                    </f:facet>
+                                    <h:outputText  value="#{item.settingId}" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header" class="listLH">
                                         <h:outputText value="Date" />
-                                    </f:facet> 
-                                    <h:outputText style="" value="#{item.settingDate}" ></h:outputText>
+                                    </f:facet>
+                                    <h:outputText  value="#{item.settingDate}" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header" class="listLH">
                                         <h:outputText value="Access Score" />
-                                    </f:facet> 
-                                    <h:outputText style="" value="#{item.accessScore}" ></h:outputText>
+                                    </f:facet>
+                                    <h:outputText  value="#{item.accessScore}" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="API"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.apiweight}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Rooted"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.rootedWeight}"></h:outputText>
+                                    </f:facet>
+                                    <h:outputText  value="#{item.rootedWeight}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Debugging Enabled"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.debugWeight}"></h:outputText>
+                                    </f:facet>
+                                    <h:outputText  value="#{item.debugWeight}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Unknown Sources Allowed"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.unknownSourcesWeight}"></h:outputText>
+                                        <h:outputText value="Unknown Sources"/>
+                                    </f:facet>
+                                    <h:outputText  value="#{item.unknownSourcesWeight}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Low Risk App"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.lowRiskApp}"></h:outputText>
+                                    </f:facet>
+                                    <h:outputText  value="#{item.lowRiskApp}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Medium Risk App"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.mediumRiskApp}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="High Risk App"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.highRiskApp}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Blocked Risk App"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.blockedApp}"></h:outputText>
                                 </h:column>
-
                             </h:dataTable>
                         </div>
                     </div>

@@ -28,6 +28,8 @@ public class RegistrationWidgetBean implements Serializable {
     DatabaseJSFManagedBean bean1;
 
     /**
+     * Getter for the employee based on its id. The id is saved by our bean as
+     * empID.
      *
      */
     public RegistrationWidgetBean() {

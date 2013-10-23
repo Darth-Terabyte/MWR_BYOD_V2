@@ -78,7 +78,6 @@ public class FixWidgetBean implements Serializable {
 
     }
 
-   
     /**
      *
      * @return
@@ -95,7 +94,6 @@ public class FixWidgetBean implements Serializable {
         this.message = message;
     }
 
-    
     /**
      *
      * @return
@@ -112,7 +110,7 @@ public class FixWidgetBean implements Serializable {
         this.empDevice = empDev;
     }
 
-   
+
     /**
      *
      * @return

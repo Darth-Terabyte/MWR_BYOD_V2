@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE xhtml PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
@@ -32,12 +32,13 @@
 
             <div id="site_content">
                 <h4>#{bean.employee.name} #{bean.employee.surname}</h4>
+                <h:form>
+                    <h:commandButton style="margin-left: 8px;margin-bottom: 8px;"  styleClass="button" id="View" value="Remove user" action="#{bean.removeEmployee(bean.employee)}"/>
+                </h:form>
                 <h5>ID:#{bean.employee.idnumber}</h5>
                 <h5>Username: #{bean.employee.username}</h5>
                 <h5>Registered on: #{bean.employee.dateRegistered}</h5>
-                <h:form>
-                 <h:commandButton  styleClass="button" id="View" value="Remove user" action="#{bean.removeEmployee(bean.employee)}"/>
-                 </h:form>
+
                 <div id="content">
                     <div class="content_item">
                         <div class="blockH">
@@ -49,34 +50,34 @@
                                 <h:column>
                                     <f:facet name="header" class="listLH">
                                         <h:outputText value="Manufacturer" />
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText style="" value="#{item.manufacturer}" ></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Model"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.model}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Token"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.token}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Username"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.username}"></h:outputText>                    
+                                    </f:facet>
+                                    <h:outputText value="#{item.username}"></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Date"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.dateRegistered}"></h:outputText>
                                 </h:column>
                                 <h:column>
@@ -91,52 +92,52 @@
                     <div class="content_item">
                         <div class="blockH">
                             <h5>Registered Devices</h5>
-                        </div>                        
+                        </div>
                         <div class="blockH">
                             <h:dataTable id="dt2" styleClass ="listL" value="#{bean.getEmployeeDevices(bean.employee.empId)}" var="item">
                                 <h:column>
                                     <f:facet name="header" class="listLH">
                                         <h:outputText value="Manufacturer" />
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText style="" value="#{item.manufacturer}" ></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Model"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.model}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="MAC Address"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.id.macaddress}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Serial Number"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.id.serialNumber}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="AndroidID"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.id.androidId}"></h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Date registered"/>
-                                    </f:facet> 
+                                    </f:facet>
                                     <h:outputText value="#{item.dateRegistered}"></h:outputText>
                                 </h:column>
 
-                                
+
 
                                 <h:column>
                                     <h:form>
