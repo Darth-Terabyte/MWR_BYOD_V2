@@ -6,6 +6,7 @@ import com.mwr.database.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -236,7 +237,7 @@ public class SettingsBean implements Serializable {
         Setting setting = new Setting(accessScore, new Date(), osWeight, rootedWeight, debugWeight, unknownSourcesWeight, lowRiskApp, mediumRiskApp, highRiskApp, blockedApp);
         session.save(setting);
         session.getTransaction().commit();
-        session.close();
+        session.close();        
         return "settings.xhtml";
     }
 
@@ -305,6 +306,23 @@ public class SettingsBean implements Serializable {
         session.beginTransaction();
         Query query = session.createQuery("from Setting");
         settings = query.list();
+        for (int i = 0; i < settings.size(); i++) {
+            Hibernate.initialize(settings.get(i));
+            Hibernate.initialize(settings.get(i).getAccessScore());
+            Hibernate.initialize(settings.get(i).getApiweight());
+            Hibernate.initialize(settings.get(i).getBlockedApp());
+            Hibernate.initialize(settings.get(i).getDebugWeight());
+            Hibernate.initialize(settings.get(i).getHighRiskApp());
+            Hibernate.initialize(settings.get(i).getLowRiskApp());
+            Hibernate.initialize(settings.get(i).getRootedWeight());
+            Hibernate.initialize(settings.get(i).getMediumRiskApp());
+            Hibernate.initialize(settings.get(i).getScanresults());
+            Hibernate.initialize(settings.get(i).getSettingDate());
+            Hibernate.initialize(settings.get(i).getSettingId());
+            Hibernate.initialize(settings.get(i).getUnknownSourcesWeight());
+
+        }
+        session.close();
         return settings;
     }
 
@@ -317,6 +335,23 @@ public class SettingsBean implements Serializable {
         session.beginTransaction();
         Query query = session.createQuery("from Scanresult where accessAllowed = 1");
         allowedScans = query.list();
+        for (int i = 0; i < allowedScans.size(); i++) {
+            Hibernate.initialize(allowedScans.get(i));
+            Hibernate.initialize(allowedScans.get(i).getApilevel());
+            Hibernate.initialize(allowedScans.get(i).getApiscore());
+            Hibernate.initialize(allowedScans.get(i).getAppsScore());
+            Hibernate.initialize(allowedScans.get(i).getBlacklistedApps());
+            Hibernate.initialize(allowedScans.get(i).getDate());
+            Hibernate.initialize(allowedScans.get(i).getDebuggingEnabledScore());
+            Hibernate.initialize(allowedScans.get(i).getDevice());
+            Hibernate.initialize(allowedScans.get(i).getRootedScore());
+            Hibernate.initialize(allowedScans.get(i).getScanId());
+            Hibernate.initialize(allowedScans.get(i).getSetting());
+            Hibernate.initialize(allowedScans.get(i).getTotalScore());
+            Hibernate.initialize(allowedScans.get(i).getUnknownSourcesScore());
+
+        }
+        session.close();
         return allowedScans;
     }
 
@@ -329,6 +364,23 @@ public class SettingsBean implements Serializable {
         session.beginTransaction();
         Query query = session.createQuery("from Scanresult where accessAllowed = 0");
         deniedScans = query.list();
+        for (int i = 0; i < deniedScans.size(); i++) {
+            Hibernate.initialize(deniedScans.get(i));
+            Hibernate.initialize(deniedScans.get(i).getApilevel());
+            Hibernate.initialize(deniedScans.get(i).getApiscore());
+            Hibernate.initialize(deniedScans.get(i).getAppsScore());
+            Hibernate.initialize(deniedScans.get(i).getBlacklistedApps());
+            Hibernate.initialize(deniedScans.get(i).getDate());
+            Hibernate.initialize(deniedScans.get(i).getDebuggingEnabledScore());
+            Hibernate.initialize(deniedScans.get(i).getDevice());
+            Hibernate.initialize(deniedScans.get(i).getRootedScore());
+            Hibernate.initialize(deniedScans.get(i).getScanId());
+            Hibernate.initialize(deniedScans.get(i).getSetting());
+            Hibernate.initialize(deniedScans.get(i).getTotalScore());
+            Hibernate.initialize(deniedScans.get(i).getUnknownSourcesScore());
+
+        }
+        session.close();
         return deniedScans;
     }
 
@@ -341,6 +393,19 @@ public class SettingsBean implements Serializable {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         specificSetting = (Setting) session.get(Setting.class, id);
+        Hibernate.initialize(specificSetting.getAccessScore());
+        Hibernate.initialize(specificSetting.getApiweight());
+        Hibernate.initialize(specificSetting.getBlockedApp());
+        Hibernate.initialize(specificSetting.getDebugWeight());
+        Hibernate.initialize(specificSetting.getHighRiskApp());
+        Hibernate.initialize(specificSetting.getLowRiskApp());
+        Hibernate.initialize(specificSetting.getMediumRiskApp());
+        Hibernate.initialize(specificSetting.getRootedWeight());
+        Hibernate.initialize(specificSetting.getScanresults());
+        Hibernate.initialize(specificSetting.getSettingDate());
+        Hibernate.initialize(specificSetting.getSettingId());
+        Hibernate.initialize(specificSetting.getUnknownSourcesWeight());
+        session.close();
         return "specificSetting.xhtml";
     }
 
