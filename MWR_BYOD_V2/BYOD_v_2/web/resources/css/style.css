@@ -530,7 +530,8 @@ ul#menu li:hover a
   padding: 20px;
   background: #05abe0;
   border-radius: 15px 15px 15px 15px;
-  color: #FFF;}
+  color: #FFF;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;}
 
 .register1, .fix1
 { width: 40%;
@@ -543,7 +544,8 @@ ul#menu li:hover a
   padding: 20px;
   background: #05abe0;
   border-radius: 15px 15px 15px 15px;
-  color: #FFF;}
+  color: #FFF;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;}
 
 .register span, .fix span, .projects span, .fix1 span, .register1 span
 {
@@ -620,6 +622,7 @@ ul#menu li:hover a
     font: bold 110% Arial, Helvetica, sans-serif;
     height: 15px;
     width: 120px;
+    color: white;
     padding: 5px 10px 7px 10px;
     background: #cedbe9; /* Old browsers */
     background: -moz-linear-gradient(top,  #cedbe9 0%, #3a8bc2 99%, #26558b 100%); /* FF3.6+ */
@@ -633,7 +636,7 @@ ul#menu li:hover a
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;}
 
 .more a
-{ color: #000;
+{ color: white;
   text-shadow: none;}
 
 .more2
@@ -646,6 +649,7 @@ ul#menu li:hover a
     width: 250px;
     padding: 5px 10px 7px 10px;
     background: #FFF;
+    color: white;
     border-radius: 15px 15px 15px 15px;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;}
 
