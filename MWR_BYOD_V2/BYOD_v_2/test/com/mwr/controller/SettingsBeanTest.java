@@ -337,26 +337,14 @@ public class SettingsBeanTest {
     }
 
     /**
-     * Test of saveSettings method, of class SettingsBean.
+     * Test of saveSetting method, of class SettingsBean.
      */
     @Test
-    public void testSaveSettings() {
-        System.out.println("saveSettings");
-        SettingsBean instance = new SettingsBean();
-        instance.saveSettings();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addSetting method, of class SettingsBean.
-     */
-    @Test
-    public void testAddSetting() {
-        System.out.println("addSetting");
+    public void testSaveSetting() {
+        System.out.println("saveSetting");
         SettingsBean instance = new SettingsBean();
         String expResult = "";
-        String result = instance.addSetting();
+        String result = instance.saveSetting();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -448,15 +436,15 @@ public class SettingsBeanTest {
     }
 
     /**
-     * Test of setSpecificSetting method, of class SettingsBean.
+     * Test of showSetting method, of class SettingsBean.
      */
     @Test
-    public void testSetSpecificSetting() {
-        System.out.println("setSpecificSetting");
+    public void testShowSetting() {
+        System.out.println("showSetting");
         int id = 0;
         SettingsBean instance = new SettingsBean();
         String expResult = "";
-        String result = instance.setSpecificSetting(id);
+        String result = instance.showSetting(id);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
