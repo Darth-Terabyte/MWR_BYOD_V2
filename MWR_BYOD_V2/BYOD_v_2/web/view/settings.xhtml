@@ -89,30 +89,29 @@
                                 <h:outputLabel value="Access Score" title="The score a device should avoid getting to gain access to the network"></h:outputLabel>
                             </h:panelGrid>
                             <h:panelGrid columns ="6" styleClass ="listItem" style="color:white;">
-                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.osWeight}" onkeypress="validate(event)"/>
-                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.debugWeight}" onkeypress="validate(event)"  />
-                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.unknownSourcesWeight}"  onkeypress="validate(event)" />
-                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.rootedWeight}"   onkeypress="validate(event)"/>
-                                <h:inputText id="access" styleClass="input" maxlength="3" value="#{settings.accessScore}"  onkeypress="validate(event)"/>
+                                <h:inputText id="apiLevel" styleClass="input" maxlength="3" value="#{settings.osWeight}" title="The weight the Android Version carries according to its API"/>
+                                <h:inputText id="usbDebug" styleClass="input" maxlength="3" value="#{settings.debugWeight}" title="The weight carried if a device has USB Debugging Enabled"/>
+                                <h:inputText id="unknown" styleClass="input" maxlength="3" value="#{settings.unknownSourcesWeight}" title="The weight carried if a device has Unknown Sources Enabled" />
+                                <h:inputText id="rooted" styleClass="input" maxlength="3" value="#{settings.rootedWeight}" title="The weight carried if a device is rooted"/>
+                                <h:inputText id="access" styleClass="input" maxlength="3" value="#{settings.accessScore}" title="The score a device should avoid getting to gain access to the network"/>
                             </h:panelGrid>
                         </h:panelGroup>
 
                         <h:panelGroup styleClass="listL">
-                            <h:panelGrid columns ="5" styleClass ="listLH">
+                            <h:panelGrid columns ="4" styleClass ="listLH">
                                 <h:outputLabel value="Application Category" title="The category which the Application belongs to (Low,Medium,High Risk)"></h:outputLabel>
                             </h:panelGrid>
-                            <h:panelGrid columns ="5" styleClass ="listItem"  style="color:white;">
+                            <h:panelGrid columns ="4" styleClass ="listItem"  style="color:white;">
                                 <h:outputLabel value="Low Risk" title="The weight an Application of Low Risk carries"></h:outputLabel>
                                 <h:outputLabel value="Medium Risk" title="The weight an Application of Medium Risk carries"></h:outputLabel>
                                 <h:outputLabel value="High Risk" title="The weight an Application of High Risk carries"></h:outputLabel>
                                 <h:outputLabel value="Blocked" title="The weight a Blocked Application carries"></h:outputLabel>
                             </h:panelGrid>
-                            <h:panelGrid columns ="5" styleClass ="listItem">
-                                <h:inputText id="lowrisk" styleClass="input" maxlength="3" value="#{settings.lowRiskApp}"  onkeypress="validate(event)"/>
-                                <h:inputText id="medrisk" styleClass="input" maxlength="3" value="#{settings.mediumRiskApp}"   onkeypress="validate(event)"/>
-                                <h:inputText id="highrisk" styleClass="input" maxlength="3" value="#{settings.highRiskApp}"   onkeypress="validate(event)"/>
-                                <h:inputText id="blocked" styleClass="input" maxlength="3" value="#{settings.blockedApp}"   onkeypress="validate(event)" />
-
+                            <h:panelGrid columns ="4" styleClass ="listItem">
+                                <h:inputText id="lowrisk" styleClass="input" maxlength="3" value="#{settings.lowRiskApp}" title="The weight an Application of Low Risk carries"/>
+                                <h:inputText id="medrisk" styleClass="input" maxlength="3" value="#{settings.mediumRiskApp}" title="The weight an Application of Medium Risk carries"/>
+                                <h:inputText id="highrisk" styleClass="input" maxlength="3" value="#{settings.highRiskApp}" title="The weight an Application of Medium Risk carries"/>
+                                <h:inputText id="blocked" styleClass="input" maxlength="3" value="#{settings.blockedApp}" title="The weight a Blocked Application carries"/>
                             </h:panelGrid>
                             <div class="more2">
                                 <h:commandLink value="Save Settings"  action="#{settings.saveSetting()}" title="Save the settings you have altered"> </h:commandLink>
