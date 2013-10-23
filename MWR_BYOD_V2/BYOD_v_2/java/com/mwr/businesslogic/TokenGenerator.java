@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class TokenGenerator {
 
     /**
+     * Generates a token based on device details and the user's password
      *
      * @param mac The device's MAC address.
      * @param uid The device's unique android id.
@@ -52,5 +53,4 @@ public class TokenGenerator {
         }
         return token;
     }
-
 }

@@ -74,6 +74,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Checks if a certain device is in our waiting list.
      *
      * @param mac Device's MAC Address
      * @param serial Device's serial number
@@ -92,29 +93,8 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
-     *
-     * @param id
-     * @return
-     */
-//    public Device getDevice(String id) {
-//        try {
-//            session = HibernateUtil.getSessionFactory().openSession();
-//            session.beginTransaction();
-//            Query query = session.createQuery("from Device where id = :id");
-//            query.setParameter("id", id);
-//            List<Device> list = query.list();
-//            Device d = list.get(0);
-//            if (d == null) {
-//                return null;
-//            } else {
-//                return d;
-//            }
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
-    /**
-     * Add a device to the registration waiting list
+     * Add a device, linked to a specific employee, to the registration waiting
+     * list
      *
      * @param mac Device's MAC Address
      * @param android Device's androidID
@@ -133,8 +113,6 @@ public class DatabaseJSFManagedBean implements Serializable {
         try {
             TokenGenerator gen = new TokenGenerator();
             String token = gen.generateToken(mac, android, serial, password);
-            //Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(password);
-            //Logger.getLogger(DatabaseJSFManagedBean.class.getName()).info(token);
             DevicenotregisteredId devicePK = new DevicenotregisteredId(mac, android, serial);
             device_not = new Devicenotregistered(devicePK, manufacturer, model, new Date(), token, username, password, idnumber, name, surname);
             session = HibernateUtil.getSessionFactory().openSession();
@@ -144,10 +122,13 @@ public class DatabaseJSFManagedBean implements Serializable {
         } finally {
             session.close();
         }
-
     }
 
     /**
+     * Add an employee to our employee list during device registration. If the
+     * employee already exists, we simply set our employee variable to the
+     * employee found. Otherwise, we create a new employee and add it to our
+     * list.
      *
      * @param username Employee's username
      * @param password Employee's password
@@ -173,14 +154,14 @@ public class DatabaseJSFManagedBean implements Serializable {
             employee = (Employee) query.list().get(0);
         }
         session.close();
-        // System.out.println("Employee " + employee.getIdnumber() + " " + employee.getSurname() + " added");
         return employee;
     }
 
     /**
+     * View a specific employee in the user page.
      *
-     * @param emp Employee
-     * @return Returns a link to employee's profile that matches id
+     * @param emp Employee is the employee we wish to view.
+     * @return the user page with the employee's details.
      */
     public String viewEmployee(Employee emp) {
         employee = emp;
@@ -189,9 +170,9 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
-     * Moves device from registration waiting list to registered devices
+     * Moves device from registration waiting list to registered devices.
      *
-     * @param deviceNotRegistered Device on registration waiting list
+     * @param deviceNotRegistered Device on registration waiting list.
      */
     public void addDevice(Devicenotregistered deviceNotRegistered) {
         try {
@@ -214,10 +195,10 @@ public class DatabaseJSFManagedBean implements Serializable {
 
     }
 
-//
     /**
+     * Getter for the employee saved in our bean.
      *
-     * @return Return this bean's instance of employee
+     * @return this employee.
      */
     public Employee getEmployee() {
         try {
@@ -229,8 +210,9 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Getter for the waiting list/ non registered devices.
      *
-     * @return Returns a list of unregistered devices
+     * @return Returns a list of all the non registered devices.
      */
     public List getWaitingList() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -241,10 +223,12 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Getter for all devices on the waiting list owned by a specific employee
+     * by using the id linked to that employee.
      *
      * @param id Employee's ID number
-     * @return Returns a list of devices on the waiting list that belongs to a
-     * specific employee
+     * @return a list of all devices on the waiting list owned by a specific
+     * employee.
      */
     public List getWaitingList(String id) {
         List<Devicenotregistered> waitingListUnique = null;
@@ -260,8 +244,9 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Getter for all registered devices.
      *
-     * @return Returns all registered devices
+     * @return a list of all registered devices
      */
     public List getDeviceList() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -272,8 +257,9 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Getter for all registered employees, sorted by surname.
      *
-     * @return returns all registered employees
+     * @return a lost of all registered employees
      */
     public List getEmployeeList() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -285,8 +271,9 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Getter for all blacklisted applications.
      *
-     * @return Returns all blacklisted applications
+     * @return a list of all blacklisted applications
      */
     public List<Blacklistedapp> getApps() {
 
@@ -299,8 +286,9 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Getter for the latest settings by using the newest SettingDate.
      *
-     * @return Returns the latest setting
+     * @return the latest setting
      */
     public Setting getLatestSetting() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -323,7 +311,7 @@ public class DatabaseJSFManagedBean implements Serializable {
 
     /**
      * Saves a device's scan, calculates device score and determines if test was
-     * passed
+     * passed.
      *
      * @param mac Device's MAC Address
      * @param serial Device's serial number
@@ -361,19 +349,19 @@ public class DatabaseJSFManagedBean implements Serializable {
             int k = 0;
             while (k < apps.size()) {
                 if (appArray[i].contains(apps.get(k).getAppName())) {
-                    String cat = apps.get(k).getAppCategory();
+                    String cat = apps.get(k).getAppCategory().toLowerCase();
                     if (!blacklistedApps.equals("")) {
                         blacklistedApps += ", ";
                     }
                     blacklistedApps += appArray[i];
 
-                    if (cat.equals("Low")) {
+                    if (cat.equals("low")) {
                         appScore += latestSetting.getLowRiskApp();
-                    } else if (cat.equals("Medium")) {
+                    } else if (cat.equals("medium")) {
                         appScore += latestSetting.getMediumRiskApp();
-                    } else if (cat.equals("High")) {
+                    } else if (cat.equals("high")) {
                         appScore += latestSetting.getHighRiskApp();
-                    } else if (cat.equals("Blocked")) {
+                    } else if (cat.equals("blocked")) {
                         appScore += latestSetting.getBlockedApp();
                     }
                 }
@@ -407,6 +395,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get devices registered to the given employee
      *
      * @param id Employee's ID
      * @return Returns a list of devices registered to an employee
@@ -421,6 +410,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Retrieve specific device and assign device instance variable
      *
      * @param id Device's ID
      * @return Returns a link to the device
@@ -445,6 +435,11 @@ public class DatabaseJSFManagedBean implements Serializable {
 
     }
 
+    /**
+     * Assigns device instance variable
+     *
+     * @param dev Device to be assigned to instance variable
+     */
     public void setDev(Device dev) {
         try {
             device = dev;
@@ -454,6 +449,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get a list of a device's results
      *
      * @return Returns a list of scan results for current device
      */
@@ -462,6 +458,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get the number of registered devices
      *
      * @return Returns the number of registered devices
      */
@@ -470,6 +467,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Returns device instance variable
      *
      * @return Returns current device
      */
@@ -478,6 +476,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get number of devices in waiting list
      *
      * @return Returns number of devices in waiting list
      */
@@ -487,6 +486,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get number of scans that passed
      *
      * @return Returns number of scans that passed
      */
@@ -500,6 +500,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get number of scans that failed
      *
      * @return Returns number of devices that failed
      */
@@ -539,7 +540,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
-     * Remove a device
+     * Remove an employee
      *
      * @param emp Employee
      * @return Returns a link back to the users page
@@ -564,6 +565,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get a device's latest scan results
      *
      * @param mac Device's MAC Address
      * @param serial Device's serial number
@@ -583,6 +585,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Get a device's token
      *
      * @param mac Device's MAC Address
      * @param serial Device's serial number
@@ -601,6 +604,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Authenticate user details and adds a device to the ActiveUser table
      *
      * @param username Employee's username
      * @param password Employee's password
@@ -632,9 +636,10 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Determines of IP address is registered to an active user
      *
      * @param ip Remote host IP address
-     * @return REturns true if logged in
+     * @return Returns true if logged in
      */
     public boolean isActiveUser(String ip) {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -653,6 +658,7 @@ public class DatabaseJSFManagedBean implements Serializable {
     }
 
     /**
+     * Remove IP from ActiveUser
      *
      * @param mac Device's MAC Address
      * @param serial Device's serial number

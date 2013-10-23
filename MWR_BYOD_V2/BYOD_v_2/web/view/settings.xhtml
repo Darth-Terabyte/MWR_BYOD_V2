@@ -7,34 +7,8 @@
         <title>BYOD Bring Your Own Device Asset Tracker</title>
         <link rel="stylesheet" type="text/css" href="/BYOD/faces/resources/css/style.css" />
         <link href ="/BYOD/faces/resources/images/logo2.GIF" rel ="icon" type ="image/x-icon" />
-        <script type="text/javascript">
-            function updateTextInput(val, text) {
-                document.getElementById(text).innerHTML = val + "%";
-            }
-            function validateField(text)
-            {
-                var x = document.forms["settings"][text].value;
-                if (x.isNaN())
-                {
-                    alert("The value you have entered is not a valid number");
-
-                }
-            }
-            function validate(evt) {
-                var theEvent = evt || window.event;
-                var key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-                var regex = /[0-9]|\./;
-                if (!regex.test(key)) {
-                    theEvent.returnValue = false;
-                    alert("The value you have entered is not a valid number");
-                }
-            }
-        </script>
     </h:head>
     <h:body>
-
-
         <div id="main">
             <div id="header">
                 <div id="banner">
@@ -69,20 +43,20 @@
 
                 <div id ="blackListed" class="blockH">
                     <h5>Blacklisted Applications</h5>
-                    <a class ="upD" href="#main" value ="...to top"></a>                    
+                    <a class ="upD" href="#main" value ="...to top"></a>
                 </div>
                 <div class="blockH">
                     <h:dataTable id="settingsBA" styleClass ="listD1" value="#{bean.apps}" var="app" style="color:white;">
                         <h:column>
                             <f:facet name="header" class="listLH" >
                                 <h:outputText value="Name" class="listLH" title="The name of the Android Mobile Application"/>
-                            </f:facet> 
+                            </f:facet>
                             <h:outputText style="" value="#{app.appName}" ></h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header" class="listLH">
                                 <h:outputText value="Category" class="listLH" title="The category which the Application belongs to (Low,Medium,High Risk)"/>
-                            </f:facet> 
+                            </f:facet>
                             <h:outputText style="" value="#{app.appCategory}" ></h:outputText>
                         </h:column>
                         <h:column>
@@ -141,7 +115,7 @@
 
                             </h:panelGrid>
                             <div class="more2">
-                                <h:commandLink value="Save Settings"  action="#{settings.addSetting()}" title="Save the settings you have altered"> </h:commandLink>
+                                <h:commandLink value="Save Settings"  action="#{settings.saveSetting()}" title="Save the settings you have altered"> </h:commandLink>
                             </div>
                         </h:panelGroup>
                     </h:form>

@@ -35,18 +35,7 @@ import org.json.simple.parser.JSONParser;
 public class ControllerServlet extends HttpServlet {
 
     /**
-     *
-     * @throws ServletException
-     */
-    @Override
-    public void init() throws ServletException {
-        // store category list in servlet context
-        //System.out.println(techFacade.findAll().size());
-    }
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Handles the HTTP GET method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -86,7 +75,7 @@ public class ControllerServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -271,7 +260,7 @@ public class ControllerServlet extends HttpServlet {
                             response.getOutputStream().print("denied;");
                             ScanSummary summary = new ScanSummary();
                             Scanresult scan = bean.getLatestScan(mac, serial, androidID);
-                            response.getOutputStream().print(summary.getSummary(scan.getRootedScore(), scan.getDebuggingEnabledScore(), scan.getUnknownSourcesScore(), scan.getApiscore(), Integer.parseInt(scan.getApilevel()), scan.getBlacklistedApps(), scan.getAppsScore(), scan.getTotalScore()));
+                            response.getOutputStream().print(summary.getSummary(scan.getRootedScore(), scan.getDebuggingEnabledScore(), scan.getUnknownSourcesScore(), scan.getApiscore(), scan.getBlacklistedApps(), scan.getAppsScore(), scan.getTotalScore()));
                         }
                         response.getOutputStream().flush();
                     }
@@ -467,16 +456,5 @@ public class ControllerServlet extends HttpServlet {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-//
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
 }

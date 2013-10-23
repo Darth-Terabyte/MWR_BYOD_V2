@@ -44,13 +44,13 @@ public class RegistrationWidgetBean implements Serializable {
     DatabaseJSFManagedBean bean1;
 
     /**
+     * Getter for the employee based on its id. The id is saved by our bean as
+     * empID.
      *
-     */
-    public RegistrationWidgetBean() {
-    }
-
-    /**
-     *
+     * @param empID is saved by our bean and linked to the input field in our
+     * JSF home.xhtml and devices.xhtml pages
+     * @throws HibernateException if the employee does not exist.
+     * @throws NumberFormatException if the value is not a number.
      */
     public void getEmployee() {
         try {
@@ -64,16 +64,20 @@ public class RegistrationWidgetBean implements Serializable {
         } catch (HibernateException e) {
             message = empID + " does not exist";
         } catch (NumberFormatException e) {
-            message = empID + " does not exist";
+            message = empID + " is not a number value";
         }
     }
 
     /**
+     * Getter for the non registered device based on its id. The id is saved by
+     * our bean as devID.
      *
+     * @param devID is saved by our bean and linked to the input field in our
+     * JSF home.xhtml and devices.xhtml pages
+     * @throws HibernateException if the employee does not exist.
      */
     public void getNonRegDevice() {
         try {
-
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query query = session.createQuery("from Devicenotregistered where id = :id");
@@ -91,7 +95,17 @@ public class RegistrationWidgetBean implements Serializable {
     }
 
     /**
+     * Registers the device with values linked to a non registered device. It
+     * removes the entry from the non registered devices list after inserting it
+     * in our device list.
      *
+     * If the registration is a success, a message is displayed saying so. If
+     * not, a message notifies the user.
+     *
+     * @param devExist is a boolean saved by our bean dependent on whether the
+     * device exists in our non registered devices list or not.
+     * @param empExist is a boolean saved by our bean dependent on whether the
+     * employee exists or not.
      */
     public void regDevice() {
         empExist();
