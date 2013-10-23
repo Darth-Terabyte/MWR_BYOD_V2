@@ -39,18 +39,6 @@ public class ControllerServletTest {
     }
 
     /**
-     * Test of init method, of class ControllerServlet.
-     */
-    @Test
-    public void testInit() throws Exception {
-        System.out.println("init");
-        ControllerServlet instance = new ControllerServlet();
-        instance.init();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of doGet method, of class ControllerServlet.
      */
     @Test

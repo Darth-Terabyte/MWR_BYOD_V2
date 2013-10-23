@@ -45,14 +45,13 @@ public class ScanSummaryTest {
         int rooted = 0;
         int debug = 0;
         int unknown = 0;
-        int os = 0;
         int api_level = 0;
         String apps = "";
         int appScore = 0;
         int total = 0;
         ScanSummary instance = new ScanSummary();
         String expResult = "";
-        String result = instance.getSummary(rooted, debug, unknown, os, api_level, apps, appScore, total);
+        String result = instance.getSummary(rooted, debug, unknown, api_level, apps, appScore, total);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
