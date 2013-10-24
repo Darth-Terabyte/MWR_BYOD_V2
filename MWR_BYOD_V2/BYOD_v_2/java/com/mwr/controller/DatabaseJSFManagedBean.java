@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 /**
@@ -469,7 +470,7 @@ public class DatabaseJSFManagedBean implements Serializable {
         if (blacklistedApps.equals("")) {
             blacklistedApps = "None";
         }
-        apiScore = (17 - api) * latestSetting.getApiweight();
+        apiScore = (18 - api) * latestSetting.getApiweight();
         totalScore = rootScore + debugScore + unknownScore + appScore + apiScore;
         boolean allow = false;
         if (totalScore < latestSetting.getAccessScore()) {
@@ -819,25 +820,33 @@ public class DatabaseJSFManagedBean implements Serializable {
         return !empty;
     }
 
-    public void updateActive(String ip) {
-        if (isActiveUser(ip)) {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query query = session.createQuery("from ActiveUser where ip = :ip");
-            query.setParameter("ip", ip);
-            Activeuser user = (Activeuser) query.list().get(0);
-            user.setLastInteraction(new Date());
-            session.update(user);
-            session.getTransaction().commit();
-            session.close();
-        }
-    }
-
-    public void clearActive() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("delete from ActiveUser where lastinteraction < DATEADD(MINUTE,-5,GETDATE())");
-        query.executeUpdate();
-        session.close();
-    }
+//    public void updateActive(String ip) {
+//        if (isActiveUser(ip)) {
+//            session = HibernateUtil.getSessionFactory().openSession();
+//            session.beginTransaction();
+//            Query query = session.createQuery("from ActiveUser where ip = :ip");
+//            query.setParameter("ip", ip);
+//            Activeuser user = (Activeuser) query.list().get(0);
+//            user.setLastInteraction(new Date());
+//            session.update(user);
+//            session.getTransaction().commit();
+//            session.close();
+//        }
+//    }
+//
+//    public void clearActive() {
+//
+//
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        String sql = "SELECT * FROM activeuser WHERE lastinteraction < DATE_SUB(NOW(),INTERVAL 5 MINUTE)";
+//        Query query = session.createSQLQuery(sql);        
+//        List users = query.list();
+//        for (int i = 0; i < users.size(); i++) {
+//            Activeuser user = (Activeuser)users.get(i);
+//            session.delete(users.get(i));
+//            session.getTransaction().commit();
+//        }
+//        session.close();
+//    }
 }

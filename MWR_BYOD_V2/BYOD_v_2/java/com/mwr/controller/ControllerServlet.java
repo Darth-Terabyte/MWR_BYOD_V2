@@ -58,9 +58,9 @@ public class ControllerServlet extends HttpServlet {
             if (bean == null) {
                 bean = new DatabaseJSFManagedBean();
             }
-            bean.clearActive();
+            //bean.clearActive();
             if (bean.isActiveUser(request.getRemoteAddr())) { 
-                bean.updateActive(request.getRemoteAddr());
+                //bean.updateActive(request.getRemoteAddr());
                 url = "/faces/view/restricted.html";
             } else {
                 url = "/faces/view/denied.html";
@@ -353,9 +353,8 @@ public class ControllerServlet extends HttpServlet {
                 }
                 boolean registered = bean.deviceRegistered(mac, serial, androidID);
                 Logger.getLogger(ControllerServlet.class.getName()).info(Boolean.toString(registered));
-
                 if (registered) {
-                    Logger.getLogger("Active=" + Boolean.toString(bean.isActiveUser(request.getRemoteAddr())));
+                    //Logger.getLogger("Active=" + Boolean.toString(bean.isActiveUser(request.getRemoteAddr())));
                     if (bean.isActiveUser(request.getRemoteAddr())) {
                         response.getOutputStream().print("loggedIn");
                     } else {
@@ -363,6 +362,7 @@ public class ControllerServlet extends HttpServlet {
                     }
                 } else {
                     boolean waiting = bean.deviceWaiting(mac, serial, androidID);
+                    Logger.getLogger("Device waiting" + waiting);
                     if (waiting) {
                         response.getOutputStream().print("waiting");
                     } else {
