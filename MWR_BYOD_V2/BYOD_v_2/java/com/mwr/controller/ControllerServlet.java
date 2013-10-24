@@ -205,26 +205,60 @@ public class ControllerServlet extends HttpServlet {
                     Logger.getLogger(ControllerServlet.class.getName()).info(key);
                     Logger.getLogger(ControllerServlet.class.getName()).info(value);
                     if (key.equals("rooted")) {
-                        root = Boolean.parseBoolean(value);
+                        if (value.equals("true") || value.equals("false")) {
+                            root = Boolean.parseBoolean(value);
+                        } else {
+                            throw new IOException();
+                        }
                     } else if (key.equals("debug")) {
-                        debug = Boolean.parseBoolean(value);
+                        if (value.equals("true") || value.equals("false")) {
+                            debug = Boolean.parseBoolean(value);
+                        } else {
+                            throw new IOException();
+                        }
                     } else if (key.equals("unknown")) {
-                        unknown = Boolean.parseBoolean(value);
+                        if (value.equals("true") || value.equals("false")) {
+                            unknown = Boolean.parseBoolean(value);
+                        } else {
+                            throw new IOException();
+                        }
                     } else if (key.equals("apps")) {
                         apps = value.substring(1, value.length() - 1);
                     } else if (key.equals("mac")) {
-                        mac = value;
+                        if (!value.equals("")) {
+                            mac = value;
+                        } else {
+                            throw new IOException();
+                        }
                     } else if (key.equals("serial")) {
+                        if (!value.equals("")) {
                         serial = value;
+                        } else {
+                            throw new IOException();
+                        }
                     } else if (key.equals("android")) {
+                        if (!value.equals("")) {
                         androidID = value;
+                        } else {
+                            throw new IOException();
+                        }
                     } else if (key.equals("os")) {
+                        if (!value.equals("")) {
                         api = Integer.parseInt(value);
+                        } else {
+                            throw new IOException();
+                        }
                     } else if (key.equals("password")) {
+                        if (!value.equals("")) {
                         password = value;
+                        } else {
+                            throw new IOException();
+                        }
                     }
 
                 }
+
+
 
                 DatabaseJSFManagedBean bean = (DatabaseJSFManagedBean) request.getSession().getAttribute("bean");
                 if (bean == null) {

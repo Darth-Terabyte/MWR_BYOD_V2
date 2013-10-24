@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
  * @author madenem
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({com.mwr.controller.SettingsBeanTest.class, com.mwr.controller.DatabaseJSFManagedBeanTest.class, com.mwr.controller.ControllerServletTest.class, com.mwr.controller.RegistrationWidgetBeanTest.class, com.mwr.controller.FixWidgetBeanTest.class})
+@Suite.SuiteClasses({com.mwr.controller.SettingsBeanTest.class, com.mwr.controller.DatabaseJSFManagedBeanTest.class, com.mwr.controller.RegistrationWidgetBeanTest.class, com.mwr.controller.FixWidgetBeanTest.class})
 public class ControllerSuite {
 
     @BeforeClass

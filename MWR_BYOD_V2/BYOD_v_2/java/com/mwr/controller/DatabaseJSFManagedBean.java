@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -116,18 +117,23 @@ public class DatabaseJSFManagedBean implements Serializable {
      *
      */
     public void addToWaitingList(String mac, String android, String serial, String manufacturer, String model, String username, String password, String idnumber, String name, String surname) throws NoSuchAlgorithmException {
-        try {
-            TokenGenerator gen = new TokenGenerator();
-            String token = gen.generateToken(mac, android, serial, password);
-            DevicenotregisteredId devicePK = new DevicenotregisteredId(mac, android, serial);
-            device_not = new Devicenotregistered(devicePK, manufacturer, model, new Date(), token, username, password, idnumber, name, surname);
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.save(device_not);
-            session.getTransaction().commit();
-        } finally {
-            session.close();
+        if (!(mac == null || android == null || serial == null || manufacturer == null || model == null || username == null || password == null || idnumber == null || name == null || username == null)) {
+            if (!(mac.equals("") || android.equals("") || serial.equals("") || manufacturer.equals("") || model.equals("") || username.equals("") || password.equals("") || idnumber.equals("") || name.equals("") || username.equals(""))) {
+                TokenGenerator gen = new TokenGenerator();
+                String token = gen.generateToken(mac, android, serial, password);
+                DevicenotregisteredId devicePK = new DevicenotregisteredId(mac, android, serial);
+                device_not = new Devicenotregistered(devicePK, manufacturer, model, new Date(), token, username, password, idnumber, name, surname);
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                session.save(device_not);
+                session.getTransaction().commit();
+                session.close();
+            }
+        } else {
+            Logger.getLogger(ControllerServlet.class.getName()).info("Attemp to write invalid values to Devicenotregistered");
         }
+
+
     }
 
     /**
@@ -157,12 +163,22 @@ public class DatabaseJSFManagedBean implements Serializable {
                 employee = new Employee(username, password, new Date(), name, surname, idnumber);
                 session.save(employee);
                 session.getTransaction().commit();
+                Hibernate.initialize(employee.getDateRegistered());
+                Hibernate.initialize(employee.getDevices());
+                Hibernate.initialize(employee.getEmpId());
+                Hibernate.initialize(employee.getIdnumber());
+                Hibernate.initialize(employee.getName());
+                Hibernate.initialize(employee.getPassword());
+                Hibernate.initialize(employee.getSurname());
+                Hibernate.initialize(employee.getUsername());
+
             } else {
                 employee = (Employee) query.list().get(0);
             }
         } finally {
+
             session.close();
-            // System.out.println("Employee " + employee.getIdnumber() + " " + employee.getSurname() + " added");
+
             return employee;
         }
 
@@ -175,8 +191,13 @@ public class DatabaseJSFManagedBean implements Serializable {
      * @return the user page with the employee's details.
      */
     public String viewEmployee(Employee emp) {
-        employee = emp;
-        return "user.xhtml";
+        if (emp != null) {
+            employee = emp;
+            return "user.xhtml";
+        } else {
+            return "users.xhtml";
+        }
+
 
     }
 
@@ -311,7 +332,7 @@ public class DatabaseJSFManagedBean implements Serializable {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            Query query = session.createQuery("from Employee order by Surname asc");
+            Query query = session.createQuery("from Employee order by empid asc");
             employeeList = query.list();
             for (int i = 0; i < employeeList.size(); i++) {
                 Hibernate.initialize(employeeList.get(i));
@@ -723,18 +744,24 @@ public class DatabaseJSFManagedBean implements Serializable {
         query.setParameter("mac", mac);
         query.setParameter("uid", androidID);
         query.setParameter("serial", serial);
-        Device dev = (Device) query.list().get(0);
-        Employee emp = dev.getEmployee();
-        if (emp.getUsername().equals(username) && emp.getPassword().equals(password)) {
-            Activeuser user = new Activeuser(ip, mac, androidID, serial);
-            session.save(user);
-            session.getTransaction().commit();
-            session.close();
-            return true;
+        if (!(query.list().isEmpty())) {
+            Device dev = (Device) query.list().get(0);
+            Employee emp = dev.getEmployee();
+            if (emp.getUsername().equals(username) && emp.getPassword().equals(password)) {
+                Activeuser user = new Activeuser(ip, mac, androidID, serial);
+                session.save(user);
+                session.getTransaction().commit();
+                session.close();
+                return true;
+            } else {
+                session.close();
+                return false;
+            }
         } else {
             session.close();
             return false;
         }
+
     }
 
     /**
@@ -779,5 +806,16 @@ public class DatabaseJSFManagedBean implements Serializable {
         session.getTransaction().commit();
         session.close();
 
+    }
+
+    public boolean employeeRegistered(int id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Employee where empid = :id");
+        query.setParameter("id", id);
+        List<Employee> employee = query.list();
+        boolean empty = employee.isEmpty();
+        session.close();
+        return !empty;
     }
 }

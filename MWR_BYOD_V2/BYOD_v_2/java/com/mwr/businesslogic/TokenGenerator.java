@@ -33,8 +33,7 @@ public class TokenGenerator {
         for (byte b : hash) {
             builder.append(String.format("%02x", b & 0xff));
         }
-        String hashkeyComposite = builder.toString();
-        Logger.getLogger(TokenGenerator.class.getName()).log(Level.INFO, "Haskkey={0}", hashkeyComposite);
+        String hashkeyComposite = builder.toString();       
 
         String finalHash = hashkeyComposite + password;
         byte[] hash3 = digester.digest(finalHash.getBytes());
@@ -42,8 +41,7 @@ public class TokenGenerator {
         for (byte b : hash3) {
             builder.append(String.format("%02x", b & 0xff));
         }
-        String hashkeyFinal = builder.toString();
-        Logger.getLogger(TokenGenerator.class.getName()).log(Level.INFO, "haskey2={0}", hashkeyFinal);
+        String hashkeyFinal = builder.toString();       
         int skip = Math.round((float) hashkeyFinal.length() / 5);
         int index = 0;
         String token = "";

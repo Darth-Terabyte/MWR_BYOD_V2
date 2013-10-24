@@ -5,11 +5,11 @@
 package com.mwr.controller;
 
 import com.mwr.database.Device;
-import com.mwr.database.DeviceId;
-import com.mwr.database.Devicenotregistered;
 import com.mwr.database.Employee;
 import com.mwr.database.Scanresult;
-import com.mwr.database.Setting;
+import com.mwr.database.Blacklistedapp;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,6 +37,7 @@ public class DatabaseJSFManagedBeanTest {
     
     @Before
     public void setUp() {
+        
     }
     
     @After
@@ -48,16 +49,24 @@ public class DatabaseJSFManagedBeanTest {
      */
     @Test
     public void testDeviceRegistered() {
-        System.out.println("deviceRegistered");
-        String mac = "";
-        String serial = "";
-        String androidID = "";
+        System.out.println("deviceRegistered: existing mac, androidID and serial number");
+        String mac = "2222";
+        String serial = "4444";
+        String androidID = "3333";
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deviceRegistered(mac, serial, androidID);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        System.out.println("deviceRegistered: nonexisting mac, androidID and serial number");
+        mac = "123";
+        serial = "12341234";
+        androidID = "12341234";
+        instance = new DatabaseJSFManagedBean();
+        expResult = false;
+        result = instance.deviceRegistered(mac, serial, androidID);
+        assertEquals(expResult, result);
+       
     }
 
     /**
@@ -65,16 +74,32 @@ public class DatabaseJSFManagedBeanTest {
      */
     @Test
     public void testDeviceWaiting() {
-        System.out.println("deviceWaiting");
-        String mac = "";
-        String serial = "";
-        String androidID = "";
+        System.out.println("deviceWaiting: existing mac, androidID and serial number");
+        String mac = "mac";
+        String serial = "serialnumber";
+        String androidID = "androidid";
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.deviceWaiting(mac, serial, androidID);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        System.out.println("deviceWaiting: nonexisting mac, androidID and serial number");
+        mac = "mac";
+        serial = "1234";
+        androidID = "androidid";
+        instance = new DatabaseJSFManagedBean();
+        expResult = false;
+        result = instance.deviceWaiting(mac, serial, androidID);
+        assertEquals(expResult, result);
+        
+        System.out.println("deviceWaiting: null values");
+        mac = null;
+        serial = null;
+        androidID = null;
+        instance = new DatabaseJSFManagedBean();
+        expResult = false;
+        result = instance.deviceWaiting(mac, serial, androidID);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -82,111 +107,170 @@ public class DatabaseJSFManagedBeanTest {
      */
     @Test
     public void testAddToWaitingList() throws Exception {
-        System.out.println("addToWaitingList");
-        String mac = "";
-        String android = "";
-        String serial = "";
-        String manufacturer = "";
-        String model = "";
-        String username = "";
-        String password = "";
-        String idnumber = "";
-        String name = "";
-        String surname = "";
+       System.out.println("addToWaitingList: null strings");
+        String mac = null;
+        String android = null;
+        String serial = null;
+        String manufacturer = null;
+        String model = null;
+        String username = null;
+        String password = null;
+        String idnumber = null;
+        String name = null;
+        String surname = null;
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
         instance.addToWaitingList(mac, android, serial, manufacturer, model, username, password, idnumber, name, surname);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean result = instance.deviceWaiting(mac, serial, android);
+        boolean expResult = false;
+        assertEquals(result,expResult);
+        
+        System.out.println("addToWaitingList: empty strings");
+        mac = "";
+        android = "";
+        serial = "";
+        manufacturer = "";
+        model = "";
+        username = "";
+        password = "";
+        idnumber = "";
+        name = "";
+        surname = "";
+        instance = new DatabaseJSFManagedBean();
+        instance.addToWaitingList(mac, android, serial, manufacturer, model, username, password, idnumber, name, surname);
+        result = instance.deviceWaiting(mac, serial, android);
+        expResult = false;
+        assertEquals(result,expResult);
+        
+        System.out.println("addToWaitingList: non-empty strings");
+        mac = "abcd";
+        android = "abcd";
+        serial = "abcd";
+        manufacturer = "samsung";
+        model = "galaxy";
+        username = "john";
+        password = "password";
+        idnumber = "12345";
+        name = "john";
+        surname = "green";
+        instance = new DatabaseJSFManagedBean();
+        instance.addToWaitingList(mac, android, serial, manufacturer, model, username, password, idnumber, name, surname);
+        result = instance.deviceWaiting(mac, serial, android);
+        expResult = true;
+        assertEquals(result,expResult);
+        
+  
+        
+        
+    }
+    
+    /**
+     * Test of employeeRegistered method, of class DatabaseJSFManagedBean.
+     */
+    @Test
+    public void testEmployeeRegistered() {
+        System.out.println("employeeRegistered: existing employee");
+        int id = 1;
+        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
+        boolean expResult = true;
+        boolean result = instance.employeeRegistered(id);
+        assertEquals(expResult, result);
+        
+        System.out.println("employeeRegistered: existing employee");
+        id = 5;
+        instance = new DatabaseJSFManagedBean();
+        expResult = false;
+        result = instance.employeeRegistered(id);
+        assertEquals(expResult, result);       
+        
+
     }
 
     /**
      * Test of addEmployee method, of class DatabaseJSFManagedBean.
      */
-    @Test
-    public void testAddEmployee() {
-        System.out.println("addEmployee");
-        String username = "";
-        String password = "";
-        String name = "";
-        String surname = "";
-        String idnumber = "";
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        Employee expResult = null;
-        Employee result = instance.addEmployee(username, password, name, surname, idnumber);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testAddEmployee() {
+//        System.out.println("addEmployee");
+//        String username = "jan";
+//        String password = "password";
+//        String name = "jan";
+//        String surname = "van der merwe";
+//        String idnumber = "123455";
+//        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
+//        int oldsize = instance.getEmployeeList().size();
+//        Employee employee = instance.addEmployee(username, password, name, surname, idnumber);
+//        int newsize = instance.getEmployeeList().size();
+//        assertEquals(oldsize, newsize);
+//        
+//        System.out.println("addEmployee: already registered");
+//        username = "jan";
+//        password = "password";
+//        name = "jan";
+//        surname = "van der merwe";
+//        idnumber = "123456";
+//        instance = new DatabaseJSFManagedBean();
+//        oldsize = instance.getEmployeeList().size();
+//        employee = instance.addEmployee(username, password, name, surname, idnumber);
+//        newsize = instance.getEmployeeList().size();
+//        assertEquals(oldsize, newsize);
+//        
+//         
+//        System.out.println("addEmployee: empty strings");
+//        username = "jan";
+//        password = "password";
+//        name = "mark";
+//        surname = "twain";
+//        idnumber = "123455";
+//        instance = new DatabaseJSFManagedBean();
+//        oldsize = instance.getEmployeeList().size();
+//        employee = instance.addEmployee(username, password, name, surname, idnumber);
+//        newsize = instance.getEmployeeList().size();
+//        assertEquals(oldsize, newsize);
+//        
+//        System.out.println("addEmployee: empty strings");
+//        username = "jan";
+//        password = "password";
+//        name = "mark";
+//        surname = "twain";
+//        idnumber = "123455";
+//        instance = new DatabaseJSFManagedBean();
+//        oldsize = instance.getEmployeeList().size();
+//        employee = instance.addEmployee(username, password, name, surname, idnumber);
+//        newsize = instance.getEmployeeList().size();
+//        assertEquals(oldsize, newsize-1);
+//
+//    }
 
     /**
      * Test of viewEmployee method, of class DatabaseJSFManagedBean.
      */
     @Test
     public void testViewEmployee() {
-        System.out.println("viewEmployee");
+        System.out.println("viewEmployee: null");
         Employee emp = null;
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        String expResult = "";
+        String expResult = "users.xhtml";
         String result = instance.viewEmployee(emp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of addDevice method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testAddDevice() {
-        System.out.println("addDevice");
-        Devicenotregistered deviceNotRegistered = null;
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        instance.addDevice(deviceNotRegistered);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getEmployee method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetEmployee() {
-        System.out.println("getEmployee");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        Employee expResult = null;
-        Employee result = instance.getEmployee();
+        System.out.println("viewEmployee: not null");
+        emp = new Employee();
+        instance = new DatabaseJSFManagedBean();
+        expResult = "user.xhtml";
+        result = instance.viewEmployee(emp);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getWaitingList method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetWaitingList_0args() {
-        System.out.println("getWaitingList");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        List expResult = null;
-        List result = instance.getWaitingList();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+    
     /**
      * Test of getWaitingList method, of class DatabaseJSFManagedBean.
      */
     @Test
     public void testGetWaitingList_String() {
         System.out.println("getWaitingList");
-        String id = "";
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        List expResult = null;
-        List result = instance.getWaitingList(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        List result = instance.getWaitingList();
+        assert(result.size() > 0);
     }
 
     /**
@@ -196,11 +280,8 @@ public class DatabaseJSFManagedBeanTest {
     public void testGetDeviceList() {
         System.out.println("getDeviceList");
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        List expResult = null;
         List result = instance.getDeviceList();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assert(result.size() > 0);
     }
 
     /**
@@ -210,11 +291,8 @@ public class DatabaseJSFManagedBeanTest {
     public void testGetEmployeeList() {
         System.out.println("getEmployeeList");
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        List expResult = null;
         List result = instance.getEmployeeList();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assert(result.size() > 0);
     }
 
     /**
@@ -224,190 +302,16 @@ public class DatabaseJSFManagedBeanTest {
     public void testGetApps() {
         System.out.println("getApps");
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        List expResult = null;
-        List result = instance.getApps();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String expResult = "Facebook";
+        List apps = instance.getApps();       
+        assertEquals(1,apps.size());
+        Blacklistedapp app = (Blacklistedapp) apps.get(0);
+        assertEquals(expResult, app.getAppName());
     }
 
-    /**
-     * Test of getLatestSetting method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetLatestSetting() {
-        System.out.println("getLatestSetting");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        Setting expResult = null;
-        Setting result = instance.getLatestSetting();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of addScanResults method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testAddScanResults() {
-        System.out.println("addScanResults");
-        String mac = "";
-        String serial = "";
-        String androidID = "";
-        boolean rooted = false;
-        boolean debug = false;
-        boolean unknown = false;
-        String installedApps = "";
-        int api = 0;
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        boolean expResult = false;
-        boolean result = instance.addScanResults(mac, serial, androidID, rooted, debug, unknown, installedApps, api);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of getEmployeeDevices method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetEmployeeDevices() {
-        System.out.println("getEmployeeDevices");
-        int id = 0;
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        List expResult = null;
-        List result = instance.getEmployeeDevices(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setDevice method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testSetDevice() {
-        System.out.println("setDevice");
-        DeviceId id = null;
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        String expResult = "";
-        String result = instance.setDevice(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setDev method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testSetDev() {
-        System.out.println("setDev");
-        Device dev = null;
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        instance.setDev(dev);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDevice_Results method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetDevice_Results() {
-        System.out.println("getDevice_Results");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        List expResult = null;
-        List result = instance.getDevice_Results();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDeviceSize method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetDeviceSize() {
-        System.out.println("getDeviceSize");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        int expResult = 0;
-        int result = instance.getDeviceSize();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDevice method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetDevice() {
-        System.out.println("getDevice");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        Device expResult = null;
-        Device result = instance.getDevice();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getQueueSize method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetQueueSize() {
-        System.out.println("getQueueSize");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        int expResult = 0;
-        int result = instance.getQueueSize();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getAllowed method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetAllowed() {
-        System.out.println("getAllowed");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        int expResult = 0;
-        int result = instance.getAllowed();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDenied method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetDenied() {
-        System.out.println("getDenied");
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        int expResult = 0;
-        int result = instance.getDenied();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of removeDevice method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testRemoveDevice() {
-        System.out.println("removeDevice");
-        Device device = null;
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        String expResult = "";
-        String result = instance.removeDevice(device);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
 
     /**
      * Test of removeEmployee method, of class DatabaseJSFManagedBean.
@@ -415,31 +319,15 @@ public class DatabaseJSFManagedBeanTest {
     @Test
     public void testRemoveEmployee() {
         System.out.println("removeEmployee");
-        Employee emp = null;
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        String expResult = "";
+        Employee emp = instance.addEmployee("username","password", "name", "surname", "1234");
+        int id = emp.getEmpId();
+        
         String result = instance.removeEmployee(emp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean actual = instance.employeeRegistered(id);
+        assertEquals(false, actual);
     }
 
-    /**
-     * Test of getLatestScan method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testGetLatestScan() {
-        System.out.println("getLatestScan");
-        String mac = "";
-        String serial = "";
-        String androidID = "";
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        Scanresult expResult = null;
-        Scanresult result = instance.getLatestScan(mac, serial, androidID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of getToken method, of class DatabaseJSFManagedBean.
@@ -447,16 +335,15 @@ public class DatabaseJSFManagedBeanTest {
     @Test
     public void testGetToken() {
         System.out.println("getToken");
-        String mac = "";
-        String androidID = "";
-        String serial = "";
+        String mac = "12341234";
+        String androidID = "12341234";
+        String serial = "12341234";
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        String expResult = "";
+        String expResult = "sadsa";
         String result = instance.getToken(mac, androidID, serial);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        
+   }
 
     /**
      * Test of login method, of class DatabaseJSFManagedBean.
@@ -464,18 +351,40 @@ public class DatabaseJSFManagedBeanTest {
     @Test
     public void testLogin() {
         System.out.println("login");
-        String username = "";
-        String password = "";
-        String mac = "";
-        String androidID = "";
-        String serial = "";
-        String ip = "";
+        String username = "wern";
+        String password = "1a1dc91c907325c69271ddf0c944bc72";
+        String mac = "12341234";
+        String androidID = "12341234";
+        String serial = "12341234";
+        String ip = "333.333.333.333";
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.login(username, password, mac, androidID, serial, ip);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        System.out.println("login");
+        username = "wern";
+        password = "wrongpassword";
+        mac = "12341234";
+        androidID = "12341234";
+        serial = "12341234";
+        ip = "333.333.333.333";
+        instance = new DatabaseJSFManagedBean();
+        expResult = false;
+        result = instance.login(username, password, mac, androidID, serial, ip);
+        assertEquals(expResult, result);
+        
+        System.out.println("login");
+        username = "wern";
+        password = "1a1dc91c907325c69271ddf0c944bc72";
+        mac = "3333";
+        androidID = "12341234";
+        serial = "12341234";
+        ip = "333.333.333.333";
+        instance = new DatabaseJSFManagedBean();
+        expResult = false;
+        result = instance.login(username, password, mac, androidID, serial, ip);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -484,28 +393,20 @@ public class DatabaseJSFManagedBeanTest {
     @Test
     public void testIsActiveUser() {
         System.out.println("isActiveUser");
-        String ip = "";
+        String ip = "222.222.222.222";
         DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.isActiveUser(ip);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        System.out.println("isActiveUser");
+        ip = "123.123.123.123";
+        instance = new DatabaseJSFManagedBean();
+        expResult = false;
+        result = instance.isActiveUser(ip);
+        assertEquals(expResult, result);
+        
+        
     }
 
-    /**
-     * Test of logout method, of class DatabaseJSFManagedBean.
-     */
-    @Test
-    public void testLogout() {
-        System.out.println("logout");
-        String mac = "";
-        String androidID = "";
-        String serial = "";
-        String remoteAddr = "";
-        DatabaseJSFManagedBean instance = new DatabaseJSFManagedBean();
-        instance.logout(mac, androidID, serial, remoteAddr);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 }
