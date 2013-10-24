@@ -37,46 +37,6 @@ public class FixWidgetBeanTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getManagedBean method, of class FixWidgetBean.
-     */
-    @Test
-    public void testGetManagedBean() {
-        System.out.println("getManagedBean");
-        FixWidgetBean instance = new FixWidgetBean();
-        DatabaseJSFManagedBean expResult = null;
-        DatabaseJSFManagedBean result = instance.getManagedBean();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setManagedBean method, of class FixWidgetBean.
-     */
-    @Test
-    public void testSetManagedBean() {
-        System.out.println("setManagedBean");
-        DatabaseJSFManagedBean managedBean = null;
-        FixWidgetBean instance = new FixWidgetBean();
-        instance.setManagedBean(managedBean);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of fixDevice method, of class FixWidgetBean.
-     */
-    @Test
-    public void testFixDevice() {
-        System.out.println("fixDevice");
-        FixWidgetBean instance = new FixWidgetBean();
-        String expResult = "";
-        String result = instance.fixDevice();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of getDevice method, of class FixWidgetBean.
@@ -85,89 +45,24 @@ public class FixWidgetBeanTest {
     public void testGetDevice() {
         System.out.println("getDevice");
         FixWidgetBean instance = new FixWidgetBean();
+        instance.setToken("sadsa");
         instance.getDevice();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Device empDevice = instance.getEmpDevice();
+        String mac = empDevice.getId().getMacaddress();
+        assertEquals("12341234",mac);
+        String serial = empDevice.getId().getSerialNumber();
+        assertEquals("12341234",serial);
+        String androidID = empDevice.getId().getAndroidId();
+        assertEquals("12341234",androidID);        
+        
+        System.out.println("getDevice");
+        instance = new FixWidgetBean();
+        instance.setToken("asdf");
+        instance.getDevice();
+        String message = instance.getMessage();
+        assertEquals("No registered device with token asdf",message);
+        
     }
 
-    /**
-     * Test of getMessage method, of class FixWidgetBean.
-     */
-    @Test
-    public void testGetMessage() {
-        System.out.println("getMessage");
-        FixWidgetBean instance = new FixWidgetBean();
-        String expResult = "";
-        String result = instance.getMessage();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setMessage method, of class FixWidgetBean.
-     */
-    @Test
-    public void testSetMessage() {
-        System.out.println("setMessage");
-        String message = "";
-        FixWidgetBean instance = new FixWidgetBean();
-        instance.setMessage(message);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getEmpDevice method, of class FixWidgetBean.
-     */
-    @Test
-    public void testGetEmpDevice() {
-        System.out.println("getEmpDevice");
-        FixWidgetBean instance = new FixWidgetBean();
-        Device expResult = null;
-        Device result = instance.getEmpDevice();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setEmpDevice method, of class FixWidgetBean.
-     */
-    @Test
-    public void testSetEmpDevice() {
-        System.out.println("setEmpDevice");
-        Device empDev = null;
-        FixWidgetBean instance = new FixWidgetBean();
-        instance.setEmpDevice(empDev);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getToken method, of class FixWidgetBean.
-     */
-    @Test
-    public void testGetToken() {
-        System.out.println("getToken");
-        FixWidgetBean instance = new FixWidgetBean();
-        String expResult = "";
-        String result = instance.getToken();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setToken method, of class FixWidgetBean.
-     */
-    @Test
-    public void testSetToken() {
-        System.out.println("setToken");
-        String token = "";
-        FixWidgetBean instance = new FixWidgetBean();
-        instance.setToken(token);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 }
