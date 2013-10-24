@@ -305,7 +305,7 @@ public class DatabaseJSFManagedBean implements Serializable {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            Query query = session.createQuery("from Device");
+            Query query = session.createQuery("from Device order by dateregistered desc");
             deviceList = query.list();
             for (int i = 0; i < deviceList.size(); i++) {
                 Hibernate.initialize(deviceList.get(i));
