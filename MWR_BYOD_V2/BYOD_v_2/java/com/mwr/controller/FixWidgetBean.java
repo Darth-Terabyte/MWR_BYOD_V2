@@ -50,6 +50,8 @@ public class FixWidgetBean implements Serializable {
         try {
             if (empDevice != null) {
                 managedBean.setDev(empDevice);
+                message = "";
+                token = "";
                 return "device.xhtml";
             }
         } catch (Exception e) {

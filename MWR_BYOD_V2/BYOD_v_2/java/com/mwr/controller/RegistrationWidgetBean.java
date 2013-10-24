@@ -104,6 +104,7 @@ public class RegistrationWidgetBean implements Serializable {
             message = "Device registered";
         }
         message = "";
+        token = "";
         return "#";
 
     }
