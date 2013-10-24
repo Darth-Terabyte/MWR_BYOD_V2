@@ -40,17 +40,20 @@ public class TokenGeneratorTest {
      * Test of generateToken method, of class TokenGenerator.
      */
     @Test
-    public void testGenerateToken() throws Exception {
-        System.out.println("generateToken");
-        String mac = "";
-        String uid = "";
-        String serial = "";
-        String password = "";
+    public void testGenerateTokenNonEmpty() throws Exception {
+        System.out.println("generateToken: Non-empty strings");
+        String mac = "CC:FE:3C:3C:15:02";
+        String uid = "832e90701f904ad9";
+        String serial = "unknown";
+        String password = "7cf2db5ec261a0fa27a502d3196a6f60";
         TokenGenerator instance = new TokenGenerator();
-        String expResult = "";
+        String expResult = "cef59";
         String result = instance.generateToken(mac, uid, serial, password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+      
+        
     }
+    
+ 
 }
