@@ -58,7 +58,9 @@ public class ControllerServlet extends HttpServlet {
             if (bean == null) {
                 bean = new DatabaseJSFManagedBean();
             }
-            if (bean.isActiveUser(request.getRemoteAddr())) {
+            bean.clearActive();
+            if (bean.isActiveUser(request.getRemoteAddr())) { 
+                bean.updateActive(request.getRemoteAddr());
                 url = "/faces/view/restricted.html";
             } else {
                 url = "/faces/view/denied.html";

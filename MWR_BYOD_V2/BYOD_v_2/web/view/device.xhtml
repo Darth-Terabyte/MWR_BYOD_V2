@@ -47,7 +47,7 @@
                     <h5>Scans</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable id="dt1" rendered="#{bean.device_Results != null}" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                    <h:dataTable id="dt1" rendered="#{bean.device_Results.size() > 0}" value="#{bean.device_Results}" var="result" styleClass ="listL" >
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Scan time" />

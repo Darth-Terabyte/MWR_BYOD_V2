@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 18 Oct 2013 10:19:39 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 24 Oct 2013 4:17:24 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.mwr.database.Activeuser" table="activeuser" catalog="byod">
         <id name="ip" type="string">
@@ -16,6 +16,9 @@
         </property>
         <property name="deviceSerialNumber" type="string">
             <column name="device_SerialNumber" length="45" not-null="true" />
+        </property>
+        <property name="lastInteraction" type="timestamp">
+            <column name="lastInteraction" length="19" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

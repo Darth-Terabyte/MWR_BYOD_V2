@@ -748,7 +748,7 @@ public class DatabaseJSFManagedBean implements Serializable {
             Device dev = (Device) query.list().get(0);
             Employee emp = dev.getEmployee();
             if (emp.getUsername().equals(username) && emp.getPassword().equals(password)) {
-                Activeuser user = new Activeuser(ip, mac, androidID, serial);
+                Activeuser user = new Activeuser(ip, mac, androidID, serial, new Date());
                 session.save(user);
                 session.getTransaction().commit();
                 session.close();
@@ -817,5 +817,27 @@ public class DatabaseJSFManagedBean implements Serializable {
         boolean empty = employee.isEmpty();
         session.close();
         return !empty;
+    }
+
+    public void updateActive(String ip) {
+        if (isActiveUser(ip)) {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from ActiveUser where ip = :ip");
+            query.setParameter("ip", ip);
+            Activeuser user = (Activeuser) query.list().get(0);
+            user.setLastInteraction(new Date());
+            session.update(user);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    public void clearActive() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("delete from ActiveUser where lastinteraction < DATEADD(MINUTE,-5,GETDATE())");
+        query.executeUpdate();
+        session.close();
     }
 }
