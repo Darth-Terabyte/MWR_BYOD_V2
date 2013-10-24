@@ -33,15 +33,16 @@ public class RegistrationWidgetBean implements Serializable {
      *
      */
     public RegistrationWidgetBean() {
-    }   
+    }
 
-   
     /**
      *
      * @return
      */
     public String getMessage() {
-        return message;
+        String msg = message;
+        message = "";
+        return msg;
     }
 
     /**
@@ -52,13 +53,14 @@ public class RegistrationWidgetBean implements Serializable {
         this.message = message;
     }
 
-
     /**
      *
      * @return
      */
     public String getToken() {
-        return token;
+        String msg = token;
+        token = "";
+        return msg;
     }
 
     /**
@@ -68,7 +70,6 @@ public class RegistrationWidgetBean implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
-
 
     /**
      *
@@ -100,6 +101,7 @@ public class RegistrationWidgetBean implements Serializable {
     public String registerDevice() {
         if (empDevice != null) {
             bean1.addDevice(empDevice);
+            message = "Device registered";
         }
         message = "";
         return "#";
@@ -121,8 +123,7 @@ public class RegistrationWidgetBean implements Serializable {
     public void setBean1(DatabaseJSFManagedBean bean1) {
         this.bean1 = bean1;
     }
-    
-    
+
     public Devicenotregistered getEmpDevice() {
         return empDevice;
     }

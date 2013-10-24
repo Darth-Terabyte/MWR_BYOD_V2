@@ -36,10 +36,10 @@
                     <h:commandButton style="margin-left: 10px; margin-bottom: 10px;" styleClass="button" id="View" value="Remove device" action="#{bean.removeDevice(bean.device)}"/>
 
                     <h5 rendered="#{bean.device.employee != null}">Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
-                    <h5 rendered="#{bean.device_Results != null}">Registered on: #{bean.device.dateRegistered}</h5>
+                    <h5 rendered="#{bean.device_Results.size() > 0}">Registered on: #{bean.device.dateRegistered}</h5>
 
-                    <h5 rendered="#{bean.device_Results != null}"> Current Rating: #{bean.device_Results.get(0).totalScore}</h5>
-                    <h5 rendered="#{bean.device_Results != null}"> Last Date Scanned: #{bean.device_Results.get(0).date}</h5>
+                    <h5 rendered="#{bean.device_Results.size() > 0}"> Current Rating: #{bean.device_Results.get(0).totalScore}</h5>
+                    <h5 rendered="#{bean.device_Results.size() > 0}"> Last Date Scanned: #{bean.device_Results.get(0).date}</h5>
 
                 </h:form>
 

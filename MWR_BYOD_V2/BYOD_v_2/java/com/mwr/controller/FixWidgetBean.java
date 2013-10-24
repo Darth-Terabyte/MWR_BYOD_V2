@@ -42,7 +42,6 @@ public class FixWidgetBean implements Serializable {
         this.managedBean = managedBean;
     }
 
-    
     /**
      *
      * @return
@@ -83,7 +82,9 @@ public class FixWidgetBean implements Serializable {
      * @return
      */
     public String getMessage() {
-        return message;
+        String msg = message;
+        message = "";
+        return msg;
     }
 
     /**
@@ -110,13 +111,14 @@ public class FixWidgetBean implements Serializable {
         this.empDevice = empDev;
     }
 
-
     /**
      *
      * @return
      */
     public String getToken() {
-        return token;
+        String msg = token;
+        token = "";
+        return msg;
     }
 
     /**
