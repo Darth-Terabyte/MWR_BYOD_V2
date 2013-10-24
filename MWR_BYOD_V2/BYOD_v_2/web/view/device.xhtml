@@ -35,11 +35,11 @@
                     <h4>#{bean.device.manufacturer} #{bean.device.model}</h4>
                     <h:commandButton style="margin-left: 10px; margin-bottom: 10px;" styleClass="button" id="View" value="Remove device" action="#{bean.removeDevice(bean.device)}"/>
 
-                    <h5>Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
-                    <h5>Registered on: #{bean.device.dateRegistered}</h5>
+                    <h5 rendered="#{bean.device.employee != null}">Owned by: #{bean.device.employee.name} #{bean.device.employee.surname} <h:commandLink action="#{bean.viewEmployee(bean.device.employee)}" value=" (#{bean.device.employee.empId})"></h:commandLink> </h5>
+                    <h5 rendered="#{bean.device_Results != null}">Registered on: #{bean.device.dateRegistered}</h5>
 
-                    <h5> Current Rating: #{bean.device_Results.get(0).totalScore}</h5>
-                    <h5> Last Date Scanned: #{bean.device_Results.get(0).date}</h5>
+                    <h5 rendered="#{bean.device_Results != null}"> Current Rating: #{bean.device_Results.get(0).totalScore}</h5>
+                    <h5 rendered="#{bean.device_Results != null}"> Last Date Scanned: #{bean.device_Results.get(0).date}</h5>
 
                 </h:form>
 
@@ -47,7 +47,7 @@
                     <h5>Scans</h5>
                 </div>
                 <div class="blockH">
-                    <h:dataTable id="dt1" value="#{bean.device_Results}" var="result" styleClass ="listL" >
+                    <h:dataTable id="dt1" rendered="#{bean.device_Results != null}" value="#{bean.device_Results}" var="result" styleClass ="listL" >
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Scan time" />
@@ -99,7 +99,7 @@
                         </h:column>
                         <h:column>
                             <h:form>
-                                <h:commandButton styleClass="button" id="View" value="View Setting" action="#{settings.showSetting(result.setting.settingId)}"/>
+                                <h:commandButton styleClass="button" id="View" value="Setting" action="#{settings.showSetting(result.setting.settingId)}"/>
                             </h:form>
                         </h:column>
                     </h:dataTable>

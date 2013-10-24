@@ -51,52 +51,48 @@
 
                         <div class="blockH">
                             <h:dataTable id="dt1" value="#{settings.deniedScans}" var="result" styleClass ="listL" >
-                                <h:column class="highlight">
+                                <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Scan time" />
                                     </f:facet>
-                                    <h:outputText value="#{result.date}" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.date}" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Rooted" />
                                     </f:facet>
-                                    <h:outputText value="#{result.rooted} : " ></h:outputText>
-                                    <h:outputText styleClass="score" value="#{result.rootedScore}"></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.rootedScore} [#{result.rooted}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="USB Debugging Enabled" />
                                     </f:facet>
-                                    <h:outputText value="#{result.debuggingEnabled} : " ></h:outputText>
-                                    <h:outputText styleClass="score" value="#{result.debuggingEnabledScore}" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.debuggingEnabledScore} [#{result.debuggingEnabled}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Apps from unknown sources allowed" />
                                     </f:facet>
-                                    <h:outputText style="" value="#{result.unknownSourcesAllowed} : " ></h:outputText>
-                                    <h:outputText styleClass="score" value="#{result.unknownSourcesScore}" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.unknownSourcesScore} [#{result.unknownSourcesAllowed}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Blacklisted Apps Installed" />
                                     </f:facet>
-                                    <h:outputText style="" value="#{result.blacklistedApps} : " ></h:outputText>
-                                    <h:outputText styleClass="score" value="#{result.appsScore}" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.appsScore} [#{result.blacklistedApps}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="API Level" />
                                     </f:facet>
-                                    <h:outputText style="" value="#{result.apilevel} : " ></h:outputText>
-                                    <h:outputText styleClass="score" value="#{result.apiscore}" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.apiscore} [#{result.apilevel}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Total Score" />
                                     </f:facet>
-                                    <h:outputText styleClass="score" value="#{result.totalScore}" ></h:outputText>
+
+                                    <h:outputText style="" value="#{result.totalScore}" ></h:outputText>
                                 </h:column>
                             </h:dataTable>
                         </div>
@@ -120,31 +116,31 @@
                                     <f:facet name="header">
                                         <h:outputText value="Rooted" />
                                     </f:facet>
-                                    <h:outputText styleClass="score" value="#{result.rootedScore}: [#{result.rooted}]" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.rootedScore} [#{result.rooted}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="USB Debugging Enabled" />
                                     </f:facet>
-                                    <h:outputText styleClass="score" value="#{result.debuggingEnabledScore}: [#{result.debuggingEnabled}]" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.debuggingEnabledScore} [#{result.debuggingEnabled}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Apps from unknown sources allowed" />
                                     </f:facet>
-                                    <h:outputText styleClass="score" value="#{result.unknownSourcesScore}: [#{result.unknownSourcesAllowed}]" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.unknownSourcesScore} [#{result.unknownSourcesAllowed}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Blacklisted Apps Installed" />
                                     </f:facet>
-                                    <h:outputText styleClass="score" value="#{result.appsScore}: [#{result.blacklistedApps}]" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.appsScore} [#{result.blacklistedApps}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="API Level" />
                                     </f:facet>
-                                    <h:outputText styleClass="score" value="#{result.apiscore}: [#{result.apilevel}]" ></h:outputText>
+                                    <h:outputText styleClass="score" value="#{result.apiscore} [#{result.apilevel}]" ></h:outputText>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
